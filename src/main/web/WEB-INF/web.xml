@@ -11,14 +11,15 @@
         <!--多个配置文件之间以，隔开-->
         <param-value>
             classpath:spring-config.xml,
-            classpath:spring-hibernate.xml
+            classpath:spring-hibernate.xml,
+            classpath:dispatcher-servlet.xml
         </param-value>
     </context-param>
 
-    <!-- 采用listener创建ApplicationContext 实例-->
+<!--    &lt;!&ndash; 采用listener创建ApplicationContext 实例&ndash;&gt;
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    </listener>-->
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>

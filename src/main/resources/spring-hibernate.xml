@@ -9,53 +9,55 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
        ">
 
-    <!--todo 开始注释
-
-     定义数据源 Bean, 使用 C3P0 数据源实现
+    <!--定义数据源 Bean, 使用 C3P0 数据源实现-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
-         指定链接数据库的驱动
+         <!--指定链接数据库的驱动-->
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
 
-         指定链接数据库的 url
+         <!--指定链接数据库的 url-->
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/reading?useUnicode=true&amp;characterEncoding=utf8"/>
-         指定链接数据库的用户名
+         <!--指定链接数据库的用户名-->
         <property name="user" value="root"/>
-         指定链接数据库的密码
+         <!--指定链接数据库的密码-->
         <property name="password" value="0000"/>
 
-         指定链接数据库连接池的最大连接数
+         <!--指定链接数据库连接池的最大连接数-->
         <property name="maxPoolSize" value="40"/>
-         指定链接数据库连接池的最小连接数
+         <!--指定链接数据库连接池的最小连接数-->
         <property name="minPoolSize" value="1"/>
-         指定链接数据库连接池的初始化连接数
+         <!--指定链接数据库连接池的初始化连接数-->
         <property name="initialPoolSize" value="1"/>
 
-         sae 建议
+         <!--sae 建议-->
         <property name="idleConnectionTestPeriod" value="10"/>
-         指定链接数据库连接池的最大空闲时间
+         <!--指定链接数据库连接池的最大空闲时间-->
         <property name="maxIdleTime" value="10"/>
     </bean>
 
-     定义 Hibernate 的 SessionFactory
+    <!--定义 Hibernate 的 SessionFactory-->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mappingResources">
             <list>
-                 以下列出所有的 PO 映射文件
-                <value>com/xiayule/getll/db/model/MobileAccount.hbm.xml</value>
-                <value>com/xiayule/getll/db/model/FlowMoneyCost.hbm.xml</value>
+                <!--以下列出所有的 PO 映射文件-->
+                <!--<value>com/xiayule/getll/db/model/MobileAccount.hbm.xml</value>-->
+                <!--<value>com/xiayule/getll/db/model/FlowMoneyCost.hbm.xml</value>-->
             </list>
         </property>
         <property name="hibernateProperties">
-             设置 Hibernate 属性
-                     <value>
-                         hibernate.dialect=org.hibernate.dialect.MySQLDialect
-                         hibernate.hbm2ddl.auto=update
-                     </value>
+            <!--设置 Hibernate 属性-->
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                hibernate.hbm2ddl.auto=update
+            </value>
         </property>
     </bean>
+
+
+
+    <!--
     &lt;!&ndash; 配置 Hibernate 的局部事务管理器，使用 HibernateTransactionManager 类 &ndash;&gt;
     &lt;!&ndash; 该类实现 PlatformTransactionManager 接口，是针对 Hibernate 的特定实现 &ndash;&gt;
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
@@ -82,7 +84,5 @@
           <aop:advisor advice-ref="txAdvice"
                        pointcut-ref="ajaxPointcut"/>
     </aop:config>
-
-
-    todo 结束注释-->
+-->
 </beans>
