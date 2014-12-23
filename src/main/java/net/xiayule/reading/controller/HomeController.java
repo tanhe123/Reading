@@ -1,4 +1,4 @@
-package net.xiayule.reading;
+package net.xiayule.reading.controller;
 
 import com.sun.glass.ui.mac.MacPasteboard;
 import org.springframework.stereotype.Controller;
@@ -15,8 +15,7 @@ public class HomeController {
     public String showHomePage() {
 
 
-
-        return "home";
+        return "index";
     }
 
 }

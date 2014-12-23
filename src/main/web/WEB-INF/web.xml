@@ -12,7 +12,6 @@
         <param-value>
             classpath:spring-config.xml,
             classpath:spring-hibernate.xml,
-            classpath:dispatcher-servlet.xml
         </param-value>
     </context-param>
 

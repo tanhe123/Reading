@@ -54,11 +54,11 @@
         </dependency>
 
         <!-- log4j -->
-        <dependency>
+<!--        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
-        </dependency>
+        </dependency>-->
 
         <!-- spring mvc 返回 json -->
         <dependency>
