@@ -4,6 +4,8 @@ import net.xiayule.reading.db.dao.BookDao;
 import net.xiayule.reading.db.model.Book;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
+import java.util.List;
+
 /**
  * Created by tan on 14-12-23.
  */
@@ -22,5 +24,9 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
     public void delete(Book book) {
         getHibernateTemplate().delete(book);
+    }
+
+    public List<Book> findAll() {
+        return (List<Book>)getHibernateTemplate().find("from Book as book");
     }
 }

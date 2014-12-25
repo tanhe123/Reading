@@ -59,7 +59,7 @@
     <bean id="bookDao" class="net.xiayule.reading.db.dao.impl.BookDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    
+
     <bean id="bookService" class="net.xiayule.reading.db.service.impl.BookServiceImpl" lazy-init="false">
         <property name="bookDao" ref="bookDao"/>
     </bean>

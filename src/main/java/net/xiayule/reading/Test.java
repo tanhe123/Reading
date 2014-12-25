@@ -13,8 +13,8 @@ import java.util.Date;
 public class Test {
     public static void main(String[] args) {
         System.out.println("haha");
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-hibernate.xml");
-        BookService bookService = ctx.getBean("bookService", BookService.class);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("");
+        BookService bookService = ctx.getBean("", BookService.class);
 
 
         //todo: book get save 测试

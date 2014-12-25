@@ -185,6 +185,14 @@
             <version>${hibernateversion}</version>
         </dependency>
 
+        <!--hibernate 注解 -->
+
+    <!--    <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>ejb3-persistence</artifactId>
+            <version>1.0.2.GA</version>
+        </dependency>
+-->
 
         <!--校验规则 -->
         <dependency>
@@ -193,6 +201,18 @@
             <version>5.0.1.Final</version>
         </dependency>
 
+        <!--slf4j-->
+<!--        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.6</version>
+        </dependency>-->
 
         <!-- json-lib -->
         <dependency>

@@ -1,13 +1,13 @@
 package net.xiayule.reading.db.model;
 
-import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by tan on 14-12-23.
  * Book Model
  */
-public class Book {
+public class Book implements Serializable {
     /**
      * 书籍的 id
      */

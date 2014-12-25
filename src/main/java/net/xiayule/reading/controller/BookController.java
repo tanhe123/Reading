@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by tan on 14-12-23.
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/book")
 public class BookController {
     @Autowired
+//    @Qualifier("bookService")
     private BookService bookService;
 
     @RequestMapping("/new")
@@ -47,12 +52,32 @@ public class BookController {
             System.out.println("保存错误");
         }
 
+        return "redirect:/book/show";
+    }
 
-        return "redirect:/new";
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public String show(Model model) {
+
+        List<Book> books = bookService.getAllBook();
+
+        model.addAttribute("books", books);
+
+        return "/book/show";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam Integer id) {
+
+        try {
+            bookService.deleteBook(id);
+        } catch (Exception e) {
+            System.out.println("删除失败");
+        }
+
+        return "redirect:/book/show";
     }
 
     // get and set methods
-
 
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
