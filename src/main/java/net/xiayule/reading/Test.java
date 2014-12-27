@@ -16,7 +16,6 @@ public class Test {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("");
         BookService bookService = ctx.getBean("", BookService.class);
 
-
         //todo: book get save 测试
         Book book = new Book();
         book.setBookName("test");
