@@ -1,7 +1,5 @@
 package net.xiayule.reading.db.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.Date;
 
 /**
@@ -9,7 +7,7 @@ import java.util.Date;
  * 文章笔记类
  */
 public class Article {
-    private Integer articleId;
+    private Integer id;
     private String title;
     private String content;
     private Boolean isPublic;
@@ -25,15 +23,20 @@ public class Article {
         createTime = new Date();
     }
 
+    @Override
+    public String toString() {
+        return "id:" + id + " title:" + title + " content:" + content;
+    }
+
     // get and set methods
 
 
-    public Integer getArticleId() {
-        return articleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -74,10 +77,6 @@ public class Article {
 
     public void setVersionId(Integer versionId) {
         this.versionId = versionId;
-    }
-
-    public User getOwner() {
-        return owner;
     }
 
     public void setOwner(User owner) {

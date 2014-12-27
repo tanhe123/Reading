@@ -12,18 +12,18 @@
 </head>
 <body>
 
-<form action="/book/create" method="post">
+<form action="/article/create" method="post">
   <table>
     <tr>
       <td><label>笔记名:</label></td>
-      <td><input type="text" size="20" name="bookName"></td>
+      <td><input type="text" size="20" name="title"></td>
 
 
     </tr>
 
     <tr>
       <td><label>内容:</label></td>
-      <td><textarea name="bookDesc" rows="20" cols="80"></textarea></td>
+      <td><textarea name="content" rows="20" cols="80"></textarea></td>
     </tr>
 
     <tr>

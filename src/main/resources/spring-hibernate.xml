@@ -42,9 +42,8 @@
         <property name="mappingResources">
             <list>
                 <!--以下列出所有的 PO 映射文件-->
-                <!--<value>com/xiayule/getll/db/model/MobileAccount.hbm.xml</value>-->
-                <!--<value>com/xiayule/getll/db/model/FlowMoneyCost.hbm.xml</value>-->
                 <value>net/xiayule/reading/db/model/Book.hbm.xml</value>
+                <value>net/xiayule/reading/db/model/Article.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -93,7 +92,7 @@
     <aop:config>
           <!-- 配置一个切入点 -->
           <aop:pointcut id="ajaxPointcut"
-                        expression="bean(bookService)"/>
+                        expression="bean(bookService)||bean(articleService)"/>
           <!-- 指定在 leePointcut 切入点应用 txAdvice 事务增强处理 -->
           <aop:advisor advice-ref="txAdvice"
                        pointcut-ref="ajaxPointcut"/>

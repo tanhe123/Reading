@@ -8,7 +8,7 @@
 <!-- 每个class元素对应一个持久话对象-->
     <class name="Article" table="article">
         <!--id元素定义持久化对象-->
-        <id name="articleId" column="articleId">
+        <id name="id" column="id">
             <!--指定主键生成策略-->
             <generator class="identity"/>
         </id>

@@ -25,7 +25,7 @@ public class BookController {
 //    @Qualifier("bookService")
     private BookService bookService;
 
-    @RequestMapping("/new")
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newBook() {
 
         return "book/new";
