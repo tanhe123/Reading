@@ -5,8 +5,27 @@
 define([
     "jquery",
     "eventMgr",
-    "text!html/bodyEditor.html"
+    "text!html/bodyEditor.html",
+    "pagedown"
 ], function($, eventMgr, bodyEditorHTML) {
+
+    var core = {};
+
     document.body.innerHTML = bodyEditorHTML;
-    alert(bodyEditorHTML)
+
+    // Create the PageDown editor
+    var pagedownEditor;
+
+    core.initEditor = function() {
+        // Create the converter and the editor
+        var converter = new Markdown.Converter();
+        //var converter = Markdown.getSanitizingConverter();
+        pagedownEditor = new Markdown.Editor(converter);
+
+        pagedownEditor.run();
+    };
+
+    core.initEditor();
+
+    return core;
 });
