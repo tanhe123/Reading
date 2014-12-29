@@ -9,7 +9,7 @@
 <html>
   <head>
     <title></title>
-    <script data-main="/js/main.js" src="/js/require.js"></script>
+    <script data-main="/res/main.js" src="/res/require.js"></script>
   </head>
   <body>
 

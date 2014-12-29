@@ -10,6 +10,9 @@
   "private": true,
   "dependencies": {
     "requirejs": "~2.1.15",
-    "jquery": "~2.1.3"
+    "jquery": "~2.1.3",
+    "pagedown": "~1.1.0",
+    "pagedown-extra": "*",
+    "requirejs-text": "~2.0.13"
   }
 }
