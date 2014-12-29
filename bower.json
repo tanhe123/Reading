@@ -1,0 +1,15 @@
+{
+  "name": "Reading",
+  "version": "1.0.0",
+  "homepage": "https://github.com/tanhe123/Reading",
+  "authors": [
+    "Hehe Tan <xiayule148@gmail.com>"
+  ],
+  "description": "Reading 是一个记录阅读成长记录的项目",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "requirejs": "~2.1.15",
+    "jquery": "~2.1.3"
+  }
+}

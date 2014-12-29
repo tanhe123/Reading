@@ -21,8 +21,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/book")
 public class BookController {
+
     @Autowired
-//    @Qualifier("bookService")
     private BookService bookService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)

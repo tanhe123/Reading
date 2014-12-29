@@ -9,8 +9,11 @@
 <html>
   <head>
     <title></title>
+    <script data-main="/js/main.js" src="/js/require.js"></script>
   </head>
   <body>
+
 123
+
   </body>
 </html>
