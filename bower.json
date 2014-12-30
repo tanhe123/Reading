@@ -15,6 +15,7 @@
     "pagedown-extra": "*",
     "requirejs-text": "~2.0.13",
     "bootstrap": "~3.3.1",
-    "require-css": "~0.1.8"
+    "require-css": "~0.1.8",
+    "underscore": "~1.7.0"
   }
 }

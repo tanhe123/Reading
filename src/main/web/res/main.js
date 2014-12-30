@@ -14,12 +14,16 @@ requirejs.config({
 
     paths: {
         jquery: 'bower-libs/jquery/dist/jquery',
+        underscore: 'bower-libs/underscore/underscore',
         pagedown: 'bower-libs/pagedown/Markdown.Editor',
         pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
         text: 'bower-libs/requirejs-text/text',
         bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap'
     },
     shim: {
+        underscore: {
+            exports: '_'
+        },
         pagedown: [
             'bower-libs/pagedown/Markdown.Converter'
         ],
@@ -37,5 +41,5 @@ require([
     'core',
     "css!bower-libs/bootstrap/dist/css/bootstrap"
 ], function($, core) {
-   alert("main.js");
+
 });
