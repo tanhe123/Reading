@@ -9,6 +9,9 @@ requirejs.config({
     map: { // To allow the direct css! usage, 请参考 https://github.com/guybedford/require-css
         '*': {
             'css': 'bower-libs/require-css/css'
+        },
+        '*': {
+            'less': 'bower-libs/require-less/less' // path to less
         }
     },
 
@@ -36,10 +39,13 @@ requirejs.config({
     }
 });
 
+
+var themeModule = "less!themes/default";
+
 require([
     "jquery",
     'core',
-    "css!bower-libs/bootstrap/dist/css/bootstrap"
+    themeModule
 ], function($, core) {
 
 });

@@ -16,6 +16,9 @@
     "requirejs-text": "~2.0.13",
     "bootstrap": "~3.3.1",
     "require-css": "~0.1.8",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "require-less": "~0.1.5",
+    "bootstrap-tour": "~0.10.1",
+    "highlightjs": "~8.4.0"
   }
 }

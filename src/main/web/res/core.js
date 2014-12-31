@@ -25,6 +25,13 @@ define([
         pagedownEditor.run();
     };
 
+    // Initialize multiple things and then fire eventMgr.onReady
+    core.onReady = function() {
+
+
+        eventMgr.onReady();
+    };
+
     core.initEditor();
 
     return core;
