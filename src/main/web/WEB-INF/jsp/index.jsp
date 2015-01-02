@@ -9,11 +9,12 @@
 <html>
   <head>
     <title></title>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <script data-main="/res/main.js" src="/res/require.js"></script>
   </head>
   <body>
 
-123
+index.jsp
 
   </body>
 </html>

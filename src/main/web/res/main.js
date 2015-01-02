@@ -45,7 +45,13 @@ var themeModule = "less!themes/default";
 require([
     "jquery",
     'core',
+    "eventMgr",
     themeModule
-], function($, core) {
+], function($, core, eventMgr) {
+    $(function () {
 
+        // Here, all the modules are loaded and the DOM is ready
+        core.onReady();
+
+    });
 });

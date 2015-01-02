@@ -5,6 +5,7 @@ define([
     "jquery",
     "underscore",
     "classes/Extension",
+    "extensions/markdownSectionParser",
     "bootstrap"
 ], function($, _, Extension) {
 

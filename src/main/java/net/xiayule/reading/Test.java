@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Test {
     public static void main(String[] args) {
-        System.out.println("haha");
+       /* System.out.println("haha");
         ApplicationContext ctx = new ClassPathXmlApplicationContext("");
         BookService bookService = ctx.getBean("", BookService.class);
 
@@ -30,6 +30,12 @@ public class Test {
         bookService.saveBook(book);
 
         System.out.println(bookService.getBook(3));
-        System.out.println("haha");
+        System.out.println("haha");*/
+
+        char [] a = new char[] {'你', '好', '吗'};
+
+        System.out.println(a);
+        System.out.println(a.toString());
+        System.out.println(""+a);
     }
 }

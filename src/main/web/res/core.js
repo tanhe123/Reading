@@ -4,10 +4,11 @@
 
 define([
     "jquery",
+    'editor',
     "eventMgr",
     "text!html/bodyEditor.html",
     "pagedown"
-], function($, eventMgr, bodyEditorHTML) {
+], function($, editor, eventMgr, bodyEditorHTML) {
 
     var core = {};
 
@@ -28,11 +29,14 @@ define([
     // Initialize multiple things and then fire eventMgr.onReady
     core.onReady = function() {
 
+        editor.init();
 
         eventMgr.onReady();
     };
 
-    core.initEditor();
+
+    // todo: 还没有解决 运行 时 value 为空的问题
+    //core.initEditor();
 
     return core;
 });
