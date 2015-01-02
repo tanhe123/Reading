@@ -11,7 +11,8 @@ define([
     var sectionList = [];
     var previewContentsElt;
 
-    //todo: 假定为 true, 最终应该是从配置中读取
+    //todo: 假定为 true, 最终应该是从配置中读取2
+
     markdownSectionParser.enabled = true;
 
     // Regexp to look for section delimiters

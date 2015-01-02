@@ -28,7 +28,6 @@
         <property name="minPoolSize" value="1"/>
          <!--指定链接数据库连接池的初始化连接数-->
         <property name="initialPoolSize" value="1"/>
-
          <!--sae 建议-->
         <property name="idleConnectionTestPeriod" value="10"/>
          <!--指定链接数据库连接池的最大空闲时间-->

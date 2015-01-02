@@ -6,9 +6,10 @@ define([
     "jquery",
     'editor',
     "eventMgr",
+    'layout',
     "text!html/bodyEditor.html",
     "pagedown"
-], function($, editor, eventMgr, bodyEditorHTML) {
+], function($, editor, eventMgr, layout, bodyEditorHTML) {
 
     var core = {};
 
@@ -29,6 +30,7 @@ define([
     // Initialize multiple things and then fire eventMgr.onReady
     core.onReady = function() {
 
+        layout.init();
         editor.init();
 
         eventMgr.onReady();

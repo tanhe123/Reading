@@ -20,8 +20,10 @@ requirejs.config({
         underscore: 'bower-libs/underscore/underscore',
         pagedown: 'bower-libs/pagedown/Markdown.Editor',
         pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
+        crel: 'bower-libs/crel/crel',
         text: 'bower-libs/requirejs-text/text',
-        bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap'
+        bootstrap: 'bower-libs/bootstrap/dist/js/bo' +
+        'otstrap'
     },
     shim: {
         underscore: {

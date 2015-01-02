@@ -19,6 +19,7 @@
     "underscore": "~1.7.0",
     "require-less": "~0.1.5",
     "bootstrap-tour": "~0.10.1",
-    "highlightjs": "~8.4.0"
+    "highlightjs": "~8.4.0",
+    "crel": "*"
   }
 }
