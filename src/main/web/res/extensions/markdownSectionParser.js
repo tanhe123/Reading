@@ -8,6 +8,12 @@ define([
 
     var markdownSectionParser = new Extension("markdownSectionParser", "Markdown section parser");
 
+    var eventMgr;
+    markdownSectionParser.onEventMgrCreated = function(eventMgrParameter) {
+        console.log("markdownSectionParser: onEventMgrCreated  eventMgr:" + eventMgrParameter);
+        eventMgr = eventMgrParameter;
+    };
+
     var sectionList = [];
     var previewContentsElt;
 
@@ -28,7 +34,7 @@ define([
         var converter = pagedownEditor.getConverter();
 
         //todo: if(!partialRendering.enabled) {
-        if (true) {
+        if (false) {//todo: 应该时 true?
             converter.hooks.chain("preConversion", function () {
                return _.reduce(sectionList, function (result) {
                    return result + '\n<div class="se-preview-section-delimiter"></div>\n\n' + section.text + '\n\n';
@@ -107,6 +113,8 @@ define([
         // Last section
         addSection(offset, text.length);
         eventMgr.onSectionsCreated(sectionList);
+
+        console.log("sectionList:" + sectionList);
     }
 
     markdownSectionParser.onFileOpen = parseFileContent;

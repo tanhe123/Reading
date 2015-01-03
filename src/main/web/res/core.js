@@ -37,7 +37,6 @@ define([
             undoManager: editor.undoMgr
         });
 
-        console.log(pagedownEditor.getConverter());
 
         eventMgr.onPagedownConfigure(pagedownEditor);
 

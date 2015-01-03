@@ -4,8 +4,9 @@
 define([
     'jquery',
     'underscore',
-    'eventMgr'
-], function ($, _, eventMgr) {
+    'eventMgr',
+    'crel'
+], function ($, _, eventMgr, crel) {
 
     var editor = {};
 
@@ -22,6 +23,45 @@ define([
 
     var fileChanged = true;
     var fileDesc;
+
+    var refreshPreviewLater = (function() {
+        var elapsedTime = 0;
+        var timeoutId;
+        var refreshPreview = function() {
+            var startTime = Date.now();
+            pagedownEditor.refreshPreview();
+            elapsedTime = Date.now() - startTime;
+        };
+        //todo: if(settings.lazyRendering === true) {
+        if(true === true) {
+            return _.debounce(refreshPreview, 500);
+        };
+        return function() {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(refreshPreview, elapsedTime < 2000 ? elapsedTime : 2000);
+        };
+    })();
+
+
+    eventMgr.addListener('onPagedownConfigure', function(pagedownEditorParam) {
+        pagedownEditor = pagedownEditorParam;
+    });
+
+    var isComposing = 0;
+    eventMgr.addListener('onSectionsCreated', function(newSectionList) {
+        if(!isComposing) {
+            updateSectionList(newSectionList);
+            highlightSections();
+        }
+        if(fileChanged === true) {
+            // Refresh preview synchronously
+            pagedownEditor.refreshPreview();
+        }
+        else {
+            refreshPreviewLater();
+        }
+    });
+
     eventMgr.addListener('onFileSelected', function(selectedFileDesc) {
         fileChanged = true;
         fileDesc = selectedFileDesc;
@@ -266,6 +306,162 @@ define([
 
         watcher.startWatching();
     };
+
+    var sectionList = [];
+    var sectionsToRemove = [];
+    var modifiedSections = [];
+    var insertBeforeSection;
+
+    function updateSectionList(newSectionList) {
+
+        modifiedSections = [];
+        sectionsToRemove = [];
+        insertBeforeSection = undefined;
+
+        // Render everything if file changed
+        if(fileChanged === true) {
+            sectionsToRemove = sectionList;
+            sectionList = newSectionList;
+            modifiedSections = newSectionList;
+            return;
+        }
+
+        // Find modified section starting from top
+        var leftIndex = sectionList.length;
+        _.some(sectionList, function(section, index) {
+            var newSection = newSectionList[index];
+            if(index >= newSectionList.length ||
+                    // Check modified
+                section.textWithFrontMatter != newSection.textWithFrontMatter ||
+                    // Check that section has not been detached or moved
+                section.elt.parentNode !== contentElt ||
+                    // Check also the content since nodes can be injected in sections via copy/paste
+                section.elt.textContent != newSection.textWithFrontMatter) {
+                leftIndex = index;
+                return true;
+            }
+        });
+
+        // Find modified section starting from bottom
+        var rightIndex = -sectionList.length;
+        _.some(sectionList.slice().reverse(), function(section, index) {
+            var newSection = newSectionList[newSectionList.length - index - 1];
+            if(index >= newSectionList.length ||
+                    // Check modified
+                section.textWithFrontMatter != newSection.textWithFrontMatter ||
+                    // Check that section has not been detached or moved
+                section.elt.parentNode !== contentElt ||
+                    // Check also the content since nodes can be injected in sections via copy/paste
+                section.elt.textContent != newSection.textWithFrontMatter) {
+                rightIndex = -index;
+                return true;
+            }
+        });
+
+        if(leftIndex - rightIndex > sectionList.length) {
+            // Prevent overlap
+            rightIndex = leftIndex - sectionList.length;
+        }
+
+        // Create an array composed of left unmodified, modified, right
+        // unmodified sections
+        var leftSections = sectionList.slice(0, leftIndex);
+        modifiedSections = newSectionList.slice(leftIndex, newSectionList.length + rightIndex);
+        var rightSections = sectionList.slice(sectionList.length + rightIndex, sectionList.length);
+        insertBeforeSection = _.first(rightSections);
+        sectionsToRemove = sectionList.slice(leftIndex, sectionList.length + rightIndex);
+        sectionList = leftSections.concat(modifiedSections).concat(rightSections);
+    }
+
+    function highlightSections() {
+        var newSectionEltList = document.createDocumentFragment();
+        modifiedSections.forEach(function(section) {
+            highlight(section);
+            newSectionEltList.appendChild(section.elt);
+        });
+        watcher.noWatch(function() {
+            if(fileChanged === true) {
+                contentElt.innerHTML = '';
+                contentElt.appendChild(newSectionEltList);
+            }
+            else {
+                // Remove outdated sections
+                sectionsToRemove.forEach(function(section) {
+                    // section may be already removed
+                    section.elt.parentNode === contentElt && contentElt.removeChild(section.elt);
+                    // To detect sections that come back with built-in undo
+                    section.elt.generated = false;
+                });
+
+                if(insertBeforeSection !== undefined) {
+                    contentElt.insertBefore(newSectionEltList, insertBeforeSection.elt);
+                }
+                else {
+                    contentElt.appendChild(newSectionEltList);
+                }
+
+                // Remove unauthorized nodes (text nodes outside of sections or duplicated sections via copy/paste)
+                var childNode = contentElt.firstChild;
+                while(childNode) {
+                    var nextNode = childNode.nextSibling;
+                    if(!childNode.generated) {
+                        contentElt.removeChild(childNode);
+                    }
+                    childNode = nextNode;
+                }
+            }
+            addTrailingLfNode();
+            //selectionMgr.updateSelectionRange();
+            //selectionMgr.updateCursorCoordinates();
+        });
+    }
+
+    function addTrailingLfNode() {
+        trailingLfNode = crel('span', {
+            class: 'token lf'
+        });
+        trailingLfNode.textContent = '\n';
+        contentElt.appendChild(trailingLfNode);
+    }
+
+    var escape = (function() {
+        var entityMap = {
+            "&": "&amp;",
+            "<": "&lt;",
+            "\u00a0": ' '
+        };
+        return function(str) {
+            return str.replace(/[&<\u00a0]/g, function(s) {
+                return entityMap[s];
+            });
+        };
+    })();
+
+    /**
+     * 高亮输入框中的内容
+     */
+    function highlight(section) {
+        var text = escape(section.text);
+        if(!window.viewerMode) {
+            //todo: 不知道怎么下载 Prism
+            //text = Prism.highlight(text, Prism.languages.md);
+        }
+        var frontMatter = section.textWithFrontMatter.substring(0, section.textWithFrontMatter.length - section.text.length);
+        if(frontMatter.length) {
+            // Front matter highlighting
+            frontMatter = escape(frontMatter);
+            frontMatter = frontMatter.replace(/\n/g, '<span class="token lf">\n</span>');
+            text = '<span class="token md">' + frontMatter + '</span>' + text;
+        }
+        var sectionElt = crel('span', {
+            id: 'wmd-input-section-' + section.id,
+            class: 'wmd-input-section'
+        });
+        sectionElt.generated = true;
+        sectionElt.innerHTML = text;
+        section.elt = sectionElt;
+    }
+
 
     eventMgr.onEditorCreated(editor);
 
