@@ -16,8 +16,18 @@ define([
 
     var resizerSize = 32;
 
-    var menuPanelWidth = 280;
-    var navbarHeight = 50;
+    var editorMinSize = {
+        width: 250,
+        height: 140
+    };
+
+    var previewMinSize = {
+        width: 330,
+        height: 160
+    };
+
+    //var menuPanelWidth = 280;
+    //var navbarHeight = 50;
 
     function DomObject(selector) {
         this.selector = selector;
@@ -40,6 +50,32 @@ define([
             this.elt.style['-ms-transform'] = 'translate(' + this.x + 'px, ' + this.y + 'px)';
             this.elt.style.transform = 'translate(' + this.x + 'px, ' + this.y + 'px)';
         }
+
+        // Width (deferred when animate if new width is smaller)
+        //if(animate && this.width < this.oldWidth) {
+        //    transitionEndCallbacks.push(_.bind(function() {
+        //        this.elt.style.width = this.width + 'px';
+        //    }, this));
+        //}
+        //else {
+            this.width !== undefined && (this.elt.style.width = this.width + 'px');
+        //}
+        this.oldWidth = this.width;
+
+        // Height (deferred when animate if new height is smaller)
+        //if(animate && this.height < this.oldHeight) {
+        //    transitionEndCallbacks.push(_.bind(function() {
+        //        this.elt.style.height = this.height + 'px';
+        //    }, this));
+        //}
+        //else {
+            this.height !== undefined && (this.elt.style.height = this.height + 'px');
+        //}
+        this.oldHeight = this.height;
+
+        // Just in case transitionEnd event doesn't happen
+        //clearTimeout(transitionEndTimeoutId);
+        //animate && (transitionEndTimeoutId = setTimeout(onTransitionEnd, 800));
 
         // todo: 未完
 
@@ -67,10 +103,13 @@ define([
         var paddingBottom = wrapperL3.height - 60;
 
         var editorPadding = (editor.elt.offsetWidth - getMaxWidth()) / 2;
+        console.log(editor.elt.offsetWidth);
+        console.log(editorPadding);
 
         if(editorPadding < constants.EDITOR_DEFAULT_PADDING) {
             editorPadding = constants.EDITOR_DEFAULT_PADDING;
         }
+
         editorContentElt.style.paddingLeft = editorPadding + 'px';
         editorContentElt.style.paddingRight = editorPadding + 'px';
         editorContentElt.style.paddingBottom = paddingBottom + 'px';
@@ -114,6 +153,12 @@ define([
         editorContentElt = editor.elt.querySelector('.editor-content');
         previewContentElt = document.getElementById('preview-contents');
 
+
+        previewPanel.isOpen = true;
+        //previewPanel.createToggler();
+        previewPanel.halfSize = true;
+        //previewToggler.$elt.click(_.bind(previewPanel.toggle, previewPanel));
+
         var styleContent = '';
 
         // Apply font
@@ -151,8 +196,17 @@ define([
         reSizeAll();
     };
 
-    //todo: var isVertical = ettings.layoutOrientation == "vertical
-    var isVertical = true;
+    function fixViewportScrolling() {
+        // Fix a weird viewport behavior using pageup/pagedown in Webkit
+        //wrapperL1.width = windowSize.width + menuPanelWidth + (documentPanel.isShown ? documentPanelWidth : 0);
+        wrapperL1.width = windowSize.width + 0 +  0;
+        wrapperL1.elt.style.width = wrapperL1.width + 'px';
+        //documentPanel.right = documentPSanel.isShown ? 0 : -documentPanelWidth;
+        //documentPanel.elt.style.right = documentPanel.right + 'px';
+    }
+
+    //todo: var isVertical = ettings.layoutOrientation == "vertical， 默认是水平分割的
+    var isVertical = false;
 
     function reSizeAll() {
         windowSize = {
@@ -166,29 +220,33 @@ define([
             //todo: navbar.isOpen?
             wrapperL1.x = 0;
             wrapperL1.y = 0;
-            wrapperL1.width = windowSize.width + menuPanelWidth;
+            //wrapperL1.width = windowSize.width + menuPanelWidth;
+            wrapperL1.width = windowSize.width + 0;
             wrapperL1.height = windowSize.height - wrapperL1.y;
 
 
             // Layout wrapper level 2
-            wrapperL2.left = menuPanelWidth;
+            //wrapperL2.left = menuPanelWidth;
+            wrapperL2.left = 0;
             wrapperL2.width = windowSize.width;
             wrapperL2.height = wrapperL1.height;
 
             // Layout wrapper level 3
-            wrapperL3.top = navbarHeight;
+            //wrapperL3.top = navbarHeight;
+            wrapperL3.top = 0;
             wrapperL3.width = windowSize.width;
-            wrapperL3.height = wrapperL1.height - navbarHeight;
+            //wrapperL3.height = wrapperL1.height - navbarHeight;
+            wrapperL3.height = wrapperL1.height - 0;
 
             wrapperL1.applyCss();
             wrapperL2.applyCss();
             wrapperL3.applyCss();
 
             if(isVertical) {
-                if(!previewPanel.isOpen) {
-                    previewPanel.y = wrapperL3.height - resizerSize;
-                }
-                else {
+                //if(!previewPanel.isOpen) {
+                //    previewPanel.y = wrapperL3.height - resizerSize;
+                //}
+                //else {
                     if(previewPanel.halfSize) {
                         previewPanel.height = (wrapperL3.height + resizerSize) / 2;
                     }
@@ -206,7 +264,8 @@ define([
                         previewPanel.height = previewPanelHeight;
                         previewPanel.y = wrapperL3.height - previewPanel.height;
                     }
-                }
+                //}
+
                 previewPanel.width = wrapperL3.width;
                 editor.height = previewPanel.y;
                 editor.width = wrapperL3.width;
@@ -217,7 +276,41 @@ define([
                 //previewToggler.width = togglerSize;
                 //previewToggler.x = (previewPanel.width - togglerSize) / 2;
                 //previewResizer.width = previewContainer.width;
-            } //todo: else
+            } else {
+                //if(!previewPanel.isOpen) {
+                //    previewPanel.x = wrapperL3.width - resizerSize;
+                //}
+                //else {
+                    if(previewPanel.halfSize) {
+                        previewPanel.width = (wrapperL3.width + resizerSize) / 2;
+                    }
+                    if(previewPanel.width < previewMinSize.width) {
+                        previewPanel.width = previewMinSize.width;
+                    }
+                    previewPanel.x = wrapperL3.width - previewPanel.width;
+                console.log("previewPanel.x:" + previewPanel.x + " wrapperL3.width:" + wrapperL3.width + " previewPanel.width:" + previewPanel.width);
+                    if(previewPanel.x < editorMinSize.width) {
+                        var previewPanelWidth = wrapperL3.width - editorMinSize.width;
+                        if(previewPanelWidth < previewMinSize.width) {
+                            previewPanel.isOpen = false;
+                            previewPanel.$elt.trigger('hide.layout.toggle').trigger('hidden.layout.toggle');
+                            continue;
+                        }
+                        previewPanel.width = previewPanelWidth;
+                        previewPanel.x = wrapperL3.width - previewPanel.width;
+                    }
+                //}
+                previewPanel.height = wrapperL3.height;
+                editor.width = previewPanel.x;
+                editor.height = wrapperL3.height;
+                previewContainer.left = resizerSize;
+                previewContainer.width = previewPanel.width - resizerSize;
+                previewContainer.height = previewPanel.height;
+                //navbarToggler.height = togglerSize;
+                //previewToggler.height = togglerSize;
+                //previewToggler.y = (previewPanel.height - togglerSize) / 2;
+                //previewResizer.height = previewContainer.height;
+            }
 
 
 
@@ -232,8 +325,8 @@ define([
         //previewResizer.applyCss();
         //navbarToggler.applyCss();
 
-        /*fixViewportScrolling();
-        previewButtons.adjustPosition();*/
+        fixViewportScrolling();
+        //previewButtons.adjustPosition();
 
         onResize();
     }
