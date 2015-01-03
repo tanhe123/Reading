@@ -17,8 +17,18 @@ define([
 
     // Create the PageDown editor
     var pagedownEditor;
+    var fileDesc;
+    core.initEditor = function(fileDescParam) {
+        console.log("core: initEditor");
 
-    core.initEditor = function() {
+/*
+        if(fileDesc !== undefined) {
+            eventMgr.onFileClosed(fileDesc);
+        }
+*/
+
+        fileDesc = fileDescParam;
+
         // Create the converter and the editor
         var converter = new Markdown.Converter();
         //var converter = Markdown.getSanitizingConverter();
@@ -37,10 +47,6 @@ define([
 
         eventMgr.onReady();
     };
-
-
-    // todo: 还没有解决 运行 时 value 为空的问题
-    //core.initEditor();
 
     return core;
 });

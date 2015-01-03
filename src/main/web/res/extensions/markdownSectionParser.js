@@ -13,7 +13,7 @@ define([
 
     //todo: 假定为 true, 最终应该是从配置中读取2
 
-    markdownSectionParser.enabled = true;
+    /*markdownSectionParser.enabled = true;
 
     // Regexp to look for section delimiters
     var regexp = '^.+[ \\t]*\\n=+[ \\t]*\\n+|^.+[ \\t]*\\n-+[ \\t]*\\n+|^\\#{1,6}[ \\t]*.+?[ \\t]*\\#*\\n+'; // Title delimiters
@@ -68,10 +68,14 @@ define([
             previewContentsElt.appendChild(newSectionEltList);
         });
     };
-
+*/
     markdownSectionParser.onReady = function() {
-        previewContentsElt = document.getElementById("preview-contents");
-        console.log(previewContentsElt);
+        console.log("markdownSectionParser: onReady");
+
+        //previewContentsElt = document.getElementById("preview-contents");
+        //console.log(previewContentsElt);
+
+
     };
 
     return markdownSectionParser;

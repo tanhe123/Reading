@@ -8,6 +8,8 @@ define([], function () {
 
     constants.EDITOR_DEFAULT_PADDING = 35;
 
+    constants.WELCOME_DOCUMENT_TITLE = "Hello!";
+
 
     return constants;
 });

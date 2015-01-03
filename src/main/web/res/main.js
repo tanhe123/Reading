@@ -18,22 +18,21 @@ requirejs.config({
     paths: {
         jquery: 'bower-libs/jquery/dist/jquery',
         underscore: 'bower-libs/underscore/underscore',
-        pagedown: 'bower-libs/pagedown/Markdown.Editor',
+        pagedown: 'libs/Markdown.Editor',
         pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
         crel: 'bower-libs/crel/crel',
         text: 'bower-libs/requirejs-text/text',
-        bootstrap: 'bower-libs/bootstrap/dist/js/bo' +
-        'otstrap'
+        bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap'
     },
     shim: {
         underscore: {
             exports: '_'
         },
         pagedown: [
-            'bower-libs/pagedown/Markdown.Converter'
+            'libs/Markdown.Converter'
         ],
         pagedownExtra: [
-            'bower-libs/pagedown/Markdown.Converter'
+            'libs/Markdown.Converter'
         ],
         bootstrap: [
             'jquery'
@@ -47,9 +46,11 @@ var themeModule = "less!themes/default";
 require([
     "jquery",
     'core',
+    //todo: fileMgr 暂时放在这里，因为不能产生循环依赖
+    "fileMgr",
     "eventMgr",
     themeModule
-], function($, core, eventMgr) {
+], function($, core, fileMgr, eventMgr) {
     $(function () {
 
         // Here, all the modules are loaded and the DOM is ready
