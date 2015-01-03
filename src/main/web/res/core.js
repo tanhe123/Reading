@@ -32,7 +32,10 @@ define([
         // Create the converter and the editor
         var converter = new Markdown.Converter();
         //var converter = Markdown.getSanitizingConverter();
-        pagedownEditor = new Markdown.Editor(converter);
+        // todo: 重写了 pagedown 的方法
+        pagedownEditor = new Markdown.Editor(converter, undefined, {
+            undoManager: editor.undoMgr
+        });
 
         eventMgr.onPagedownConfigure(pagedownEditor);
 
