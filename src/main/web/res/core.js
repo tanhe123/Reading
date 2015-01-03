@@ -24,6 +24,8 @@ define([
         //var converter = Markdown.getSanitizingConverter();
         pagedownEditor = new Markdown.Editor(converter);
 
+        eventMgr.onPagedownConfigure(pagedownEditor);
+
         pagedownEditor.run();
     };
 
