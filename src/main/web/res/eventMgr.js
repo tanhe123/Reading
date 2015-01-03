@@ -37,10 +37,11 @@ define([
     function createEventHook(eventName) {
         eventListenerListMap[eventName] = getExtensionListenerList(eventName);
         return function () {
+            console.log(eventName, arguments);
             var eventArguments = arguments;
             _.each(eventListenerListMap[eventName], function (listener) {
                 try {
-                    listener.apply(null, arguments);
+                    listener.apply(null, eventArguments);
                 } catch (e) {
                     console.error(_.isObject(e) ? e.stack : e);
                 }
@@ -89,10 +90,33 @@ define([
     // Operations on files
     addEventHook("onFileCreated");
     addEventHook("onFileDeleted");
+    /**
+     * onFileSelected(fileDesc)
+     * A FileDescriptor object has been selected.
+     * fileDesc: the FileDescriptor object.
+     * Triggered by the fileMgr module. This event is triggered before onFileClosed (if another document is open) and onFileOpen events.
+     */
     addEventHook("onFileSelected");
+    /**
+     * onFileOpen(fileDesc)
+     * The selected FileDescriptor object has been attached to the editor.
+     * fileDesc: the FileDescriptor object.
+     * Triggered by the fileMgr module. This event is triggered after onFileSelected and onFileClosed (if another document is open) events.
+     */
     addEventHook("onFileOpen");
     addEventHook("onFileClosed");
+    /**
+     * onContentChanged(fileDesc)
+     * The content of a FileDescriptor object has been modified.
+     * fileDesc: the FileDescriptor object.
+     */
     addEventHook("onContentChanged");
+    /**
+     * onFileClosed(fileDesc)
+     * The current FileDescriptor object is about to be detached from the editor.
+     * fileDesc: the FileDescriptor object.
+     * Triggered by the fileMgr module. This event is triggered after onFileSelected event and before onFileClosed event.
+     */
     addEventHook("onTitleChanged");
 
     // Operations on folders

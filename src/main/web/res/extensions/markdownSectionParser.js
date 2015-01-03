@@ -13,19 +13,19 @@ define([
 
     //todo: 假定为 true, 最终应该是从配置中读取2
 
-    /*markdownSectionParser.enabled = true;
+    markdownSectionParser.enabled = true;
 
     // Regexp to look for section delimiters
     var regexp = '^.+[ \\t]*\\n=+[ \\t]*\\n+|^.+[ \\t]*\\n-+[ \\t]*\\n+|^\\#{1,6}[ \\t]*.+?[ \\t]*\\#*\\n+'; // Title delimiters
 
-    markdownSectionParser.onPagedownConfigure = function (editor) {
+    markdownSectionParser.onPagedownConfigure = function (pagedownEditor) {
         //     todo: markdownExtra.enabled
 
         //  todo:  mathjax.enabled
 
         regexp = new RegExp(regexp, 'gm');
 
-        var converter = editor.getConverter();
+        var converter = pagedownEditor.getConverter();
 
         //todo: if(!partialRendering.enabled) {
         if (true) {
@@ -37,7 +37,7 @@ define([
         }
 
         //todo: 直接copy 过来的
-        editor.hooks.chain("onPreviewRefresh", function() {
+        pagedownEditor.hooks.chain("onPreviewRefresh", function() {
             var wmdPreviewElt = document.getElementById("wmd-preview");
             var childNode = wmdPreviewElt.firstChild;
             function createSectionElt() {
@@ -68,15 +68,50 @@ define([
             previewContentsElt.appendChild(newSectionEltList);
         });
     };
-*/
+
     markdownSectionParser.onReady = function() {
         console.log("markdownSectionParser: onReady");
-
-        //previewContentsElt = document.getElementById("preview-contents");
-        //console.log(previewContentsElt);
-
-
+        previewContentsElt = document.getElementById("preview-contents");
     };
+
+    var fileDesc;
+    markdownSectionParser.onFileSelected = function(fileDescParam) {
+        fileDesc = fileDescParam;
+    };
+
+    var sectionCounter = 0;
+    function parseFileContent(fileDescParam, content) {
+        if(fileDescParam !== fileDesc) {
+            return;
+        }
+        var frontMatter = (fileDesc.frontMatter || {})._frontMatter || '';
+        var text = content.substring(frontMatter.length);
+        var tmpText = text + "\n\n";
+        function addSection(startOffset, endOffset) {
+            var sectionText = tmpText.substring(offset, endOffset);
+            sectionList.push({
+                id: ++sectionCounter,
+                text: sectionText,
+                textWithFrontMatter: frontMatter + sectionText
+            });
+            frontMatter = '';
+        }
+        sectionList = [];
+        var offset = 0;
+        // Look for delimiters
+        tmpText.replace(regexp, function(match, matchOffset) {
+            // Create a new section with the text preceding the delimiter
+            addSection(offset, matchOffset);
+            offset = matchOffset;
+        });
+        // Last section
+        addSection(offset, text.length);
+        eventMgr.onSectionsCreated(sectionList);
+    }
+
+    markdownSectionParser.onFileOpen = parseFileContent;
+    markdownSectionParser.onContentChanged = parseFileContent;
+
 
     return markdownSectionParser;
 });

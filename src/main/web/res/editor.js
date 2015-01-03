@@ -9,6 +9,7 @@ define([
 
     var editor = {};
 
+    var scrollTop = 0;
     var inputElt;
     var $inputElt;
     var contentElt;
@@ -19,6 +20,98 @@ define([
     var pagedownEditor;
     var trailingLfNode;
 
+    var fileChanged = true;
+    var fileDesc;
+    eventMgr.addListener('onFileSelected', function(selectedFileDesc) {
+        fileChanged = true;
+        fileDesc = selectedFileDesc;
+    });
+
+    // Used to detect editor changes
+    function Watcher() {
+        this.isWatching = false;
+        var contentObserver;
+        this.startWatching = function() {
+            this.isWatching = true;
+            contentObserver = contentObserver || new MutationObserver(checkContentChange);
+            contentObserver.observe(contentElt, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
+        };
+        this.stopWatching = function() {
+            contentObserver.disconnect();
+            this.isWatching = false;
+        };
+        this.noWatch = function(cb) {
+            if(this.isWatching === true) {
+                this.stopWatching();
+                cb();
+                this.startWatching();
+            }
+            else {
+                cb();
+            }
+        };
+    }
+
+    var textContent;
+
+    //todo:
+    function checkContentChange() {
+        console.log("editor: checkContentChange");
+
+        var newTextContent = inputElt.textContent;
+        if(contentElt.lastChild === trailingLfNode && trailingLfNode.textContent.slice(-1) == '\n') {
+            newTextContent = newTextContent.slice(0, -1);
+        }
+        newTextContent = newTextContent.replace(/\r\n?/g, '\n'); // Mac/DOS to Unix
+
+        if(fileChanged === false) {//todo: 内容改变
+            if(newTextContent == textContent) {
+                // User has removed the empty section
+                if(contentElt.children.length === 0) {
+                    contentElt.innerHTML = '';
+                    sectionList.forEach(function(section) {
+                        contentElt.appendChild(section.elt);
+                    });
+                    addTrailingLfNode();
+                }
+                return;
+            }
+            undoMgr.currentMode = undoMgr.currentMode || 'typing';
+            var discussionList = _.values(fileDesc.discussionList);
+            fileDesc.newDiscussion && discussionList.push(fileDesc.newDiscussion);
+            //var updateDiscussionList = adjustCommentOffsets(textContent, newTextContent, discussionList);
+            textContent = newTextContent;
+            //if(updateDiscussionList === true) {
+            //    fileDesc.discussionList = fileDesc.discussionList; // Write discussionList in localStorage
+            //}
+            fileDesc.content = textContent;
+            //selectionMgr.saveSelectionState();
+            eventMgr.onContentChanged(fileDesc, textContent);
+            //updateDiscussionList && eventMgr.onCommentsChanged(fileDesc);
+            //undoMgr.saveState();
+            //triggerSpellCheck();
+        }
+        else {//todo: 文件改变
+            textContent = newTextContent;
+            fileDesc.content = textContent;
+            //selectionMgr.setSelectionStartEnd(fileDesc.editorStart, fileDesc.editorEnd);
+            //selectionMgr.updateSelectionRange();
+            //selectionMgr.updateCursorCoordinates();
+            //undoMgr.saveSelectionState();
+            eventMgr.onFileOpen(fileDesc, textContent);
+            previewElt.scrollTop = fileDesc.previewScrollTop;
+            scrollTop = fileDesc.editorScrollTop;
+            inputElt.scrollTop = scrollTop;
+            fileChanged = false;
+        }
+    }
+
+    var watcher = new Watcher();
+    editor.watcher = watcher;
 
     function UndoMgr() {
         var undoStack = [];
@@ -171,7 +264,7 @@ define([
 
         previewElt = document.querySelector('.preview-container');
 
-
+        watcher.startWatching();
     };
 
     eventMgr.onEditorCreated(editor);
