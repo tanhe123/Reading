@@ -50,8 +50,9 @@ define([
     var isComposing = 0;
     eventMgr.addListener('onSectionsCreated', function(newSectionList) {
         if(!isComposing) {
-            updateSectionList(newSectionList);
-            highlightSections();
+            //todo: 会自动补空格问题
+            /*updateSectionList(newSectionList);
+            highlightSections();*/
         }
         if(fileChanged === true) {
             // Refresh preview synchronously
@@ -149,6 +150,29 @@ define([
             fileChanged = false;
         }
     }
+
+
+    function setValue(value) {
+        var startOffset = diffMatchPatch.diff_commonPrefix(textContent, value);
+        if(startOffset === textContent.length) {
+            startOffset--;
+        }
+        var endOffset = Math.min(
+            diffMatchPatch.diff_commonSuffix(textContent, value),
+            textContent.length - startOffset,
+            value.length - startOffset
+        );
+        var replacement = value.substring(startOffset, value.length - endOffset);
+        var range = selectionMgr.createRange(startOffset, textContent.length - endOffset);
+        range.deleteContents();
+        range.insertNode(document.createTextNode(replacement));
+        return {
+            start: startOffset,
+            end: value.length - endOffset
+        };
+    }
+
+    editor.setValue = setValue;
 
     var watcher = new Watcher();
     editor.watcher = watcher;
@@ -290,6 +314,7 @@ define([
         };*/
     }
 
+
     var undoMgr = new UndoMgr();
     editor.undoMgr = undoMgr;
 
@@ -305,6 +330,15 @@ define([
         previewElt = document.querySelector('.preview-container');
 
         watcher.startWatching();
+
+        Object.defineProperty(inputElt, 'value', {
+            get: function() {
+                return textContent;
+            },
+            set: setValue
+        });
+
+
     };
 
     var sectionList = [];
