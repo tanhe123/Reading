@@ -43,7 +43,8 @@ define([
             });
         }
 
-        //todo: 直接copy 过来的
+        //todo: 直接copy 过来的, 不知道干啥的，感觉像是把转换好的内容放入 preivew
+        //todo: 貌似 wmd-preview 并没有用
         pagedownEditor.hooks.chain("onPreviewRefresh", function() {
             var wmdPreviewElt = document.getElementById("wmd-preview");
             var childNode = wmdPreviewElt.firstChild;

@@ -174,8 +174,16 @@ define([
 
     editor.setValue = setValue;
 
+    function getValue() {
+        return textContent;
+    }
+
+    editor.getValue = getValue;
+
     var watcher = new Watcher();
     editor.watcher = watcher;
+
+
 
     function UndoMgr() {
         var undoStack = [];
@@ -331,6 +339,8 @@ define([
 
         watcher.startWatching();
 
+        //todo: 监视滚动事件, 进行同步滚动
+
         Object.defineProperty(inputElt, 'value', {
             get: function() {
                 return textContent;
@@ -338,7 +348,140 @@ define([
             set: setValue
         });
 
+        var clearNewline = false;
+        $contentElt
+            .on('keydown', function(evt) {
+                if(
+                    evt.which === 17 || // Ctrl
+                    evt.which === 91 || // Cmd
+                    evt.which === 18 || // Alt
+                    evt.which === 16 // Shift
+                ) {
+                    return;
+                }
 
+                //todo:
+                //selectionMgr.saveSelectionState();
+                //adjustCursorPosition();
+
+                var cmdOrCtrl = evt.metaKey || evt.ctrlKey;
+
+                switch(evt.which) {
+                    //todo: 如果是tab
+                    /*case 9: // Tab
+                        if(!cmdOrCtrl) {
+                            action('indent', {
+                                inverse: evt.shiftKey
+                            });
+                            // 取消事件的默认动作
+                            evt.preventDefault();
+                        }
+                        break;*/
+                    case 13:
+                        action('newline');
+                        evt.preventDefault();
+                        break;
+                }
+                if(evt.which !== 13) {
+                    clearNewline = false;
+                }
+            }); //todo: 继续处理一些其他的事件
+
+        //todo: 注释了一些东西, 需要弄懂 state
+        var action = function(action, options) {
+            var textContent = getValue();
+            //var min = Math.min(selectionMgr.selectionStart, selectionMgr.selectionEnd);
+            //var max = Math.max(selectionMgr.selectionStart, selectionMgr.selectionEnd);
+            //todo: 自己加的
+            var min = 1,max = 2;
+            var state = {
+                selectionStart: min,
+                selectionEnd: max,
+                before: textContent.slice(0, min),
+                after: textContent.slice(max),
+                selection: textContent.slice(min, max)
+            };
+
+            /*var state = {
+                selectionStart: min,
+                selectionEnd: max,
+                before: textContent.slice(0, min),
+                after: textContent.slice(max),
+                selection: textContent.slice(min, max)
+            };*/
+
+            actions[action](state, options || {});
+            //setValue(state.before + state.selection + state.after);
+            //selectionMgr.setSelectionStartEnd(state.selectionStart, state.selectionEnd);
+            //selectionMgr.updateSelectionRange();
+        };
+
+        var indentRegex = /^ {0,3}>[ ]*|^[ \t]*(?:[*+\-]|(\d+)\.)[ \t]|^\s+/;
+        var actions = {
+            indent: function(state, options) {
+                function strSplice(str, i, remove, add) {
+                    remove = +remove || 0;
+                    add = add || '';
+                    return str.slice(0, i) + add + str.slice(i + remove);
+                }
+
+                var lf = state.before.lastIndexOf('\n') + 1;
+                if(options.inverse) {
+                    if(/\s/.test(state.before.charAt(lf))) {
+                        state.before = strSplice(state.before, lf, 1);
+
+                        state.selectionStart--;
+                        state.selectionEnd--;
+                    }
+                    state.selection = state.selection.replace(/^[ \t]/gm, '');
+                } else {
+                    var previousLine = state.before.slice(lf);
+                    if(state.selection || previousLine.match(indentRegex)) {
+                        state.before = strSplice(state.before, lf, 0, '\t');
+                        state.selection = state.selection.replace(/\r?\n(?=[\s\S])/g, '\n\t');
+                        state.selectionStart++;
+                        state.selectionEnd++;
+                    } else {
+                        state.before += '\t';
+                        state.selectionStart++;
+                        state.selectionEnd++;
+                        return;
+                    }
+                }
+
+                state.selectionEnd = state.selectionStart + state.selection.length;
+            },
+            //todo: 需要弄懂state
+            newline: function(state) {
+                var lf = state.before.lastIndexOf('\n') + 1;
+                if(clearNewline) {
+                    state.before = state.before.substring(0, lf);
+                    state.selection = '';
+                    state.selectionStart = lf;
+                    state.selectionEnd = lf;
+                    clearNewline = false;
+                    return;
+                }
+                clearNewline = false;
+                var previousLine = state.before.slice(lf);
+                var indentMatch = previousLine.match(indentRegex);
+                var indent = (indentMatch || [''])[0];
+                if(indentMatch && indentMatch[1]) {
+                    var number = parseInt(indentMatch[1], 10);
+                    indent = indent.replace(/\d+/, number + 1);
+                }
+                if(indent.length) {
+                    clearNewline = true;
+                }
+
+                undoMgr.currentMode = 'newlines';
+
+                state.before += '\n' + indent;
+                state.selection = '';
+                state.selectionStart += indent.length + 1;
+                state.selectionEnd = state.selectionStart;
+            }
+        };
     };
 
     var sectionList = [];
