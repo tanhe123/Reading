@@ -39,6 +39,7 @@ define([
         return function() {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(refreshPreview, elapsedTime < 2000 ? elapsedTime : 2000);
+
         };
     })();
 
@@ -67,6 +68,292 @@ define([
         fileChanged = true;
         fileDesc = selectedFileDesc;
     });
+
+    function SelectionMgr() {
+        var self = this;
+        var lastSelectionStart = 0, lastSelectionEnd = 0;
+        this.selectionStart = 0;
+        this.selectionEnd = 0;
+        this.cursorY = 0;
+        this.adjustTop = 0;
+        this.adjustBottom = 0;
+        this.findOffsets = function(offsetList) {
+            var result = [];
+            if(!offsetList.length) {
+                return result;
+            }
+            var offset = offsetList.shift();
+            var walker = document.createTreeWalker(contentElt, 4, null, false);
+            var text = '';
+            var walkerOffset = 0;
+            while(walker.nextNode()) {
+                text = walker.currentNode.nodeValue || '';
+                var newWalkerOffset = walkerOffset + text.length;
+                while(newWalkerOffset > offset) {
+                    result.push({
+                        container: walker.currentNode,
+                        offsetInContainer: offset - walkerOffset,
+                        offset: offset
+                    });
+                    if(!offsetList.length) {
+                        return result;
+                    }
+                    offset = offsetList.shift();
+                }
+                walkerOffset = newWalkerOffset;
+            }
+            do {
+                result.push({
+                    container: walker.currentNode,
+                    offsetInContainer: text.length,
+                    offset: offset
+                });
+                offset = offsetList.shift();
+            }
+            while(offset);
+            return result;
+        };
+        this.createRange = function(start, end) {
+            start = start < 0 ? 0 : start;
+            end = end < 0 ? 0 : end;
+            var range = document.createRange();
+            var offsetList = [], startIndex, endIndex;
+            if(_.isNumber(start)) {
+                offsetList.push(start);
+                startIndex = offsetList.length - 1;
+            }
+            if(_.isNumber(end)) {
+                offsetList.push(end);
+                endIndex = offsetList.length - 1;
+            }
+            offsetList = this.findOffsets(offsetList);
+            var startOffset = _.isObject(start) ? start : offsetList[startIndex];
+            range.setStart(startOffset.container, startOffset.offsetInContainer);
+            var endOffset = startOffset;
+            if(end && end != start) {
+                endOffset = _.isObject(end) ? end : offsetList[endIndex];
+            }
+            range.setEnd(endOffset.container, endOffset.offsetInContainer);
+            return range;
+        };
+        var adjustScroll;
+        var debouncedUpdateCursorCoordinates = utils.debounce(function() {
+            $inputElt.toggleClass('has-selection', this.selectionStart !== this.selectionEnd);
+            var coordinates = this.getCoordinates(this.selectionEnd, this.selectionEndContainer, this.selectionEndOffset);
+            if(this.cursorY !== coordinates.y) {
+                this.cursorY = coordinates.y;
+                eventMgr.onCursorCoordinates(coordinates.x, coordinates.y);
+            }
+            if(adjustScroll) {
+                var adjustTop, adjustBottom;
+                adjustTop = adjustBottom = inputElt.offsetHeight / 2 * settings.cursorFocusRatio;
+                adjustTop = this.adjustTop || adjustTop;
+                adjustBottom = this.adjustBottom || adjustTop;
+                if(adjustTop && adjustBottom) {
+                    var cursorMinY = inputElt.scrollTop + adjustTop;
+                    var cursorMaxY = inputElt.scrollTop + inputElt.offsetHeight - adjustBottom;
+                    if(selectionMgr.cursorY < cursorMinY) {
+                        inputElt.scrollTop += selectionMgr.cursorY - cursorMinY;
+                    }
+                    else if(selectionMgr.cursorY > cursorMaxY) {
+                        inputElt.scrollTop += selectionMgr.cursorY - cursorMaxY;
+                    }
+                }
+            }
+            adjustScroll = false;
+        }, this);
+        this.updateCursorCoordinates = function(adjustScrollParam) {
+            adjustScroll = adjustScroll || adjustScrollParam;
+            debouncedUpdateCursorCoordinates();
+        };
+        this.updateSelectionRange = function() {
+            var min = Math.min(this.selectionStart, this.selectionEnd);
+            var max = Math.max(this.selectionStart, this.selectionEnd);
+            var range = this.createRange(min, max);
+            var selection = rangy.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range, this.selectionStart > this.selectionEnd);
+        };
+        var saveLastSelection = _.debounce(function() {
+            lastSelectionStart = self.selectionStart;
+            lastSelectionEnd = self.selectionEnd;
+        }, 50);
+        this.setSelectionStartEnd = function(start, end) {
+            if(start === undefined) {
+                start = this.selectionStart;
+            }
+            if(start < 0) {
+                start = 0;
+            }
+            if(end === undefined) {
+                end = this.selectionEnd;
+            }
+            if(end < 0) {
+                end = 0;
+            }
+            this.selectionStart = start;
+            this.selectionEnd = end;
+            fileDesc.editorStart = start;
+            fileDesc.editorEnd = end;
+            saveLastSelection();
+        };
+        this.saveSelectionState = (function() {
+            function save() {
+                if(fileChanged === false) {
+                    var selectionStart = self.selectionStart;
+                    var selectionEnd = self.selectionEnd;
+                    var selection = rangy.getSelection();
+                    if(selection.rangeCount > 0) {
+                        var selectionRange = selection.getRangeAt(0);
+                        var node = selectionRange.startContainer;
+                        if((contentElt.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_CONTAINED_BY) || contentElt === node) {
+                            var offset = selectionRange.startOffset;
+                            if(node.hasChildNodes() && offset > 0) {
+                                node = node.childNodes[offset - 1];
+                                offset = node.textContent.length;
+                            }
+                            var container = node;
+                            while(node != contentElt) {
+                                while(node = node.previousSibling) {
+                                    if(node.textContent) {
+                                        offset += node.textContent.length;
+                                    }
+                                }
+                                node = container = container.parentNode;
+                            }
+
+                            if(selection.isBackwards()) {
+                                selectionStart = offset + selectionRange.toString().length;
+                                selectionEnd = offset;
+                            }
+                            else {
+                                selectionStart = offset;
+                                selectionEnd = offset + selectionRange.toString().length;
+                            }
+
+                            if(selectionStart === selectionEnd && selectionRange.startContainer.textContent == '\n' && selectionRange.startOffset == 1) {
+                                // In IE if end of line is selected, offset is wrong
+                                // Also, in Firefox cursor can be after the trailingLfNode
+                                selectionStart = --selectionEnd;
+                                self.setSelectionStartEnd(selectionStart, selectionEnd);
+                                self.updateSelectionRange();
+                            }
+                        }
+                    }
+                    self.setSelectionStartEnd(selectionStart, selectionEnd);
+                }
+                undoMgr.saveSelectionState();
+            }
+
+            var nextTickAdjustScroll = false;
+            var debouncedSave = utils.debounce(function() {
+                save();
+                self.updateCursorCoordinates(nextTickAdjustScroll);
+                // In some cases we have to wait a little bit more to see the selection change (Cmd+A on Chrome/OSX)
+                longerDebouncedSave();
+            });
+            var longerDebouncedSave = utils.debounce(function() {
+                save();
+                if(lastSelectionStart === self.selectionStart && lastSelectionEnd === self.selectionEnd) {
+                    nextTickAdjustScroll = false;
+                }
+                self.updateCursorCoordinates(nextTickAdjustScroll);
+                nextTickAdjustScroll = false;
+            }, 10);
+
+            return function(debounced, adjustScroll, forceAdjustScroll) {
+                if(forceAdjustScroll) {
+                    lastSelectionStart = undefined;
+                    lastSelectionEnd = undefined;
+                }
+                if(debounced) {
+                    nextTickAdjustScroll = nextTickAdjustScroll || adjustScroll;
+                    return debouncedSave();
+                }
+                else {
+                    save();
+                }
+            };
+        })();
+        this.getSelectedText = function() {
+            var min = Math.min(this.selectionStart, this.selectionEnd);
+            var max = Math.max(this.selectionStart, this.selectionEnd);
+            return textContent.substring(min, max);
+        };
+        this.getCoordinates = function(inputOffset, container, offsetInContainer) {
+            if(!container) {
+                var offset = this.findOffsets([inputOffset])[0];
+                container = offset.container;
+                offsetInContainer = offset.offsetInContainer;
+            }
+            var x = 0;
+            var y = 0;
+            if(container.textContent == '\n') {
+                y = container.parentNode.offsetTop + container.parentNode.offsetHeight / 2;
+            }
+            else {
+                var selectedChar = textContent[inputOffset];
+                var startOffset = {
+                    container: container,
+                    offsetInContainer: offsetInContainer,
+                    offset: inputOffset
+                };
+                var endOffset = {
+                    container: container,
+                    offsetInContainer: offsetInContainer,
+                    offset: inputOffset
+                };
+                if(inputOffset > 0 && (selectedChar === undefined || selectedChar == '\n')) {
+                    if(startOffset.offset === 0) {
+                        // Need to calculate offset-1
+                        startOffset = inputOffset - 1;
+                    }
+                    else {
+                        startOffset.offsetInContainer -= 1;
+                    }
+                }
+                else {
+                    if(endOffset.offset === container.textContent.length) {
+                        // Need to calculate offset+1
+                        endOffset = inputOffset + 1;
+                    }
+                    else {
+                        endOffset.offsetInContainer += 1;
+                    }
+                }
+                var selectionRange = this.createRange(startOffset, endOffset);
+                var selectionRect = selectionRange.getBoundingClientRect();
+                y = selectionRect.top + selectionRect.height / 2 - inputElt.getBoundingClientRect().top + inputElt.scrollTop;
+            }
+            return {
+                x: x,
+                y: y
+            };
+        };
+        this.getClosestWordOffset = function(offset) {
+            var offsetStart = 0;
+            var offsetEnd = 0;
+            var nextOffset = 0;
+            textContent.split(/\s/).some(function(word) {
+                if(word) {
+                    offsetStart = nextOffset;
+                    offsetEnd = nextOffset + word.length;
+                    if(offsetEnd > offset) {
+                        return true;
+                    }
+                }
+                nextOffset += word.length + 1;
+            });
+            return {
+                start: offsetStart,
+                end: offsetEnd
+            };
+        };
+    }
+
+    var selectionMgr = new SelectionMgr();
+    editor.selectionMgr = selectionMgr;
+    $(document).on('selectionchange', '.editor-content', _.bind(selectionMgr.saveSelectionState, selectionMgr, true, false));
 
     // Used to detect editor changes
     function Watcher() {
@@ -182,8 +469,6 @@ define([
 
     var watcher = new Watcher();
     editor.watcher = watcher;
-
-
 
     function UndoMgr() {
         var undoStack = [];
@@ -323,6 +608,7 @@ define([
     }
 
 
+
     var undoMgr = new UndoMgr();
     editor.undoMgr = undoMgr;
 
@@ -377,9 +663,9 @@ define([
                             evt.preventDefault();
                         }
                         break;*/
-                    case 13:
+                    case 13://todo: 如果是 换行
                         action('newline');
-                        evt.preventDefault();
+                        //evt.preventDefault();
                         break;
                 }
                 if(evt.which !== 13) {
@@ -390,17 +676,9 @@ define([
         //todo: 注释了一些东西, 需要弄懂 state
         var action = function(action, options) {
             var textContent = getValue();
+
             //var min = Math.min(selectionMgr.selectionStart, selectionMgr.selectionEnd);
             //var max = Math.max(selectionMgr.selectionStart, selectionMgr.selectionEnd);
-            //todo: 自己加的
-            var min = 1,max = 2;
-            var state = {
-                selectionStart: min,
-                selectionEnd: max,
-                before: textContent.slice(0, min),
-                after: textContent.slice(max),
-                selection: textContent.slice(min, max)
-            };
 
             /*var state = {
                 selectionStart: min,
@@ -410,7 +688,7 @@ define([
                 selection: textContent.slice(min, max)
             };*/
 
-            actions[action](state, options || {});
+            //actions[action](state, options || {});
             //setValue(state.before + state.selection + state.after);
             //selectionMgr.setSelectionStartEnd(state.selectionStart, state.selectionEnd);
             //selectionMgr.updateSelectionRange();
