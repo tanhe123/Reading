@@ -4,9 +4,10 @@
 define([
     'jquery',
     'underscore',
+    'utils',
     'eventMgr',
     'crel'
-], function ($, _, eventMgr, crel) {
+], function ($, _, utils, eventMgr, crel) {
 
     var editor = {};
 
@@ -72,24 +73,48 @@ define([
     function SelectionMgr() {
         var self = this;
         var lastSelectionStart = 0, lastSelectionEnd = 0;
+        // 选中的文本的开始
         this.selectionStart = 0;
+        // 选中的文本的结束
         this.selectionEnd = 0;
         this.cursorY = 0;
         this.adjustTop = 0;
         this.adjustBottom = 0;
+
+        /**
+         * 给定 offset，判定他们所属的 node 与在 node 中的相对 offset
+         */
         this.findOffsets = function(offsetList) {
+
             var result = [];
             if(!offsetList.length) {
                 return result;
             }
+
             var offset = offsetList.shift();
+            /**
+             * document.createTreeWalker(root, whatToShow, filter, entityReferenceExpansion);
+             * root: The root node to begin searching the document tree using.
+             * nodesToShow: The type of nodes that should be visited by TreeWalker.
+             * filter (or null): Reference to custom function (NodeFilter object) to filter the nodes returned. Enter null for none.
+             * entityExpandBol: Boolean parameter specifying whether entity references should be expanded.
+             *
+             * 4 的意思是 NodeFilter.SHOW_TEXT
+             */
             var walker = document.createTreeWalker(contentElt, 4, null, false);
+
             var text = '';
+
             var walkerOffset = 0;
+
+            // 循环遍历.editor-content的结点的孩子
             while(walker.nextNode()) {
                 text = walker.currentNode.nodeValue || '';
                 var newWalkerOffset = walkerOffset + text.length;
+
+                // 如果当前的 offset 属于currentNode范围
                 while(newWalkerOffset > offset) {
+                    // 记录当前的offset所属的节点, 在节点中的相对offset, 和绝对的offset
                     result.push({
                         container: walker.currentNode,
                         offsetInContainer: offset - walkerOffset,
@@ -98,10 +123,14 @@ define([
                     if(!offsetList.length) {
                         return result;
                     }
+                    // 判断下一个offset
                     offset = offsetList.shift();
                 }
+                // 更新 walkerOffset
                 walkerOffset = newWalkerOffset;
             }
+
+            // 处理到这里，就证明剩下的offset都在最后一个node中
             do {
                 result.push({
                     container: walker.currentNode,
@@ -109,15 +138,20 @@ define([
                     offset: offset
                 });
                 offset = offsetList.shift();
-            }
-            while(offset);
+            }while(offset);
+
             return result;
         };
+
         this.createRange = function(start, end) {
+            // start 和 end 都有可能时对象, 就是findOffset中的对象
             start = start < 0 ? 0 : start;
             end = end < 0 ? 0 : end;
             var range = document.createRange();
+
+            // 这一句话是定义三个变量，一开始竟然以为是定义了一个数组变量。。。
             var offsetList = [], startIndex, endIndex;
+
             if(_.isNumber(start)) {
                 offsetList.push(start);
                 startIndex = offsetList.length - 1;
@@ -126,14 +160,18 @@ define([
                 offsetList.push(end);
                 endIndex = offsetList.length - 1;
             }
+
+            // 找到他们的容器以及相对offset
             offsetList = this.findOffsets(offsetList);
             var startOffset = _.isObject(start) ? start : offsetList[startIndex];
+            // 设置range范围
             range.setStart(startOffset.container, startOffset.offsetInContainer);
             var endOffset = startOffset;
             if(end && end != start) {
                 endOffset = _.isObject(end) ? end : offsetList[endIndex];
             }
             range.setEnd(endOffset.container, endOffset.offsetInContainer);
+
             return range;
         };
         var adjustScroll;
@@ -174,10 +212,12 @@ define([
             selection.removeAllRanges();
             selection.addRange(range, this.selectionStart > this.selectionEnd);
         };
+        // 保存当前的选择范围
         var saveLastSelection = _.debounce(function() {
             lastSelectionStart = self.selectionStart;
             lastSelectionEnd = self.selectionEnd;
         }, 50);
+        // 设置范围
         this.setSelectionStartEnd = function(start, end) {
             if(start === undefined) {
                 start = this.selectionStart;
@@ -197,6 +237,7 @@ define([
             fileDesc.editorEnd = end;
             saveLastSelection();
         };
+
         this.saveSelectionState = (function() {
             function save() {
                 if(fileChanged === false) {
@@ -205,13 +246,19 @@ define([
                     var selection = rangy.getSelection();
                     if(selection.rangeCount > 0) {
                         var selectionRange = selection.getRangeAt(0);
+                        // startContainer 返回start所在的node
                         var node = selectionRange.startContainer;
+
+                        // 方法可根据文档顺序使用指定的节点比较当前节点的文档位置
+                        // 可以查看 http://help.dottoro.com/ljgoeost.php
+                        // 下面这句话貌似 当node被包含在contentElt结点中，或node就是contentElt时
                         if((contentElt.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_CONTAINED_BY) || contentElt === node) {
                             var offset = selectionRange.startOffset;
                             if(node.hasChildNodes() && offset > 0) {
                                 node = node.childNodes[offset - 1];
                                 offset = node.textContent.length;
                             }
+                            // 求selecttRange的startOffset距离contentElt的绝对offset
                             var container = node;
                             while(node != contentElt) {
                                 while(node = node.previousSibling) {
@@ -222,11 +269,12 @@ define([
                                 node = container = container.parentNode;
                             }
 
+                            // 如果是反向选中的
                             if(selection.isBackwards()) {
                                 selectionStart = offset + selectionRange.toString().length;
                                 selectionEnd = offset;
                             }
-                            else {
+                            else { // 如果是正向选中的
                                 selectionStart = offset;
                                 selectionEnd = offset + selectionRange.toString().length;
                             }
@@ -275,17 +323,33 @@ define([
                 }
             };
         })();
+
+        /**
+         * 获取区间的文本
+         * @returns {string}
+         */
         this.getSelectedText = function() {
             var min = Math.min(this.selectionStart, this.selectionEnd);
             var max = Math.max(this.selectionStart, this.selectionEnd);
             return textContent.substring(min, max);
         };
+
+        /**
+         * 根据 绝对offset和容器结点和相对容器偏移量，算出坐标{x,y}
+         * @param inputOffset 绝对 offset
+         * @param container 容器结点
+         * @param offsetInContainer 相对于容器的偏移量
+         * @returns {{x: number, y: number}}
+         */
         this.getCoordinates = function(inputOffset, container, offsetInContainer) {
+
+            // 如果 没有传值 container，需要自己计算出来
             if(!container) {
                 var offset = this.findOffsets([inputOffset])[0];
                 container = offset.container;
                 offsetInContainer = offset.offsetInContainer;
             }
+
             var x = 0;
             var y = 0;
             if(container.textContent == '\n') {
@@ -353,6 +417,17 @@ define([
 
     var selectionMgr = new SelectionMgr();
     editor.selectionMgr = selectionMgr;
+
+    /**
+     * 绑定函数 function 到对象 object 上, 也就是无论何时调用函数, 函数里的 this 都指向这个 object. 任意可选参数 arguments 可以传递给函数 function , 可以填充函数所需要的参数, 这也被称为 partial application。
+     * 一个例子:
+     * var func = function(greeting){ return greeting + ': ' + this.name };
+     * func = _.bind(func, {name: 'moe'}, 'hi');
+     * func();
+     * => 'hi: moe'
+     *
+     * todo: 这里不明白，和直接调用 selectionMgr(true, false) 有什么区别
+     */
     $(document).on('selectionchange', '.editor-content', _.bind(selectionMgr.saveSelectionState, selectionMgr, true, false));
 
     // Used to detect editor changes
@@ -475,6 +550,15 @@ define([
         var redoStack = [];
         var lastTime;
         var lastMode;
+        /**
+         * 表示当前的状态，在 editor.js 中的 init 中有以下初始化代码
+         * currentState = {
+         *       selectionStartAfter: fileDesc.selectionStart,
+         *       selectionEndAfter: fileDesc.selectionEnd,
+         *       content: content,
+         *       discussionListJSON: fileDesc.discussionListJSON
+         *  };
+         */
         var currentState;
         var selectionStartBefore;
         var selectionEndBefore;
@@ -485,7 +569,8 @@ define([
         }; // For compatibility with PageDown
         this.onButtonStateChange = function() {
         }; // To be overridden by PageDown
-        /*this.saveState = utils.debounce(function() {
+
+        this.saveState = utils.debounce(function() {
             redoStack = [];
             var currentTime = Date.now();
             if(this.currentMode == 'comment' ||
@@ -519,18 +604,19 @@ define([
         }, this);
         this.saveSelectionState = _.debounce(function() {
             // Should happen just after saveState
+            // 只能在saveState调用后调用
             if(this.currentMode === undefined) {
                 selectionStartBefore = selectionMgr.selectionStart;
                 selectionEndBefore = selectionMgr.selectionEnd;
             }
-        }, 50);*/
+        }, 50);
         this.canUndo = function() {
             return undoStack.length;
         };
         this.canRedo = function() {
             return redoStack.length;
         };
-        /*function restoreState(state, selectionStart, selectionEnd) {
+        function restoreState(state, selectionStart, selectionEnd) {
             // Update editor
             watcher.noWatch(function() {
                 if(textContent != state.content) {
@@ -570,9 +656,9 @@ define([
             lastMode = undefined;
             this.onButtonStateChange();
             adjustCursorPosition();
-        }*/
+        }
 
-        /*this.undo = function() {
+        this.undo = function() {
             var state = undoStack.pop();
             if(!state) {
                 return;
@@ -604,7 +690,7 @@ define([
             contentElt.textContent = content;
             // Force this since the content could be the same
             checkContentChange();
-        };*/
+        };
     }
 
 
