@@ -5,9 +5,10 @@ define([
     'jquery',
     'underscore',
     'utils',
+    "diff_match_patch_uncompressed",
     'eventMgr',
     'crel'
-], function ($, _, utils, eventMgr, crel) {
+], function ($, _, utils, diff_match_patch, eventMgr, crel) {
 
     var editor = {};
 
@@ -184,7 +185,11 @@ define([
             }
             if(adjustScroll) {
                 var adjustTop, adjustBottom;
-                adjustTop = adjustBottom = inputElt.offsetHeight / 2 * settings.cursorFocusRatio;
+
+                //todo: 要从settings 中读
+                //adjustTop = adjustBottom = inputElt.offsetHeight / 2 * settings.cursorFocusRatio;
+                adjustTop = adjustBottom = inputElt.offsetHeight / 2 * 0.5;
+
                 adjustTop = this.adjustTop || adjustTop;
                 adjustBottom = this.adjustBottom || adjustTop;
                 if(adjustTop && adjustBottom) {
@@ -238,6 +243,7 @@ define([
             saveLastSelection();
         };
 
+        // todo: 绑定后，不知道为什么，没有发生
         this.saveSelectionState = (function() {
             function save() {
                 if(fileChanged === false) {
@@ -310,6 +316,9 @@ define([
             }, 10);
 
             return function(debounced, adjustScroll, forceAdjustScroll) {
+
+                console.log("saveSelectionState");
+
                 if(forceAdjustScroll) {
                     lastSelectionStart = undefined;
                     lastSelectionEnd = undefined;
@@ -427,13 +436,22 @@ define([
      * => 'hi: moe'
      *
      * todo: 这里不明白，和直接调用 selectionMgr(true, false) 有什么区别
+     * 目前有些明白了，bind可以绑定参数，也就是说比如原来有三个参数，bind可以绑定两个，生成新的函数后，生成一个新的函数，该函数只需要一个参数
      */
     $(document).on('selectionchange', '.editor-content', _.bind(selectionMgr.saveSelectionState, selectionMgr, true, false));
+
+    function adjustCursorPosition(force) {
+        if(inputElt === undefined) {
+            return;
+        }
+        selectionMgr.saveSelectionState(true, true, force);
+    }
 
     // Used to detect editor changes
     function Watcher() {
         this.isWatching = false;
         var contentObserver;
+        // 开始监视内容变化
         this.startWatching = function() {
             this.isWatching = true;
             contentObserver = contentObserver || new MutationObserver(checkContentChange);
@@ -443,10 +461,12 @@ define([
                 characterData: true
             });
         };
+        // 停止监视
         this.stopWatching = function() {
             contentObserver.disconnect();
             this.isWatching = false;
         };
+        // 调用cb而不监视
         this.noWatch = function(cb) {
             if(this.isWatching === true) {
                 this.stopWatching();
@@ -465,8 +485,12 @@ define([
     function checkContentChange() {
         console.log("editor: checkContentChange");
 
+        // 获得最新的文本内容
         var newTextContent = inputElt.textContent;
+
+        // todo: trailingLfNode 不知道干啥的，不过是这样的形式 <span class="token lf">
         if(contentElt.lastChild === trailingLfNode && trailingLfNode.textContent.slice(-1) == '\n') {
+            // 去掉最后的换行
             newTextContent = newTextContent.slice(0, -1);
         }
         newTextContent = newTextContent.replace(/\r\n?/g, '\n'); // Mac/DOS to Unix
@@ -493,6 +517,8 @@ define([
             //}
             fileDesc.content = textContent;
             //selectionMgr.saveSelectionState();
+
+            // 调用 markdownSectionParser.onContentChanged
             eventMgr.onContentChanged(fileDesc, textContent);
             //updateDiscussionList && eventMgr.onCommentsChanged(fileDesc);
             //undoMgr.saveState();
@@ -502,12 +528,15 @@ define([
             textContent = newTextContent;
             fileDesc.content = textContent;
             //selectionMgr.setSelectionStartEnd(fileDesc.editorStart, fileDesc.editorEnd);
-            //selectionMgr.updateSelectionRange();
+            //todo: 自己弄的上一句
+            selectionMgr.setSelectionStartEnd(0, 0);
+            selectionMgr.updateSelectionRange();
             //selectionMgr.updateCursorCoordinates();
-            //undoMgr.saveSelectionState();
+            undoMgr.saveSelectionState();
+            // 调用 markdownSectionParser.onFileOpen
             eventMgr.onFileOpen(fileDesc, textContent);
-            previewElt.scrollTop = fileDesc.previewScrollTop;
-            scrollTop = fileDesc.editorScrollTop;
+            //previewElt.scrollTop = fileDesc.previewScrollTop;
+            //scrollTop = fileDesc.editorScrollTop;
             inputElt.scrollTop = scrollTop;
             fileChanged = false;
         }
@@ -545,6 +574,7 @@ define([
     var watcher = new Watcher();
     editor.watcher = watcher;
 
+    var diffMatchPatch = new diff_match_patch();
     function UndoMgr() {
         var undoStack = [];
         var redoStack = [];
@@ -711,6 +741,8 @@ define([
 
         watcher.startWatching();
 
+        inputElt.adjustCursorPosition = adjustCursorPosition;
+
         //todo: 监视滚动事件, 进行同步滚动
 
         Object.defineProperty(inputElt, 'value', {
@@ -733,8 +765,9 @@ define([
                 }
 
                 //todo:
-                //selectionMgr.saveSelectionState();
-                //adjustCursorPosition();
+                selectionMgr.saveSelectionState();
+                console.log("contentElt keydown saveSelectionState");
+                adjustCursorPosition();
 
                 var cmdOrCtrl = evt.metaKey || evt.ctrlKey;
 
@@ -751,7 +784,7 @@ define([
                         break;*/
                     case 13://todo: 如果是 换行
                         action('newline');
-                        //evt.preventDefault();
+                        evt.preventDefault();
                         break;
                 }
                 if(evt.which !== 13) {
@@ -763,23 +796,26 @@ define([
         var action = function(action, options) {
             var textContent = getValue();
 
-            //var min = Math.min(selectionMgr.selectionStart, selectionMgr.selectionEnd);
-            //var max = Math.max(selectionMgr.selectionStart, selectionMgr.selectionEnd);
+            var min = Math.min(selectionMgr.selectionStart, selectionMgr.selectionEnd);
+            var max = Math.max(selectionMgr.selectionStart, selectionMgr.selectionEnd);
 
-            /*var state = {
+            console.log("min:" + min + " max:" + max);
+
+            var state = {
                 selectionStart: min,
                 selectionEnd: max,
                 before: textContent.slice(0, min),
                 after: textContent.slice(max),
                 selection: textContent.slice(min, max)
-            };*/
+            };
 
-            //actions[action](state, options || {});
-            //setValue(state.before + state.selection + state.after);
-            //selectionMgr.setSelectionStartEnd(state.selectionStart, state.selectionEnd);
-            //selectionMgr.updateSelectionRange();
+            actions[action](state, options || {});
+            setValue(state.before + state.selection + state.after);
+            selectionMgr.setSelectionStartEnd(state.selectionStart, state.selectionEnd);
+            selectionMgr.updateSelectionRange();
         };
 
+        // 符合缩进的正则, 比如引用符号>或编号1.等
         var indentRegex = /^ {0,3}>[ ]*|^[ \t]*(?:[*+\-]|(\d+)\.)[ \t]|^\s+/;
         var actions = {
             indent: function(state, options) {
@@ -818,6 +854,7 @@ define([
             //todo: 需要弄懂state
             newline: function(state) {
                 var lf = state.before.lastIndexOf('\n') + 1;
+                // 如果clearNewline为true，则会清空当前行，而不会插入新行
                 if(clearNewline) {
                     state.before = state.before.substring(0, lf);
                     state.selection = '';
@@ -828,12 +865,18 @@ define([
                 }
                 clearNewline = false;
                 var previousLine = state.before.slice(lf);
+                // 上一行符合缩进的规则
                 var indentMatch = previousLine.match(indentRegex);
                 var indent = (indentMatch || [''])[0];
+                // 如果是编号类型的缩进
                 if(indentMatch && indentMatch[1]) {
+                    // 分析出上一行的编号
                     var number = parseInt(indentMatch[1], 10);
+                    // 编号+1
                     indent = indent.replace(/\d+/, number + 1);
                 }
+                // 这时就会出现编号，但是如果什么都没有输入，再次按下回车，则会清除编号（即清空当前行），而不会再插入新的空行
+                // 这就是 clearNewline 的作用
                 if(indent.length) {
                     clearNewline = true;
                 }

@@ -20,6 +20,7 @@
     "bootstrap-tour": "~0.10.1",
     "highlightjs": "~8.4.0",
     "crel": "*",
-    "rangy": "~1.2.3"
+    "rangy": "~1.2.3",
+    "google-diff-match-patch-js": "~1.0.0"
   }
 }

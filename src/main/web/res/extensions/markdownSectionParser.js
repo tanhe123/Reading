@@ -18,7 +18,7 @@ define([
     var sectionList = [];
     var previewContentsElt;
 
-    //todo: 假定为 true, 最终应该是从配置中读取2
+    //todo: 假定为 true, 最终应该是从配置中读取
 
     markdownSectionParser.enabled = true;
 
@@ -95,9 +95,15 @@ define([
         var frontMatter = (fileDesc.frontMatter || {})._frontMatter || '';
         var text = content.substring(frontMatter.length);
         var tmpText = text + "\n\n";
+
+        /**
+         * 创建一个section
+         * @param startOffset section开始的位置
+         * @param endOffset section 结束的位置
+         */
         function addSection(startOffset, endOffset) {
             var sectionText = tmpText.substring(offset, endOffset);
-            sectionList.push({
+            sctionList.push({
                 id: ++sectionCounter,
                 text: sectionText,
                 textWithFrontMatter: frontMatter + sectionText
@@ -112,15 +118,20 @@ define([
             addSection(offset, matchOffset);
             offset = matchOffset;
         });
+
         // Last section
+        // 剩下的部分作为一个section
         addSection(offset, text.length);
+
+        // 通知section创建完毕
         eventMgr.onSectionsCreated(sectionList);
 
         console.log("sectionList:" + sectionList);
     }
 
-    markdownSectionParser.onFileOpen = parseFileContent;
-    markdownSectionParser.onContentChanged = parseFileContent;
+    //todo: parseFileContent
+    //markdownSectionParser.onFileOpen = parseFileContent;
+    //markdownSectionParser.onContentChanged = parseFileContent;
 
 
     return markdownSectionParser;

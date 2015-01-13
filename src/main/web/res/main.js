@@ -24,11 +24,16 @@ requirejs.config({
         rangy: 'bower-libs/rangy/rangy-core',
         'rangy-cssclassapplier': 'bower-libs/rangy/rangy-cssclassapplier',
         text: 'bower-libs/requirejs-text/text',
-        bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap'
+        bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap',
+        diff_match_patch: 'bower-libs/google-diff-match-patch-js/diff_match_patch',
+        diff_match_patch_uncompressed: 'bower-libs/google-diff-match-patch-js/diff_match_patch_uncompressed'
     },
     shim: {
         underscore: {
             exports: '_'
+        },
+        diff_match_patch_uncompressed: {
+            exports: 'diff_match_patch'
         },
         pagedown: [
             'libs/Markdown.Converter'
