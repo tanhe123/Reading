@@ -23,9 +23,6 @@ define([
     var pagedownEditor;
     var trailingLfNode;
 
-    var fileChanged = true;
-    var fileDesc;
-
     var refreshPreviewLater = (function() {
         var elapsedTime = 0;
         var timeoutId;
@@ -66,10 +63,50 @@ define([
         }
     });
 
+    var fileChanged = true;
+    var fileDesc;
     eventMgr.addListener('onFileSelected', function(selectedFileDesc) {
         fileChanged = true;
         fileDesc = selectedFileDesc;
     });
+
+    // Used to detect editor changes
+    function Watcher() {
+        this.isWatching = false;
+        var contentObserver;
+        // 开始监视内容变化
+        this.startWatching = function() {
+            this.isWatching = true;
+            contentObserver = contentObserver || new MutationObserver(checkContentChange);
+            contentObserver.observe(contentElt, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
+        };
+        // 停止监视
+        this.stopWatching = function() {
+            contentObserver.disconnect();
+            this.isWatching = false;
+        };
+        // 调用cb而不监视
+        this.noWatch = function(cb) {
+            if(this.isWatching === true) {
+                this.stopWatching();
+                cb();
+                this.startWatching();
+            }
+            else {
+                cb();
+            }
+        };
+    }
+
+    var watcher = new Watcher();
+    editor.watcher = watcher;
+
+    var diffMatchPatch = new diff_match_patch();
+    // todo: jsonDiffPatch
 
     function SelectionMgr() {
         var self = this;
@@ -151,26 +188,33 @@ define([
             var range = document.createRange();
 
             // 这一句话是定义三个变量，一开始竟然以为是定义了一个数组变量。。。
+            // startIndex 表示 start 存放在 offsetList 中的索引值, endIndex 同理
             var offsetList = [], startIndex, endIndex;
 
             if(_.isNumber(start)) {
                 offsetList.push(start);
+                // 记录索引值
                 startIndex = offsetList.length - 1;
             }
             if(_.isNumber(end)) {
                 offsetList.push(end);
+                // 记录索引值
                 endIndex = offsetList.length - 1;
             }
 
             // 找到他们的容器以及相对offset
             offsetList = this.findOffsets(offsetList);
+            // 获得 startOffset 对象
             var startOffset = _.isObject(start) ? start : offsetList[startIndex];
-            // 设置range范围
+            // 设置range开始范围
             range.setStart(startOffset.container, startOffset.offsetInContainer);
+            // 获得 endOffset 对象, 初始化为 startOffset
             var endOffset = startOffset;
+            // 如果没有传来 end，则endOffset为开始位置, 如果传来了, 则设置为结束位置
             if(end && end != start) {
                 endOffset = _.isObject(end) ? end : offsetList[endIndex];
             }
+            // 设置 range结束范围
             range.setEnd(endOffset.container, endOffset.offsetInContainer);
 
             return range;
@@ -244,6 +288,7 @@ define([
         };
 
         // todo: 绑定后，不知道为什么，没有发生
+        // 会在 keydown 和  checkContent 时调用
         this.saveSelectionState = (function() {
             function save() {
                 if(fileChanged === false) {
@@ -447,102 +492,10 @@ define([
         selectionMgr.saveSelectionState(true, true, force);
     }
 
-    // Used to detect editor changes
-    function Watcher() {
-        this.isWatching = false;
-        var contentObserver;
-        // 开始监视内容变化
-        this.startWatching = function() {
-            this.isWatching = true;
-            contentObserver = contentObserver || new MutationObserver(checkContentChange);
-            contentObserver.observe(contentElt, {
-                childList: true,
-                subtree: true,
-                characterData: true
-            });
-        };
-        // 停止监视
-        this.stopWatching = function() {
-            contentObserver.disconnect();
-            this.isWatching = false;
-        };
-        // 调用cb而不监视
-        this.noWatch = function(cb) {
-            if(this.isWatching === true) {
-                this.stopWatching();
-                cb();
-                this.startWatching();
-            }
-            else {
-                cb();
-            }
-        };
-    }
 
     var textContent;
 
-    //todo:
-    function checkContentChange() {
-        console.log("editor: checkContentChange");
-
-        // 获得最新的文本内容
-        var newTextContent = inputElt.textContent;
-
-        // todo: trailingLfNode 不知道干啥的，不过是这样的形式 <span class="token lf">
-        if(contentElt.lastChild === trailingLfNode && trailingLfNode.textContent.slice(-1) == '\n') {
-            // 去掉最后的换行
-            newTextContent = newTextContent.slice(0, -1);
-        }
-        newTextContent = newTextContent.replace(/\r\n?/g, '\n'); // Mac/DOS to Unix
-
-        if(fileChanged === false) {//todo: 内容改变
-            if(newTextContent == textContent) {
-                // User has removed the empty section
-                if(contentElt.children.length === 0) {
-                    contentElt.innerHTML = '';
-                    sectionList.forEach(function(section) {
-                        contentElt.appendChild(section.elt);
-                    });
-                    addTrailingLfNode();
-                }
-                return;
-            }
-            undoMgr.currentMode = undoMgr.currentMode || 'typing';
-            var discussionList = _.values(fileDesc.discussionList);
-            fileDesc.newDiscussion && discussionList.push(fileDesc.newDiscussion);
-            //var updateDiscussionList = adjustCommentOffsets(textContent, newTextContent, discussionList);
-            textContent = newTextContent;
-            //if(updateDiscussionList === true) {
-            //    fileDesc.discussionList = fileDesc.discussionList; // Write discussionList in localStorage
-            //}
-            fileDesc.content = textContent;
-            //selectionMgr.saveSelectionState();
-
-            // 调用 markdownSectionParser.onContentChanged
-            eventMgr.onContentChanged(fileDesc, textContent);
-            //updateDiscussionList && eventMgr.onCommentsChanged(fileDesc);
-            //undoMgr.saveState();
-            //triggerSpellCheck();
-        }
-        else {//todo: 文件改变
-            textContent = newTextContent;
-            fileDesc.content = textContent;
-            //selectionMgr.setSelectionStartEnd(fileDesc.editorStart, fileDesc.editorEnd);
-            //todo: 自己弄的上一句
-            selectionMgr.setSelectionStartEnd(0, 0);
-            selectionMgr.updateSelectionRange();
-            //selectionMgr.updateCursorCoordinates();
-            undoMgr.saveSelectionState();
-            // 调用 markdownSectionParser.onFileOpen
-            eventMgr.onFileOpen(fileDesc, textContent);
-            //previewElt.scrollTop = fileDesc.previewScrollTop;
-            //scrollTop = fileDesc.editorScrollTop;
-            inputElt.scrollTop = scrollTop;
-            fileChanged = false;
-        }
-    }
-
-
+    // 将value高效的写入html中
     function setValue(value) {
         var startOffset = diffMatchPatch.diff_commonPrefix(textContent, value);
         if(startOffset === textContent.length) {
@@ -565,16 +518,31 @@ define([
 
     editor.setValue = setValue;
 
+    //todo: replace
+
+    //todo: replacePreviousText
+
+    function setValueNoWatch(value) {
+        setValue(value);
+        textContent = value;
+    }
+
+    editor.setValueNoWatch = setValueNoWatch;
+
     function getValue() {
         return textContent;
     }
 
     editor.getValue = getValue;
 
-    var watcher = new Watcher();
-    editor.watcher = watcher;
+    function focus() {
+        $contentElt.focus();
+        selectionMgr.updateSelectionRange();
+        inputElt.scrollTop = scrollTop;
+    }
 
-    var diffMatchPatch = new diff_match_patch();
+    editor.focus = focus;
+
     function UndoMgr() {
         var undoStack = [];
         var redoStack = [];
@@ -723,10 +691,92 @@ define([
         };
     }
 
-
-
     var undoMgr = new UndoMgr();
     editor.undoMgr = undoMgr;
+
+    //todo: onComment
+
+    var triggerSpellCheck = _.debounce(function() {
+        var selection = window.getSelection();
+        if(!selectionMgr.hasFocus || isComposing || selectionMgr.selectionStart !== selectionMgr.selectionEnd || !selection.modify) {
+            return;
+        }
+        // Hack for Chrome to trigger the spell checker
+        if(selectionMgr.selectionStart) {
+            selection.modify("move", "backward", "character");
+            selection.modify("move", "forward", "character");
+        }
+        else {
+            selection.modify("move", "forward", "character");
+            selection.modify("move", "backward", "character");
+        }
+    }, 10);
+
+    function checkContentChange() {
+        console.log("editor: checkContentChange");
+
+        // 获得最新的文本内容
+        var newTextContent = inputElt.textContent;
+
+        // todo: trailingLfNode 不知道干啥的，不过是这样的形式 <span class="token lf">
+        if(contentElt.lastChild === trailingLfNode && trailingLfNode.textContent.slice(-1) == '\n') {
+            // 去掉最后的换行
+            newTextContent = newTextContent.slice(0, -1);
+        }
+        newTextContent = newTextContent.replace(/\r\n?/g, '\n'); // Mac/DOS to Unix
+
+        if(fileChanged === false) {//todo: 内容改变
+            if(newTextContent == textContent) {
+                // User has removed the empty section
+                if(contentElt.children.length === 0) {
+                    contentElt.innerHTML = '';
+                    sectionList.forEach(function(section) {
+                        contentElt.appendChild(section.elt);
+                    });
+                    addTrailingLfNode();
+                }
+                return;
+            }
+            undoMgr.currentMode = undoMgr.currentMode || 'typing';
+            var discussionList = _.values(fileDesc.discussionList);
+            //fileDesc.newDiscussion && discussionList.push(fileDesc.newDiscussion);
+            //var updateDiscussionList = adjustCommentOffsets(textContent, newTextContent, discussionList);
+            textContent = newTextContent;
+            //if(updateDiscussionList === true) {
+            //    fileDesc.discussionList = fileDesc.discussionList; // Write discussionList in localStorage
+            //}
+            fileDesc.content = textContent;
+            selectionMgr.saveSelectionState();
+
+            // 调用 markdownSectionParser.onContentChanged
+            eventMgr.onContentChanged(fileDesc, textContent);
+            //updateDiscussionList && eventMgr.onCommentsChanged(fileDesc);
+            undoMgr.saveState();
+            //triggerSpellCheck();
+        }
+        else {//todo: 文件改变
+            textContent = newTextContent;
+            fileDesc.content = textContent;
+
+            //selectionMgr.setSelectionStartEnd(fileDesc.editorStart, fileDesc.editorEnd);
+            //todo: 自己加的
+            selectionMgr.setSelectionStartEnd(0, 0);
+
+            //todo: 自己弄的上一句
+            selectionMgr.setSelectionStartEnd(0, 0);
+            selectionMgr.updateSelectionRange();
+            selectionMgr.updateCursorCoordinates();
+            undoMgr.saveSelectionState();
+            // 调用 markdownSectionParser.onFileOpen
+            eventMgr.onFileOpen(fileDesc, textContent);
+            //previewElt.scrollTop = fileDesc.previewScrollTop;
+            //scrollTop = fileDesc.editorScrollTop;
+            inputElt.scrollTop = scrollTop;
+            fileChanged = false;
+        }
+    }
+
+    // todo: adjustCommentOffsets
 
     editor.init = function() {
         //todo:
@@ -742,6 +792,8 @@ define([
         watcher.startWatching();
 
         inputElt.adjustCursorPosition = adjustCursorPosition;
+
+        //todo:
 
         //todo: 监视滚动事件, 进行同步滚动
 
@@ -995,8 +1047,8 @@ define([
                 }
             }
             addTrailingLfNode();
-            //selectionMgr.updateSelectionRange();
-            //selectionMgr.updateCursorCoordinates();
+            selectionMgr.updateSelectionRange();
+            selectionMgr.updateCursorCoordinates();
         });
     }
 

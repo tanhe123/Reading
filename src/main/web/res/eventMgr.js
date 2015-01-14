@@ -37,7 +37,7 @@ define([
     function createEventHook(eventName) {
         eventListenerListMap[eventName] = getExtensionListenerList(eventName);
         return function () {
-            console.log(eventName, arguments);
+            console.log("eventMgr.js: eventName:" + eventName, arguments);
             var eventArguments = arguments;
             _.each(eventListenerListMap[eventName], function (listener) {
                 try {
