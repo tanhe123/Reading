@@ -813,6 +813,7 @@ define([
                     evt.which === 18 || // Alt
                     evt.which === 16 // Shift
                 ) {
+                    alert("selectionMgr:" + selectionMgr.selectionStart + " " + selectionMgr.selectionEnd);
                     return;
                 }
 
