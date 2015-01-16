@@ -410,7 +410,9 @@ define([
                 y = container.parentNode.offsetTop + container.parentNode.offsetHeight / 2;
             }
             else {
+                // todo: inputOffset 和 textContent 对应上了?应该是一一对应的
                 var selectedChar = textContent[inputOffset];
+                //todo: startOffset 和 endOffset 一样的?
                 var startOffset = {
                     container: container,
                     offsetInContainer: offsetInContainer,
@@ -421,7 +423,9 @@ define([
                     offsetInContainer: offsetInContainer,
                     offset: inputOffset
                 };
+
                 if(inputOffset > 0 && (selectedChar === undefined || selectedChar == '\n')) {
+                    // todo: 这里不明白了, 肯定会执行不到吧
                     if(startOffset.offset === 0) {
                         // Need to calculate offset-1
                         startOffset = inputOffset - 1;
@@ -483,7 +487,7 @@ define([
      * todo: 这里不明白，和直接调用 selectionMgr(true, false) 有什么区别
      * 目前有些明白了，bind可以绑定参数，也就是说比如原来有三个参数，bind可以绑定两个，生成新的函数后，生成一个新的函数，该函数只需要一个参数
      */
-    $(document).on('selectionchange', '.editor-content', _.bind(selectionMgr.saveSelectionState, selectionMgr, true, false));
+    //$(document).on('selectionchange', '.editor-content', _.bind(selectionMgr.saveSelectionState, selectionMgr, true, false));
 
     function adjustCursorPosition(force) {
         if(inputElt === undefined) {
@@ -696,6 +700,9 @@ define([
 
     //todo: onComment
 
+    /**
+     * 检测拼写错误
+     */
     var triggerSpellCheck = _.debounce(function() {
         var selection = window.getSelection();
         if(!selectionMgr.hasFocus || isComposing || selectionMgr.selectionStart !== selectionMgr.selectionEnd || !selection.modify) {
@@ -752,7 +759,7 @@ define([
             eventMgr.onContentChanged(fileDesc, textContent);
             //updateDiscussionList && eventMgr.onCommentsChanged(fileDesc);
             undoMgr.saveState();
-            //triggerSpellCheck();
+            triggerSpellCheck();
         }
         else {//todo: 文件改变
             textContent = newTextContent;
@@ -765,7 +772,7 @@ define([
             //todo: 自己弄的上一句
             selectionMgr.setSelectionStartEnd(0, 0);
             selectionMgr.updateSelectionRange();
-            selectionMgr.updateCursorCoordinates();
+            //selectionMgr.updateCursorCoordinates();
             undoMgr.saveSelectionState();
             // 调用 markdownSectionParser.onFileOpen
             eventMgr.onFileOpen(fileDesc, textContent);
@@ -820,7 +827,7 @@ define([
                 //todo:
                 selectionMgr.saveSelectionState();
                 console.log("contentElt keydown saveSelectionState");
-                adjustCursorPosition();
+                //adjustCursorPosition();
 
                 var cmdOrCtrl = evt.metaKey || evt.ctrlKey;
 
