@@ -1,4 +1,4 @@
-﻿// needs Markdown.Converter.js at the moment
+// needs Markdown.Converter.js at the moment
 
 (function () {
 
@@ -18,38 +18,37 @@
         };
 
     var defaultsStrings = {
-        bold: "Strong <strong> Ctrl+B",
+        bold: "Strong <strong> Ctrl/Cmd+B",
         boldexample: "strong text",
 
-        italic: "Emphasis <em> Ctrl+I",
+        italic: "Emphasis <em> Ctrl/Cmd+I",
         italicexample: "emphasized text",
 
-        link: "Hyperlink <a> Ctrl+L",
+        link: "Hyperlink <a> Ctrl/Cmd+L",
         linkdescription: "enter link description here",
         linkdialog: "<p><b>Insert Hyperlink</b></p><p>http://example.com/ \"optional title\"</p>",
 
-        quote: "Blockquote <blockquote> Ctrl+Q",
+        quote: "Blockquote <blockquote> Ctrl/Cmd+Q",
         quoteexample: "Blockquote",
 
-        code: "Code Sample <pre><code> Ctrl+K",
+        code: "Code Sample <pre><code> Ctrl/Cmd+K",
         codeexample: "enter code here",
 
-        image: "Image <img> Ctrl+G",
+        image: "Image <img> Ctrl/Cmd+G",
         imagedescription: "enter image description here",
         imagedialog: "<p><b>Insert Image</b></p><p>http://example.com/images/diagram.jpg \"optional title\"<br><br>Need <a href='http://www.google.com/search?q=free+image+hosting' target='_blank'>free image hosting?</a></p>",
 
-        olist: "Numbered List <ol> Ctrl+O",
-        ulist: "Bulleted List <ul> Ctrl+U",
+        olist: "Numbered List <ol> Ctrl/Cmd+O",
+        ulist: "Bulleted List <ul> Ctrl/Cmd+U",
         litem: "List item",
 
-        heading: "Heading <h1>/<h2> Ctrl+H",
+        heading: "Heading <h1>/<h2> Ctrl/Cmd+H",
         headingexample: "Heading",
 
-        hr: "Horizontal Rule <hr> Ctrl+R",
+        hr: "Horizontal Rule <hr> Ctrl/Cmd+R",
 
-        undo: "Undo - Ctrl+Z",
-        redo: "Redo - Ctrl+Y",
-        redomac: "Redo - Ctrl+Shift+Z",
+        undo: "Undo - Ctrl/Cmd+Z",
+        redo: "Redo - Ctrl/Cmd+Y",
 
         help: "Markdown Editing Help"
     };
@@ -90,7 +89,7 @@
     // - run() actually starts the editor; should be called after all necessary plugins are registered. Calling this more than once is a no-op.
     // - refreshPreview() forces the preview to be updated. This method is only available after run() was called.
     Markdown.Editor = function (markdownConverter, idPostfix, options) {
-        
+
         options = options || {};
 
         if (typeof options.handler === "function") { //backwards compatible behavior
@@ -111,12 +110,14 @@
                                                   * its own image insertion dialog, this hook should return true, and the callback should be called with the chosen
                                                   * image url (or null if the user cancelled). If this hook returns false, the default dialog will be used.
                                                   */
+        hooks.addFalse("insertLinkDialog");
 
         this.getConverter = function () { return markdownConverter; }
 
         var that = this,
             panels;
 
+        var undoManager;
         this.run = function () {
             if (panels)
                 return; // already initialized
@@ -124,9 +125,17 @@
             panels = new PanelCollection(idPostfix);
             var commandManager = new CommandManager(hooks, getString);
             var previewManager = new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); });
-            var undoManager, uiManager;
+            var uiManager;
 
-            if (!/\?noundo/.test(doc.location.href)) {
+            if(options.undoManager) {
+                undoManager = options.undoManager;
+                undoManager.onButtonStateChange = function() {
+                    uiManager.setUndoRedoButtonStates();
+                };
+                if (uiManager) // not available on the first call
+                    uiManager.setUndoRedoButtonStates();
+            }
+            else if (!/\?noundo/.test(doc.location.href)) {
                 undoManager = new UndoManager(function () {
                     previewManager.refresh();
                     if (uiManager) // not available on the first call
@@ -144,7 +153,10 @@
 
             var forceRefresh = that.refreshPreview = function () { previewManager.refresh(true); };
 
-            forceRefresh();
+            //Not necessary
+            //forceRefresh();
+            that.undoManager = undoManager;
+            that.uiManager = uiManager;
         };
 
     }
@@ -659,7 +671,7 @@
                 }
             };
 
-            util.addEvent(panels.input, "keydown", handleCtrlYZ);
+            //util.addEvent(panels.input, "keydown", handleCtrlYZ);
             util.addEvent(panels.input, "keydown", handleModeChange);
             util.addEvent(panels.input, "mousedown", function () {
                 setMode("moving");
@@ -672,8 +684,25 @@
         var init = function () {
             setEventHandlers();
             refreshState(true);
+            //Not necessary
+            //saveState();
+        };
+
+        this.reinit = function(content, start, end, scrollTop) {
+            undoStack = [];
+            stackPtr = 0;
+            mode = "none";
+            lastState = undefined;
+            timer = undefined;
+            refreshState();
+            inputStateObj.text = content;
+            inputStateObj.start = start;
+            inputStateObj.end = end;
+            inputStateObj.scrollTop = scrollTop;
+            inputStateObj.setInputAreaSelection();
             saveState();
         };
+        this.setMode = setMode;
 
         init();
     }
@@ -689,9 +718,6 @@
         var inputArea = panels.input;
         this.init = function () {
             if (!util.isVisible(inputArea)) {
-                return;
-            }
-            if (!isInitialState && doc.activeElement && doc.activeElement !== inputArea) { // this happens when tabbing out of the input box
                 return;
             }
 
@@ -711,18 +737,16 @@
                 return;
             }
 
-            if (inputArea.selectionStart !== undefined && !uaSniffed.isOpera) {
+            //if (inputArea.selectionStart !== undefined && !uaSniffed.isOpera) {
 
                 inputArea.focus();
                 inputArea.selectionStart = stateObj.start;
                 inputArea.selectionEnd = stateObj.end;
+	        /*
                 inputArea.scrollTop = stateObj.scrollTop;
+
             }
             else if (doc.selection) {
-
-                if (doc.activeElement && doc.activeElement !== inputArea) {
-                    return;
-                }
 
                 inputArea.focus();
                 var range = inputArea.createTextRange();
@@ -732,14 +756,16 @@
                 range.moveStart("character", stateObj.start);
                 range.select();
             }
+            */
         };
 
         this.setInputAreaSelectionStartEnd = function () {
 
-            if (!panels.ieCachedRange && (inputArea.selectionStart || inputArea.selectionStart === 0)) {
+            //if (!panels.ieCachedRange && (inputArea.selectionStart || inputArea.selectionStart === 0)) {
 
                 stateObj.start = inputArea.selectionStart;
                 stateObj.end = inputArea.selectionEnd;
+                /*
             }
             else if (doc.selection) {
 
@@ -780,6 +806,7 @@
 
                 this.setInputAreaSelection();
             }
+            */
         };
 
         // Restore this state into the input area.
@@ -789,7 +816,11 @@
                 inputArea.value = stateObj.text;
             }
             this.setInputAreaSelection();
-            inputArea.scrollTop = stateObj.scrollTop;
+	        /*
+            setTimeout(function() {
+                inputArea.scrollTop = stateObj.scrollTop;
+            }, 0);
+            */
         };
 
         // Gets a collection of HTML chunks from the inptut textarea.
@@ -827,7 +858,7 @@
         var elapsedTime;
         var oldInputText;
         var maxDelay = 3000;
-        var startType = "delayed"; // The other legal value is "manual"
+        var startType = "manual"; // The other legal value is "manual"
 
         // Adds event listeners to elements
         var setupEvents = function (inputElem, listener) {
@@ -976,12 +1007,13 @@
 
         var pushPreviewHtml = function (text) {
 
-            var emptyTop = position.getTop(panels.input) - getDocScrollTop();
+            //var emptyTop = position.getTop(panels.input) - getDocScrollTop();
 
             if (panels.preview) {
                 previewSet(text);
                 previewRefreshCallback();
             }
+            /*
 
             setPanelScrollTops();
 
@@ -1000,12 +1032,14 @@
             else {
                 window.scrollBy(0, fullTop - emptyTop);
             }
+            */
         };
 
         var init = function () {
 
             setupEvents(panels.input, applyTimeout);
-            makePreviewHtml();
+            //Not necessary
+            //makePreviewHtml();
 
             if (panels.preview) {
                 panels.preview.scrollTop = 0;
@@ -1023,9 +1057,9 @@
 
         var background = doc.createElement("div"),
             style = background.style;
-        
+
         background.className = "wmd-prompt-background";
-        
+
         style.position = "absolute";
         style.top = "0";
 
@@ -1224,10 +1258,11 @@
             keyEvent = "keypress";
         }
 
+        /*
         util.addEvent(inputBox, keyEvent, function (key) {
 
             // Check to see if we have a button key and, if so execute the callback.
-            if ((key.ctrlKey || key.metaKey) && !key.altKey && !key.shiftKey) {
+            if ((key.ctrlKey || key.metaKey) && !key.altKey) {
 
                 var keyCode = key.charCode || key.keyCode;
                 var keyCodeStr = String.fromCharCode(keyCode).toLowerCase();
@@ -1274,6 +1309,12 @@
                             doClick(buttons.undo);
                         }
                         break;
+                    case "v":
+                        undoManager.setMode("typing");
+                        return;
+                    case "x":
+                        undoManager.setMode("deleting");
+                        return;
                     default:
                         return;
                 }
@@ -1311,16 +1352,18 @@
                 }
             });
         }
+        */
 
 
         // Perform the button's action.
         function doClick(button) {
 
             inputBox.focus();
+            var linkOrImage = button.id == "wmd-link-button" || button.id == "wmd-image-button";
 
             if (button.textOp) {
 
-                if (undoManager) {
+                if (undoManager && !linkOrImage) {
                     undoManager.setCommandMode();
                 }
 
@@ -1365,6 +1408,10 @@
 
                 if (!noCleanup) {
                     fixupInputArea();
+                    if(!linkOrImage) {
+	                    inputBox.adjustCursorPosition();
+	                    //inputBox.dispatchEvent(new Event('keydown'));
+                    }
                 }
 
             }
@@ -1380,6 +1427,7 @@
             var disabledYShift = "-20px";
             var highlightYShift = "-40px";
             var image = button.getElementsByTagName("span")[0];
+            button.className = button.className.replace(/ disabled/g, "");
             if (isEnabled) {
                 image.style.backgroundPosition = button.XShift + " " + normalYShift;
                 button.onmouseover = function () {
@@ -1395,9 +1443,6 @@
                 // on mousedown.
                 if (uaSniffed.isIE) {
                     button.onmousedown = function () {
-                        if (doc.activeElement && doc.activeElement !== panels.input) { // we're not even in the input box, so there's no selection
-                            return;
-                        }
                         panels.ieCachedRange = document.selection.createRange();
                         panels.ieCachedScrollTop = panels.input.scrollTop;
                     };
@@ -1416,6 +1461,7 @@
             else {
                 image.style.backgroundPosition = button.XShift + " " + disabledYShift;
                 button.onmouseover = button.onmouseout = button.onclick = function () { };
+                button.className += " disabled";
             }
         }
 
@@ -1486,11 +1532,7 @@
             buttons.undo = makeButton("wmd-undo-button", getString("undo"), "-200px", null);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
-            var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                getString("redo") :
-                getString("redomac"); // mac and other non-Windows platforms
-
-            buttons.redo = makeButton("wmd-redo-button", redoTitle, "-220px", null);
+            buttons.redo = makeButton("wmd-redo-button", getString("redo"), "-220px", null);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
             if (helpOptions) {
@@ -1521,6 +1563,8 @@
         };
 
         this.setUndoRedoButtonStates = setUndoRedoButtonStates;
+        this.buttons = buttons;
+        this.doClick = doClick;
 
     }
 
@@ -1705,7 +1749,9 @@
     commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
 
         chunk.trimWhitespace();
-        chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
+        //chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
+        chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\(.*?\))?/);
+
         var background;
 
         if (chunk.endTag.length > 1 && chunk.startTag.length > 0) {
@@ -1716,7 +1762,7 @@
 
         }
         else {
-            
+
             // We're moving start and end tag back into the selection, since (as we're in the else block) we're not
             // *removing* a link, but *adding* one, so whatever findTags() found is now back to being part of the
             // link text. linkEnteredCallback takes care of escaping any brackets.
@@ -1754,12 +1800,15 @@
                     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
                     // the first bracket could then not act as the "not a backslash" for the second.
                     chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-                    
+
+                    /*
                     var linkDef = " [999]: " + properlyEncoded(link);
 
                     var num = that.addLinkDef(chunk, linkDef);
+                    */
                     chunk.startTag = isImage ? "![" : "[";
-                    chunk.endTag = "][" + num + "]";
+                    //chunk.endTag = "][" + num + "]";
+                    chunk.endTag = "](" + properlyEncoded(link) + ")";
 
                     if (!chunk.selection) {
                         if (isImage) {
@@ -1780,7 +1829,8 @@
                     ui.prompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback);
             }
             else {
-                ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback);
+                if (!this.hooks.insertLinkDialog(linkEnteredCallback))
+                	ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback);
             }
             return true;
         }
@@ -1796,7 +1846,7 @@
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}([*+-]|\d+[.])[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}>[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ \t]+\n$/, "\n\n");
-        
+
         // There's no selection, end the cursor wasn't at the end of the line:
         // The user wants to split the current list item / code line / blockquote line
         // (for the latter it doesn't really matter) in two. Temporarily select the
@@ -1824,7 +1874,7 @@
                 commandMgr.doCode(chunk);
             }
         }
-        
+
         if (fakeSelection) {
             chunk.after = chunk.selection + chunk.after;
             chunk.selection = "";
