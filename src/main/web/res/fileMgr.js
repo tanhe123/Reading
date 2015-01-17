@@ -35,23 +35,33 @@ define([
             //}
         }
 
+        // 如果当前打开的文件不是要打开的文件
         if (fileMgr.currentFile !== fileDesc) {
             fileMgr.currentFile = fileDesc;
-            //fileDesc.selectTime = new Date().getTime();
+            fileDesc.selectTime = new Date().getTime();
 
             // Notify extensions
+            // 这里通知了 markdownSectionParser，让其更新保持的文件
             eventMgr.onFileSelected(fileDesc);
 
             // Hide the viewer pencil button
             //$(".action-edit-document").toggleClass("hide", fileDesc.fileIndex != constants.TEMPORARY_FILE_INDEX);
 
             core.initEditor(fileDesc);
-
         }
     };
 
     fileMgr.createFile = function(title, content) {
         var fileDesc = new FileDescriptor(title, content);
+
+        // todo: 这里会通知:
+        // extensions/documentSelector.js
+        // extensions/documentPanel.js
+        // documentManager.js
+        // buttonSync.js
+        // synchronizer.js
+        eventMgr.onFileCreated(fileDesc);
+
         return fileDesc;
     };
 

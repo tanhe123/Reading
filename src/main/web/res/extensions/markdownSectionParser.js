@@ -23,6 +23,7 @@ define([
     markdownSectionParser.enabled = true;
 
     // Regexp to look for section delimiters
+    // 小节的分隔符正则, 比如 #标题 等
     var regexp = '^.+[ \\t]*\\n=+[ \\t]*\\n+|^.+[ \\t]*\\n-+[ \\t]*\\n+|^\\#{1,6}[ \\t]*.+?[ \\t]*\\#*\\n+'; // Title delimiters
 
     markdownSectionParser.onPagedownConfigure = function (pagedownEditor) {
@@ -89,11 +90,14 @@ define([
 
     var sectionCounter = 0;
     function parseFileContent(fileDescParam, content) {
+        // 如果要解析的不是其保持的文件实例，则返回, 不解析
         if(fileDescParam !== fileDesc) {
             return;
         }
         var frontMatter = (fileDesc.frontMatter || {})._frontMatter || '';
         var text = content.substring(frontMatter.length);
+        //todo: tmpText 通过在最后添加两个空行，来解决Uncaught IndexSizeError: Failed to execute 'setStart' on 'Range': The offset -1 is larger than or equal to the node's length (0).editor.js:210 createRangeeditor.js:442 getCoordinateseditor.js:225 (anonymous function)utils.js:32 laterutils.js:16 (anonymous function)报错问题
+        // todo: 详情参见 readme
         var tmpText = text + "\n\n";
 
         /**
@@ -103,7 +107,7 @@ define([
          */
         function addSection(startOffset, endOffset) {
             var sectionText = tmpText.substring(offset, endOffset);
-            sctionList.push({
+            sectionList.push({
                 id: ++sectionCounter,
                 text: sectionText,
                 textWithFrontMatter: frontMatter + sectionText
@@ -121,6 +125,7 @@ define([
 
         // Last section
         // 剩下的部分作为一个section
+        // 真正的长度为添加两个空行之前的长度, 即text.length
         addSection(offset, text.length);
 
         // 通知section创建完毕
@@ -130,8 +135,8 @@ define([
     }
 
     //todo: parseFileContent
-    //markdownSectionParser.onFileOpen = parseFileContent;
-    //markdownSectionParser.onContentChanged = parseFileContent;
+    markdownSectionParser.onFileOpen = parseFileContent;
+    markdownSectionParser.onContentChanged = parseFileContent;
 
 
     return markdownSectionParser;

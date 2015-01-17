@@ -38,7 +38,6 @@ define([
         return function() {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(refreshPreview, elapsedTime < 2000 ? elapsedTime : 2000);
-
         };
     })();
 
@@ -47,12 +46,20 @@ define([
         pagedownEditor = pagedownEditorParam;
     });
 
+    /**
+     *  复合事件（composition event）是DOM3级事件中新添加的一类事件，用于处理IME的输入序列。IME（Input Method Editor，输入法编辑器）可以让用户输入在物理键盘上找不到的字符。复合事件就是针对检测和处理这种输入而设计的。
+     *（1）compositionstart：在IME的文本复合系统打开时触发，表示要开始输入了。
+     * （2）compositionupdate：在向输入字段中插入新字符时触发。
+     * （3）compositionend：在IME的文本复合系统关闭时触发，表示返回正常键盘的输入状态。
+     *
+     * 比如，打开中文输入时，可以实现在输入完成前不做响应
+     */
     var isComposing = 0;
     eventMgr.addListener('onSectionsCreated', function(newSectionList) {
         if(!isComposing) {
             //todo: 会自动补空格问题
-            /*updateSectionList(newSectionList);
-            highlightSections();*/
+            updateSectionList(newSectionList);
+            //highlightSections();
         }
         if(fileChanged === true) {
             // Refresh preview synchronously
@@ -677,6 +684,8 @@ define([
             restoreState.call(this, state, state.selectionStartAfter, state.selectionEndAfter);
         };
         this.init = function() {
+            console.log("editor.js: undoMgr.init");
+
             var content = fileDesc.content;
             undoStack = [];
             redoStack = [];
@@ -820,7 +829,7 @@ define([
                     evt.which === 18 || // Alt
                     evt.which === 16 // Shift
                 ) {
-                    alert("selectionMgr:" + selectionMgr.selectionStart + " " + selectionMgr.selectionEnd);
+                    //alert("selectionMgr:" + selectionMgr.selectionStart + " " + selectionMgr.selectionEnd);
                     return;
                 }
 
@@ -847,6 +856,7 @@ define([
                         evt.preventDefault();
                         break;
                 }
+                // 如果当前行输入了至少一个字符，则不会自动清空当前行(有标号的前提下)
                 if(evt.which !== 13) {
                     clearNewline = false;
                 }
@@ -972,6 +982,7 @@ define([
 
         // Find modified section starting from top
         var leftIndex = sectionList.length;
+        // 遍历 sectionList 数组
         _.some(sectionList, function(section, index) {
             var newSection = newSectionList[index];
             if(index >= newSectionList.length ||
