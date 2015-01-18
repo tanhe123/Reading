@@ -30,7 +30,7 @@
   <nav id="navbar" class="navbar navbar-defaul">
       <ul class="nav navbar-nav navbar-right">
           <li>
-              <div class="navbar-form navbar-left" role="search">
+              <div class="navbar-form navbar-left">
                   <div class="form-group">
                       <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
                   </div>
@@ -41,14 +41,6 @@
               </button>--%>
           </li>
 
-
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu" id="file-selector">
-              </ul>
-          </li>
 
           <li class="divider-vertical"></li>
 
@@ -64,6 +56,13 @@
           </li>
 
           <li><a id="file-title">new file</a></li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" id="file-selector">
+              </ul>
+          </li>
       </ul>
   </nav>
 
