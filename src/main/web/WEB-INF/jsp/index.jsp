@@ -26,14 +26,31 @@
   </head>
   <body>
 
+  <%-- 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html --%>
   <nav id="navbar" class="navbar navbar-defaul">
-
-      <%--<div class="collapse navbar-collapse" id="navbar-collapse">
-
-      </div>--%>
-
       <ul class="nav navbar-nav navbar-right">
-          <li><a class="brand pull-right" id="info-filename"></a></li>
+          <li>
+              <div class="navbar-form navbar-left" role="search">
+                  <div class="form-group">
+                      <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
+                  </div>
+                  <%--<button type="submit" class="btn btn-default">提交按钮</button>--%>
+              </div>
+<%--              <button type="button" class="btn btn-default navbar-btn">
+                  导航栏按钮
+              </button>--%>
+          </li>
+
+
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" id="file-selector">
+              </ul>
+          </li>
+
+          <li class="divider-vertical"></li>
 
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -41,16 +58,19 @@
                   <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                  <li><a id="drive-link" href="javascript:void(0);">Link with Google Drive</a></li>
+                  <li><a id="new-file" href="javascript:void(0);"><i class="icon-file"></i> New file</a></li>
+                  <li><a id="remove-file" href="javascript:void(0);"><i class="icon-trash"></i> Remove file</a></li>
               </ul>
           </li>
+
+          <li><a id="file-title">new file</a></li>
       </ul>
   </nav>
 
   <div id="wmd-button-bar" style="position: absolute;left: 0px; top: 0px;"></div>
 
 
-  <textarea id="wmd-input"></textarea>
+  <textarea id="wmd-input" class="disabled"></textarea>
   <div id="wmd-preview" class="well"></div>
 
 

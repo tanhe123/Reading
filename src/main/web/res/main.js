@@ -1,84 +1,6 @@
 /**
  * Created by tan on 14-12-29.
  */
-
-
-/*
-requirejs.config({
-    baseUrl: 'res',
-
-    map: { // To allow the direct css! usage, 请参考 https://github.com/guybedford/require-css
-        '*': {
-            'css': 'bower-libs/require-css/css'
-        },
-        '*': {
-            'less': 'bower-libs/require-less/less' // path to less
-        }
-    },
-
-    paths: {
-        jquery: 'bower-libs/jquery/dist/jquery',
-        underscore: 'bower-libs/underscore/underscore',
-        pagedown: 'libs/Markdown.Editor',
-        pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
-        crel: 'bower-libs/crel/crel',
-        rangy: 'bower-libs/rangy/rangy-core',
-        'rangy-cssclassapplier': 'bower-libs/rangy/rangy-cssclassapplier',
-        text: 'bower-libs/requirejs-text/text',
-        bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap',
-        diff_match_patch: 'bower-libs/google-diff-match-patch-js/diff_match_patch',
-        diff_match_patch_uncompressed: 'bower-libs/google-diff-match-patch-js/diff_match_patch_uncompressed'
-    },
-    shim: {
-        underscore: {
-            exports: '_'
-        },
-        diff_match_patch_uncompressed: {
-            exports: 'diff_match_patch'
-        },
-        pagedown: [
-            'libs/Markdown.Converter'
-        ],
-        pagedownExtra: [
-            'libs/Markdown.Converter'
-        ],
-        rangy: {
-            exports: 'rangy'
-        },
-        'rangy-cssclassapplier': [
-            'rangy'
-        ],
-        bootstrap: [
-            'jquery'
-        ]
-    }
-});
-
-
-var themeModule = "less!themes/default";
-
-require([
-    "jquery",
-    "rangy",
-    'core',
-    //todo: fileMgr 暂时放在这里，因为不能产生循环依赖
-    "fileMgr",
-    "eventMgr",
-    themeModule
-], function($, rangy, core, fileMgr, eventMgr) {
-
-    // 文档加载完成后执行
-    $(function () {
-
-        rangy.init();
-
-        // Here, all the modules are loaded and the DOM is ready
-        core.onReady();
-
-
-    });
-});*/
-
 (function($) {
     $(function() {
         var converter = Markdown.getSanitizingConverter();
@@ -98,26 +20,33 @@ require([
         var fileManager = {};
 
         fileManager.init = function() {
+            // 如果有缓存的文件
             if (localStorage.fileSystem) {
                 this.fileSystem = JSON.parse(localStorage.fileSystem);
-                if (localStorage.currentFile)
+                if (localStorage.currentFile) // 如果保存了当前的文件
                     this.selectFile(localStorage.currentFile);
                 else
+                    // 获得 filesystem 中的第一个可枚举属性或方法
                     this.selectFile(Object.keys(this.fileSystem)[0]);
             } else {
+                // 初始化
                 this.fileSystem = {};
                 this.createFile("New file");
             }
+
+            // 自动调用保存
             window.setInterval(function() {
                 fileManager.saveFile();
             }, 5000);
         };
 
+        // 新建一个文件
         fileManager.createFile = function(filename) {
             this.fileSystem[filename] = "blah blah";
             this.selectFile(filename);
         };
 
+        // 选择一个文件
         fileManager.selectFile = function(filename) {
             this.currentFile = filename;
             this.content = this.fileSystem[this.currentFile];
@@ -125,6 +54,7 @@ require([
             $("#info-filename").text(filename);
         };
 
+        // 保存文件
         fileManager.saveFile = function() {
             this.content = $("#wmd-input").val();
             this.fileSystem[this.currentFile] = this.content;
@@ -136,6 +66,7 @@ require([
     })(jQuery);
 
 
+    $()
 
     function resize() {
         $("#wmd-input").width($(window).width() / 2 - 60).height(
