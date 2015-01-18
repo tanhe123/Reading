@@ -94,42 +94,48 @@ require([
         }
     });
 
-    var fileManager = {};
+    var fileManager = (function($) {
+        var fileManager = {};
 
-    fileManager.init = function() {
-        if (localStorage.fileSystem) {
-            this.fileSystem = JSON.parse(localStorage.fileSystem);
-            if (localStorage.currentFile)
-                this.selectFile(localStorage.currentFile);
-            else
-                this.selectFile(Object.keys(this.fileSystem)[0]);
-        } else {
-            this.fileSystem = {};
-            this.createFile("New file");
-        }
-        window.setInterval(function() {
-            fileManager.saveFile();
-        }, 5000);
-    };
+        fileManager.init = function() {
+            if (localStorage.fileSystem) {
+                this.fileSystem = JSON.parse(localStorage.fileSystem);
+                if (localStorage.currentFile)
+                    this.selectFile(localStorage.currentFile);
+                else
+                    this.selectFile(Object.keys(this.fileSystem)[0]);
+            } else {
+                this.fileSystem = {};
+                this.createFile("New file");
+            }
+            window.setInterval(function() {
+                fileManager.saveFile();
+            }, 5000);
+        };
 
-    fileManager.createFile = function(filename) {
-        this.fileSystem[filename] = "blah blah";
-        this.selectFile(filename);
-    };
+        fileManager.createFile = function(filename) {
+            this.fileSystem[filename] = "blah blah";
+            this.selectFile(filename);
+        };
 
-    fileManager.selectFile = function(filename) {
-        this.currentFile = filename;
-        this.content = this.fileSystem[this.currentFile];
-        $("#wmd-input").val(this.content);
-        $("#info-filename").text(filename);
-    };
+        fileManager.selectFile = function(filename) {
+            this.currentFile = filename;
+            this.content = this.fileSystem[this.currentFile];
+            $("#wmd-input").val(this.content);
+            $("#info-filename").text(filename);
+        };
 
-    fileManager.saveFile = function() {
-        this.content = $("#wmd-input").val();
-        this.fileSystem[this.currentFile] = this.content;
-        localStorage.fileSystem = JSON.stringify(this.fileSystem);
-        localStorage.currentFile = this.currentFile;
-    };
+        fileManager.saveFile = function() {
+            this.content = $("#wmd-input").val();
+            this.fileSystem[this.currentFile] = this.content;
+            localStorage.fileSystem = JSON.stringify(this.fileSystem);
+            localStorage.currentFile = this.currentFile;
+        };
+
+        return fileManager;
+    })(jQuery);
+
+
 
     function resize() {
         $("#wmd-input").width($(window).width() / 2 - 60).height(
