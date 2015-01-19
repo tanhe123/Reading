@@ -21,6 +21,7 @@
     "highlightjs": "~8.4.0",
     "crel": "*",
     "rangy": "~1.2.3",
-    "google-diff-match-patch-js": "~1.0.0"
+    "google-diff-match-patch-js": "~1.0.0",
+    "font-awesome": "~4.2.0"
   }
 }

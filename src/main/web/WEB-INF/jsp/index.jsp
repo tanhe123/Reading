@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/res/bower-libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/res/bower-libs/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+
     <link href="/res/css/main.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="/res/bower-libs/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/res/bower-libs/bootstrap/dist/js/bootstrap.js"></script>
@@ -40,7 +42,6 @@
                   导航栏按钮
               </button>--%>
           </li>
-
 
           <li class="divider-vertical"></li>
 

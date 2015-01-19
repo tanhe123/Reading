@@ -31,24 +31,26 @@ body {
 
 /*按钮组*/
 .wmd-button-row {
-    margin: 10px 30px;
+/*    margin: 10px 30px;
     top: 10px;
     left: 30px;
     padding: 0px;
-    height: 20px;
+    height: 20px;*/
+    margin: 10px;
 }
 
+/*本来是按钮间隔的一条竖线, 隐藏起来*/
 .wmd-spacer {
-    width: 1px;
-    height: 20px;
+    /*width: 1px;*/
+    /*height: 20px;*/
     /*0表示默认值*/
     margin: 0 7px;
-    background-color: Silver;
+    /*background-color: Silver;*/
     display: inline-block;
-    list-style: none;
+    /*list-style: none;*/
 }
 
-.wmd-button {
+/*.wmd-button {
     width: 20px;
     height: 20px;
     padding-left: 2px;
@@ -56,7 +58,7 @@ body {
     display: inline-block;
     list-style: none;
     cursor: pointer;
-}
+}*/
 
 .wmd-button>span {
     background-image: url(../bower-libs/pagedown-extra/pagedown/wmd-buttons.png);
@@ -65,7 +67,7 @@ body {
     width: 20px;
     height: 20px;
     display: inline-block;
-    border: 1px solid #e3e3e3;
+    border: 1px solid #f2f2f2;
 }
 
 .wmd-prompt-background {
@@ -93,3 +95,4 @@ body {
     font-size: 0.8em;
     font-weight: bold;
 }
+
