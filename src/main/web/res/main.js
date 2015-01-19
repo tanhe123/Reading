@@ -35,6 +35,8 @@ var fileManager = (function($) {
             }
             $(this).hide();
             $("#file-title").show();
+            // 更名后，需要更新title和ui
+            fileManager.updateFileTitleList();
             fileManager.updateFileTitleUI();
         });
     };
@@ -89,6 +91,7 @@ var fileManager = (function($) {
         this.updateFileTitleUI();
     };
 
+    // 更新持有的 titleList
     fileManager.updateFileTitleList = function() {
         var fileCount = parseInt((localStorage["file.count"]));
         this.fileTitleList = [];
@@ -102,6 +105,7 @@ var fileManager = (function($) {
         }
     };
 
+    // 将持有的 titleList 显示
     fileManager.updateFileTitleUI = function () {
         var fileIndex = localStorage["file.current"];
         var title = localStorage[fileIndex];
