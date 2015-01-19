@@ -108,7 +108,7 @@ var fileManager = (function($) {
     // 将持有的 titleList 显示
     fileManager.updateFileTitleUI = function () {
         var fileIndex = localStorage["file.current"];
-        var title = localStorage[fileIndex];
+        var title = localStorage[fileIndex + ".title"];
         $("#file-title").text(title);
         $("#file-title-input").val(title);
         $("#file-selector").empty();
