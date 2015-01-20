@@ -51,8 +51,9 @@
                   <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                  <li><a id="new-file" href="javascript:void(0);"><i class="icon-file"></i> New file</a></li>
-                  <li><a id="remove-file" href="javascript:void(0);"><i class="icon-trash"></i> Remove file</a></li>
+                  <li><a id="new-file" href="javascript:void(0);"><i class="fa fa-file-o"></i> New file</a></li>
+                  <li><a id="remove-file" data-toggle="modal"
+                         data-target="#remove-file-confirm" href="javascript:void(0);"><i class="fa fa-trash"></i> Remove file</a></li>
               </ul>
           </li>
 
@@ -74,6 +75,34 @@
   <div id="wmd-preview" class="well"></div>
 
 
-
+  <%--删除确认模态框--%>
+  <div class="modal fade" id="remove-file-confirm" tabindex="-1" role="dialog"
+       aria-labelledby="remove-file-confirm-label" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close"
+                          data-dismiss="modal" aria-hidden="true">
+                      &times;
+                  </button>
+                  <h4 class="modal-title" id="remove-file-confirm-label">
+                      删除该笔记
+                  </h4>
+              </div>
+              <div class="modal-body">
+                  您确认要删除辛苦写的笔记吗
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default"
+                          data-dismiss="modal">返回
+                  </button>
+                  <button type="button" class="btn btn-primary"
+                          data-dismiss="modal">
+                      删除
+                  </button>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+  </div>
   </body>
 </html>
