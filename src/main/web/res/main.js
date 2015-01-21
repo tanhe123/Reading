@@ -169,24 +169,54 @@ function createEditor() {
 
 }
 
+var layoutOrientation = 0;
+var layout;
+
+function createLayout() {
+
+    // layout 配置项
+    var layoutGlobalConfig = {
+        closable : true,
+        resizable : false,
+        slidable : false,
+        livePaneResizing : true,
+        spacing_open : 20,
+        spacing_closed : 20,
+
+        // 切换按钮的长度
+        togglerLength_open : 90,
+        togglerLength_closed : 90,
+        center__minWidth : 300,
+        stateManagement__enabled : false};
+    if (layoutOrientation === 0) {
+        layout = $('body').layout(
+            $.extend(layoutGlobalConfig,
+                {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
+    }
+
+    // 添加一个箭头指示
+    $(".ui-layout-toggler-north").addClass("btn").append($("<b>").addClass("caret"));
+    $(".ui-layout-toggler-east").addClass("btn").append($("<b>").addClass("caret"));
+}
+
 (function($) {
     $(function() {
-        $(window).resize(resize);
-        resize();
+        /*$(window).resize(resize);
+        resize();*/
+
+        createLayout();
 
         if (typeof (Storage) !== "undefined") {
             fileManager.init();
         } else {
             showError("Web storage is not available");
         }
-    });
 
-    function resize() {
-        $("#wmd-input").width($(window).width() / 2 - 60).height(
-            $(window).height() - 70);
-        $("#wmd-preview").width($(window).width() / 2 - 60).height(
-            $(window).height() - 100);
-    }
+        $("#navbar").click(function() {
+            // 使得pop窗口菜单能够不被遮拦
+            layout.allowOverflow('north');
+        });
+    });
 
     function showError(msg) {
         alert(msg);

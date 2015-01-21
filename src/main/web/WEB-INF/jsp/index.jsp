@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
 <%--    <title></title>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <script data-main="/res/main.js" src="/res/require.js"></script>--%>
@@ -19,7 +19,11 @@
     <link href="/res/bower-libs/font-awesome/css/font-awesome.css" rel="stylesheet"/>
 
     <link href="/res/css/main.css" rel="stylesheet" media="screen">
+
     <script type="text/javascript" src="/res/bower-libs/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/res/libs/jquery-ui.custom.js"></script>
+    <script type="text/javascript" src="/res/libs/jquery.layout-latest.js"></script>
+
     <script type="text/javascript" src="/res/bower-libs/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="/res/libs/Markdown.Converter.js"></script>
     <script type="text/javascript" src="/res/libs/Markdown.Sanitizer.js"></script>
@@ -29,8 +33,9 @@
   <body>
 
   <%-- 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html --%>
-  <nav id="navbar" class="navbar navbar-defaul">
-      <ul class="nav navbar-nav navbar-right">
+  <div id="navbar" class="navbar navbar-defaul ui-layout-north">
+      <div id="wmd-button-bar" style="float: left"></div>
+      <ul class="nav navbar-nav navbar-right" id="menu-bar">
           <li>
               <div class="navbar-form navbar-left">
                   <div class="form-group">
@@ -66,14 +71,12 @@
               </ul>
           </li>
       </ul>
-  </nav>
+  </div>
 
-  <div id="wmd-button-bar" style="position: absolute;left: 0px; top: 0px;"></div>
+  <textarea id="wmd-input"  class="ui-layout-center"></textarea>
+  <div id="wmd-preview" class="well ui-layout-east"></div>
 
-
-  <textarea id="wmd-input" class="disabled"></textarea>
-  <div id="wmd-preview" class="well"></div>
-
+  <div class="ui-layout-south"></div>
 
   <%--删除确认模态框--%>
   <div class="modal fade" id="remove-file-confirm" tabindex="-1" role="dialog"
