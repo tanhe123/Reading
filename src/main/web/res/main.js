@@ -4,13 +4,16 @@
 var fileManager = (function($) {
     var fileManager = {};
 
+    // 内容是否有变化的标志, true 为有变化
+    var save = false;
+
     fileManager.init = function() {
         fileManager.selectFile();
 
         // 自动调用保存
         window.setInterval(function() {
             fileManager.saveFile();
-        }, 5000);
+        }, 3000);
 
         $("#new-file").click(function() {
             fileManager.saveFile();
@@ -38,7 +41,14 @@ var fileManager = (function($) {
             // 更名后，需要更新title和ui
             fileManager.updateFileDescList();
             fileManager.updateFileTitleUI();
+
+            save = true;
         });
+
+        $("#wmd-input").keyup(function() {
+            save = true;
+        });
+
     };
 
     // 新建一个文件
@@ -149,9 +159,13 @@ var fileManager = (function($) {
 
     // 保存文件
     fileManager.saveFile = function() {
-        var content = $("#wmd-input").val();
-        var fileIndex = localStorage["file.current"];
-        localStorage[fileIndex + ".content"] = content;
+        if (save) {
+            var content = $("#wmd-input").val();
+            var fileIndex = localStorage["file.current"];
+            localStorage[fileIndex + ".content"] = content;
+            alert("保存成功");
+            save = false;
+        }
     };
 
     return fileManager;
