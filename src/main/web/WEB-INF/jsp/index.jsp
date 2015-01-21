@@ -62,7 +62,7 @@
               </ul>
           </li>
 
-          <li><a id="file-title">new file</a></li>
+          <li><a id="file-title"><span class="file-title"></span></a></li>
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <b class="caret"></b>
@@ -74,8 +74,8 @@
   </div>
 
   <textarea id="wmd-input"  class="ui-layout-center"></textarea>
-  <div id="wmd-preview" class="well ui-layout-east"></div>
 
+  <div class="ui-layout-east"></div>
   <div class="ui-layout-south"></div>
 
   <%--删除确认模态框--%>
