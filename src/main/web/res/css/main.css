@@ -131,12 +131,19 @@ body {
     width: 18px !important;
 }
 
+.ui-layout-toggler-east .caret, .ui-layout-toggler-west .caret {
+    margin-top: 40px;
+}
+
+
 .ui-layout-toggler-east-open .caret, .ui-layout-toggler-west-closed .caret {
     border-bottom: 5px solid transparent;
     border-top: 5px solid transparent;
     border-left: 5px solid #525252;
     border-right: 0;
+/*
     margin-top: 40px;
+*/
 }
 
 .ui-layout-toggler-east-closed .caret, .ui-layout-toggler-west-opened .caret {
@@ -144,5 +151,14 @@ body {
     border-top: 5px solid transparent;
     border-right: 5px solid #525252;
     border-left: 0;
-    margin-top: 40px;
+/*    margin-top: 40px;*/
  }
+
+.ui-layout-toggler-south {
+    margin-top: 3px !important;
+	height: 18px !important;
+}
+
+.ui-layout-toggler-south .caret {
+    margin-top: 6px;
+}
