@@ -135,7 +135,7 @@ var fileManager = (function($) {
             if (fileDesc.index == fileIndex) {
                 li.addClass("disabled");
             } else {
-                a.attr("href", "javascript:void(0);")
+                a.prop("href", "#")
                     .click((function (fileIndex) {
                         return function () {
                             localStorage["file.current"] = fileIndex;
@@ -161,9 +161,9 @@ var fileManager = (function($) {
 var core = (function ($) {
     var core = {};
 
-    var settings = {};
-
-    var layoutOrientation = 0;
+    var settings = {
+        layoutOrientation: "horizontal"
+    };
 
     core.init = function() {
 
@@ -171,6 +171,11 @@ var core = (function ($) {
         this.saveSettings();
 
         this.createLayout();
+
+        // 加载配置
+        $(".action-load-settings").click(function() {
+            core.loadSettings();
+        });
 
         $(".action-apply-settings").click(function() {
             core.saveSettings();
@@ -181,24 +186,24 @@ var core = (function ($) {
 
     core.loadSettings = function () {
         if (localStorage.settings) {
-            settings = JSON.parse(localStorage.settings);
+            $.extend(settings, JSON.parse(localStorage.settings));
         }
 
         // Layout orientation
-        $("#radio-layout-orientation-horizontal").attr('checked', true);
-        if(settings.layoutOrientation == "vertical") {
-            $("#radio-layout-orientation-vertical").attr('checked', true);
-        }
+        $("input:radio[name=radio-layout-orientation][value=" + settings.layoutOrientation + "]").prop("checked", true);
     };
 
     core.saveSettings = function() {
         // Layout orientation
-        settings.layoutOrientation = "horizontal";
+        settings.layoutOrientation = $("input:radio[name=radio-layout-orientation]:checked").prop("value");
+        localStorage.settings = JSON.stringify(settings);
+
+        /*settings.layoutOrientation = "horizontal";
         if($("#radio-layout-orientation-vertical").is(":checked")) {
             settings.layoutOrientation = "vertical";
         }
 
-        localStorage.settings = JSON.stringify(settings);
+        localStorage.settings = JSON.stringify(settings);*/
     };
 
     core.createLayout = function() {
@@ -221,13 +226,13 @@ var core = (function ($) {
             stateManagement__enabled : false};
 
         if (settings.layoutOrientation == "horizontal") {
-            $(".ui-layout-east").addClass("well").attr("id", "wmd-preview");
+            $(".ui-layout-east").addClass("well").prop("id", "wmd-preview");
             layout = $('body').layout(
                 $.extend(layoutGlobalConfig,
                     {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
         } else if (settings.layoutOrientation === "vertical") {
             $(".ui-layout-east").remove();
-            $(".ui-layout-south").addClass("well").attr("id", "wmd-preview");
+            $(".ui-layout-south").addClass("well").prop("id", "wmd-preview");
             layout = $('body').layout(
                 $.extend(layoutGlobalConfig, { south__resizable : true,
                     south__size : .5, south__minSize : 200}));
@@ -272,9 +277,6 @@ var core = (function ($) {
 
 (function($) {
     $(function() {
-        /*$(window).resize(resize);
-        resize();*/
-
         core.init();
 
         if (typeof (Storage) !== "undefined") {

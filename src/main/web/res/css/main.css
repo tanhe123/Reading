@@ -3,11 +3,24 @@ body {
     font-family: sans-serif;*/
     background-image: url(../img/honeycomb.png);
     background-repeat: repeat;
+/*    -webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;*/
 }
 
 #navbar {
     position: static;
 }
+
+.ui-layout-center,.ui-layout-east,.ui-layout-south {
+	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
+	-moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
+	border-color: #cccccc !important;
+}
+
 
 #menu-bar {
     margin-right: 20px;

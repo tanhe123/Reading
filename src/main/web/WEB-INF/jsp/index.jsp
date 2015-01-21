@@ -56,15 +56,17 @@
                   <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                  <li><a id="new-file" href="javascript:void(0);"><i class="fa fa-file-o"></i> New file</a></li>
+                  <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> New file</a></li>
 
                   <li><a id="remove-file" data-toggle="modal"
-                         data-target="#modal-remove-file-confirm" href="javascript:void(0);"><i class="fa fa-trash"></i> Remove file</a></li>
+                         data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> Remove file</a></li>
                   <li class="divider"></li>
 
-                  <li><a href="javascript:void(0);" title="Modify your preferences" data-toggle="modal" data-target="#modal-settings">
+                  <li><a href="#" title="Modify your preferences"
+                         data-toggle="modal" data-target="#modal-settings"
+                         class="action-load-settings">
                       <i class="fa fa-cog"></i>
-                      Settings</a>
+                      设置</a>
                   </li>
               </ul>
           </li>
@@ -134,11 +136,13 @@
 
                   <label for="radio-layout-orientation-horizontal">水平</label>
                   <input type="radio" name="radio-layout-orientation"
-                         id="radio-layout-orientation-horizontal">
+                         id="radio-layout-orientation-horizontal"
+                         value="horizontal">
                   &nbsp;&nbsp;&nbsp;
                   <label for="radio-layout-orientation-vertical">纵向</label>
                   <input type="radio" name="radio-layout-orientation"
-                         id="radio-layout-orientation-vertical">
+                         id="radio-layout-orientation-vertical"
+                         value="vertical">
 
               </div>
 
