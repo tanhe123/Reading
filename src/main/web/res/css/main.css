@@ -1,6 +1,8 @@
 body {
-    background-color: White;
-    font-family: sans-serif;
+/*    background-color: White;
+    font-family: sans-serif;*/
+    background-image: url(../img/honeycomb.png);
+    background-repeat: repeat;
 }
 
 #navbar {
