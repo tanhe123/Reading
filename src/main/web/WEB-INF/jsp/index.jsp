@@ -93,7 +93,7 @@
                   </h4>
               </div>
               <div class="modal-body">
-                  您确认要删除辛苦写的笔记吗
+                  您确认要删除笔记 <span class="file-title" style="color: red"></span> ?
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default"

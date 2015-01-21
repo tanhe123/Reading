@@ -36,7 +36,7 @@ var fileManager = (function($) {
             $(this).hide();
             $("#file-title").show();
             // 更名后，需要更新title和ui
-            fileManager.updateFileTitleList();
+            fileManager.updateFileDescList();
             fileManager.updateFileTitleUI();
         });
     };
@@ -63,12 +63,12 @@ var fileManager = (function($) {
         }
 
         // 在view中更新文件列表
-        this.updateFileTitleList();
+        this.updateFileDescList();
 
         // 如果没有缓存文件
-        if (this.fileTitleList.length === 0) {
+        if (this.fileDescList.length === 0) {
             this.createFile();
-            this.updateFileTitleList();
+            this.updateFileDescList();
         }
 
         // 如果找不到默认的文件，就选择第一个
@@ -91,17 +91,26 @@ var fileManager = (function($) {
         this.updateFileTitleUI();
     };
 
-    // 更新持有的 titleList
-    fileManager.updateFileTitleList = function() {
+    // 更新持有的 文件描述，包括 title和index
+    fileManager.updateFileDescList = function() {
         var fileCount = parseInt((localStorage["file.count"]));
-        this.fileTitleList = [];
-        $("#file-selector").empty();
+        this.fileDescList = [];
         for (var i=0; i<fileCount; i++) {
             var fileIndex = "file." + i;
             var title = localStorage[fileIndex + ".title"];
             if (title) {
-                this.fileTitleList[i] = title;
+                this.fileDescList.push({"index": fileIndex, "title": title});
             }
+            // 按字母序将文件排序
+            this.fileDescList.sort(function (a, b) {
+                if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                    return -1;
+                }
+                if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                    return 1;
+                }
+                return 0;
+            })
         }
     };
 
@@ -109,29 +118,34 @@ var fileManager = (function($) {
     fileManager.updateFileTitleUI = function () {
         var fileIndex = localStorage["file.current"];
         var title = localStorage[fileIndex + ".title"];
+
+        document.title = "Reading - " + title;
+
         $("#file-title").text(title);
+
+        //可以更新所有 class 为 file-title 的内容
+        $(".file-title").text(title);
+
         $("#file-title-input").val(title);
         $("#file-selector").empty();
-        for (var i=0; i<this.fileTitleList.length; i++) {
-            title = this.fileTitleList[i];
 
-            if (title) {
-                var fileIndex1 = "file." + i;
-                var a = $("<a>").text(title);
-                var li = $("<li>").append(a);
-                if (fileIndex1 == fileIndex) {
-                    li.addClass("disabled");
-                } else {
-                    a.attr("href", "javascript:void(0);")
-                        .click((function (fileIndex) {
-                            return function () {
-                                localStorage["file.current"] = fileIndex;
-                                fileManager.selectFile();
-                            }
-                        })(fileIndex1));
-                }
-                $("#file-selector").append(li);
+        for (var i=0; i<this.fileDescList.length; i++) {
+            var fileDesc = this.fileDescList[i];
+
+            var a = $("<a>").text(fileDesc.title);
+            var li = $("<li>").append(a);
+            if (fileDesc.index == fileIndex) {
+                li.addClass("disabled");
+            } else {
+                a.attr("href", "javascript:void(0);")
+                    .click((function (fileIndex) {
+                        return function () {
+                            localStorage["file.current"] = fileIndex;
+                            fileManager.selectFile();
+                        }
+                    })(fileDesc.index));
             }
+            $("#file-selector").append(li);
         }
     };
 
