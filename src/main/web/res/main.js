@@ -1,6 +1,30 @@
 /**
  * Created by tan on 14-12-29.
  */
+
+var synchronizer = (function () {
+    var synchronizer = {};
+
+    // A synchronization queue containing fileIndex that has to be synchronized
+    var syncQueue = undefined;
+    synchronizer.init = function() {
+        syncQueue = ";";
+        if(localStorage["sync.queue"]) {
+            syncQueue = localStorage["sync.queue"];
+        }
+    }
+
+    // Add a file to the synchronization queue
+    synchronizer.addFile = function(fileIndex) {
+        if(syncQueue.indexOf(";" + fileIndex + ";") === -1) {
+            syncQueue += fileIndex + ";";
+            localStorage["sync_queue"] = syncQueue;
+        }
+    }
+
+    return synchronizer;
+})(jQuery);
+
 var fileManager = (function($) {
     var fileManager = {};
 
@@ -8,6 +32,8 @@ var fileManager = (function($) {
     var save = false;
 
     fileManager.init = function() {
+        synchronizer.init();
+
         fileManager.selectFile();
 
         // 自动调用保存
@@ -163,7 +189,7 @@ var fileManager = (function($) {
             var content = $("#wmd-input").val();
             var fileIndex = localStorage["file.current"];
             localStorage[fileIndex + ".content"] = content;
-            alert("保存成功");
+            synchronizer.addFile(fileIndex);
             save = false;
         }
     };
