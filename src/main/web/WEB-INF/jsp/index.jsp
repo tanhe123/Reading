@@ -57,8 +57,15 @@
               </a>
               <ul class="dropdown-menu">
                   <li><a id="new-file" href="javascript:void(0);"><i class="fa fa-file-o"></i> New file</a></li>
+
                   <li><a id="remove-file" data-toggle="modal"
-                         data-target="#remove-file-confirm" href="javascript:void(0);"><i class="fa fa-trash"></i> Remove file</a></li>
+                         data-target="#modal-remove-file-confirm" href="javascript:void(0);"><i class="fa fa-trash"></i> Remove file</a></li>
+                  <li class="divider"></li>
+
+                  <li><a href="javascript:void(0);" title="Modify your preferences" data-toggle="modal" data-target="#modal-settings">
+                      <i class="fa fa-cog"></i>
+                      Settings</a>
+                  </li>
               </ul>
           </li>
 
@@ -79,8 +86,8 @@
   <div class="ui-layout-south"></div>
 
   <%--删除确认模态框--%>
-  <div class="modal fade" id="remove-file-confirm" tabindex="-1" role="dialog"
-       aria-labelledby="remove-file-confirm-label" aria-hidden="true">
+  <div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"
+       aria-labelledby="modal-remove-file-confirm-label" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -88,7 +95,7 @@
                           data-dismiss="modal" aria-hidden="true">
                       &times;
                   </button>
-                  <h4 class="modal-title" id="remove-file-confirm-label">
+                  <h4 class="modal-title" id="modal-remove-file-confirm-label">
                       删除该笔记
                   </h4>
               </div>
@@ -102,6 +109,46 @@
                   <button type="button" class="btn btn-primary"
                           data-dismiss="modal">
                       删除
+                  </button>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+  </div>
+
+  <%--设置模态框--%>
+  <div class="modal fade" id="modal-settings" tabindex="-1" role="dialog"
+       aria-labelledby="modal-settings-label" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close"
+                          data-dismiss="modal" aria-hidden="true">
+                      &times;
+                  </button>
+                  <h4 class="modal-title" id="modal-settings-label">
+                      设置
+                  </h4>
+              </div>
+              <div class="modal-body">
+                  <h1>布局</h1><br/>
+
+                  <label for="radio-layout-orientation-horizontal">水平</label>
+                  <input type="radio" name="radio-layout-orientation"
+                         id="radio-layout-orientation-horizontal">
+                  &nbsp;&nbsp;&nbsp;
+                  <label for="radio-layout-orientation-vertical">纵向</label>
+                  <input type="radio" name="radio-layout-orientation"
+                         id="radio-layout-orientation-vertical">
+
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default"
+                          data-dismiss="modal">返回
+                  </button>
+                  <button type="button" class="btn btn-primary action-apply-settings"
+                          data-dismiss="modal">
+                      确认
                   </button>
               </div>
           </div><!-- /.modal-content -->

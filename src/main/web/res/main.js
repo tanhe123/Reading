@@ -87,7 +87,7 @@ var fileManager = (function($) {
         var fileIndex = localStorage["file.current"];
         $("#wmd-input").val(localStorage[fileIndex + ".content"]);
 
-        createEditor()
+        core.createEditor()
         this.updateFileTitleUI();
     };
 
@@ -158,74 +158,124 @@ var fileManager = (function($) {
 })(jQuery);
 
 
-function createEditor() {
-    $("#wmd-button-bar").empty();
-    var converter = Markdown.getSanitizingConverter();
-    var editor = new Markdown.Editor(converter);
-    editor.run();
+var core = (function ($) {
+    var core = {};
 
+    var settings = {};
 
-    $(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
-    $("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
-    $("#wmd-italic-button").append($("<i>").addClass("fa fa-italic"));
-    $("#wmd-link-button").append($("<i>").addClass("fa fa-link"));
-    $("#wmd-quote-button").append($("<i>").addClass("fa fa-quote-left"));
-    $("#wmd-code-button").append($("<i>").addClass("fa fa-code"));
-    $("#wmd-image-button").append($("<i>").addClass("fa fa-picture-o"));
-    $("#wmd-olist-button").append($("<i>").addClass("fa fa-list-ol"));
-    $("#wmd-ulist-button").append($("<i>").addClass("fa fa-list-ul"));
-    $("#wmd-heading-button").append($("<i>").addClass("fa fa-header"));
-    $("#wmd-hr-button").append($("<i>").addClass("fa fa-ellipsis-h"));
-    $("#wmd-undo-button").append($("<i>").addClass("fa fa-undo"));
-    $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));
+    var layoutOrientation = 0;
 
-}
+    core.init = function() {
 
-var layoutOrientation = 0;
-var layout;
+        this.loadSettings();
+        this.saveSettings();
 
-function createLayout() {
+        this.createLayout();
 
-    // layout 配置项
-    var layoutGlobalConfig = {
-        closable : true,
-        resizable : false,
-        slidable : false,
-        livePaneResizing : true,
-        spacing_open : 20,
-        spacing_closed : 20,
-
-        // 切换按钮的长度
-        togglerLength_open : 90,
-        togglerLength_closed : 90,
-        center__minWidth : 300,
-        center__minHeight : 100,
-        stateManagement__enabled : false};
-    if (layoutOrientation === 0) {
-        $(".ui-layout-east").addClass("well").attr("id", "wmd-preview");
-        layout = $('body').layout(
-            $.extend(layoutGlobalConfig,
-                {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
-    } else if (layoutOrientation === 1) {
-        $(".ui-layout-east").remove();
-        $(".ui-layout-south").addClass("well").attr("id", "wmd-preview");
-        layout = $('body').layout(
-            $.extend(layoutGlobalConfig, { south__resizable : true,
-                south__size : .5, south__minSize : 200}));
+        $(".action-apply-settings").click(function() {
+            core.saveSettings();
+            fileManager.saveFile();
+            location.reload();
+        });
     };
 
-    // 添加一个箭头指示
-    $(".ui-layout-toggler-north").addClass("btn").append($("<b>").addClass("caret"));
-    $(".ui-layout-toggler-east").addClass("btn").append($("<b>").addClass("caret"));
-    $(".ui-layout-toggler-south").addClass("btn").append($("<b>").addClass("caret"));
-}
+    core.loadSettings = function () {
+        if (localStorage.settings) {
+            settings = JSON.parse(localStorage.settings);
+        }
+
+        // Layout orientation
+        $("#radio-layout-orientation-horizontal").attr('checked', true);
+        if(settings.layoutOrientation == "vertical") {
+            $("#radio-layout-orientation-vertical").attr('checked', true);
+        }
+    };
+
+    core.saveSettings = function() {
+        // Layout orientation
+        settings.layoutOrientation = "horizontal";
+        if($("#radio-layout-orientation-vertical").is(":checked")) {
+            settings.layoutOrientation = "vertical";
+        }
+
+        localStorage.settings = JSON.stringify(settings);
+    };
+
+    core.createLayout = function() {
+        var layout;
+
+        // layout 配置项
+        var layoutGlobalConfig = {
+            closable : true,
+            resizable : false,
+            slidable : false,
+            livePaneResizing : true,
+            spacing_open : 20,
+            spacing_closed : 20,
+
+            // 切换按钮的长度
+            togglerLength_open : 90,
+            togglerLength_closed : 90,
+            center__minWidth : 300,
+            center__minHeight : 100,
+            stateManagement__enabled : false};
+
+        if (settings.layoutOrientation == "horizontal") {
+            $(".ui-layout-east").addClass("well").attr("id", "wmd-preview");
+            layout = $('body').layout(
+                $.extend(layoutGlobalConfig,
+                    {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
+        } else if (settings.layoutOrientation === "vertical") {
+            $(".ui-layout-east").remove();
+            $(".ui-layout-south").addClass("well").attr("id", "wmd-preview");
+            layout = $('body').layout(
+                $.extend(layoutGlobalConfig, { south__resizable : true,
+                    south__size : .5, south__minSize : 200}));
+        };
+
+        // 添加一个箭头指示
+        $(".ui-layout-toggler-north").addClass("btn").append($("<b>").addClass("caret"));
+        $(".ui-layout-toggler-east").addClass("btn").append($("<b>").addClass("caret"));
+        $(".ui-layout-toggler-south").addClass("btn").append($("<b>").addClass("caret"));
+
+        $("#navbar").click(function() {
+            // 使得pop窗口菜单能够不被遮拦
+            layout.allowOverflow('north');
+        });
+    };
+
+    core.createEditor = function() {
+        $("#wmd-button-bar").empty();
+        var converter = Markdown.getSanitizingConverter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+
+
+        $(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
+        $("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
+        $("#wmd-italic-button").append($("<i>").addClass("fa fa-italic"));
+        $("#wmd-link-button").append($("<i>").addClass("fa fa-link"));
+        $("#wmd-quote-button").append($("<i>").addClass("fa fa-quote-left"));
+        $("#wmd-code-button").append($("<i>").addClass("fa fa-code"));
+        $("#wmd-image-button").append($("<i>").addClass("fa fa-picture-o"));
+        $("#wmd-olist-button").append($("<i>").addClass("fa fa-list-ol"));
+        $("#wmd-ulist-button").append($("<i>").addClass("fa fa-list-ul"));
+        $("#wmd-heading-button").append($("<i>").addClass("fa fa-header"));
+        $("#wmd-hr-button").append($("<i>").addClass("fa fa-ellipsis-h"));
+        $("#wmd-undo-button").append($("<i>").addClass("fa fa-undo"));
+        $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));
+
+    };
+
+    return core;
+})(jQuery);
 
 (function($) {
     $(function() {
         /*$(window).resize(resize);
         resize();*/
 
-        createLayout();
+        core.init();
 
         if (typeof (Storage) !== "undefined") {
             fileManager.init();
@@ -233,10 +283,7 @@ function createLayout() {
             showError("Web storage is not available");
         }
 
-        $("#navbar").click(function() {
-            // 使得pop窗口菜单能够不被遮拦
-            layout.allowOverflow('north');
-        });
+
     });
 
     function showError(msg) {
