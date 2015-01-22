@@ -13,7 +13,8 @@ requirejs.config({
         pagedown: 'libs/Markdown.Editor',
         layout: 'libs/jquery.layout',
         pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
-        prettify: "bower-libs/google-code-prettify/bin/prettify.min"
+        prettify: "bower-libs/google-code-prettify/bin/prettify.min",
+        FileSaver: "bower-libs/file-saver/FileSaver"
     },
 
     shim: {

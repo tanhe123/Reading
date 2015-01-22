@@ -1,7 +1,7 @@
 /**
  * Created by tan on 15-1-22.
  */
-define(['jquery', 'core'], function ($, core) {
+define(['jquery', 'core', 'FileSaver'], function ($, core) {
     var fileManager = {};
 
     // 内容是否有变化的标志, true 为有变化
@@ -55,26 +55,28 @@ define(['jquery', 'core'], function ($, core) {
             var content = $("#wmd-input").val();
             var filename = $("#file-title").text() + ".md";
 
-            /*var uriContent = "data:application/octet-stream,"
-             + encodeURIComponent(content);*/
-
-            $(this).prop("href", "data:application/octet-stream," + encodeURIComponent(content))
-                .prop("download", filename);
-
-            //window.open(uriContent, 'file');
+            fileManager.downloadFile(filename, content);
         });
 
         $("#action-download-html").click(function () {
             var content = $("#wmd-preview").html();
             var filename = $("#file-title").text() + ".html";
 
-            /*var uriContent = "data:application/octet-stream,"
-             + encodeURIComponent(content);
-             window.open(uriContent, 'file');*/
-
-            $(this).prop("href", "data:application/octet-stream," + encodeURIComponent(content))
-                .prop("download", filename);
+            fileManager.downloadFile(filename, content);
         });
+    };
+
+    fileManager.downloadFile = function(filename, content, elt) {
+        if (saveAs !== undefined) {
+            var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, filename);
+        } else {
+            /*$(this).prop("href", "data:application/octet-stream," + encodeURIComponent(content))
+                .prop("download", filename);*/
+            var uriContent = "data:application/octet-stream;base64,"
+                + content;
+            window.open(uriContent, 'file');
+        }
     };
 
     // 新建一个文件
