@@ -172,5 +172,7 @@
           </div><!-- /.modal-content -->
       </div><!-- /.modal -->
   </div>
+
+  <textarea id="md-section-helper"></textarea>
   </body>
 </html>

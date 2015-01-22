@@ -14,7 +14,8 @@ requirejs.config({
         layout: 'libs/jquery.layout',
         pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
         prettify: "bower-libs/google-code-prettify/bin/prettify.min",
-        FileSaver: "bower-libs/file-saver/FileSaver"
+        FileSaver: "bower-libs/file-saver/FileSaver",
+        underscore: "bower-libs/underscore/underscore"
     },
 
     shim: {
@@ -27,7 +28,10 @@ requirejs.config({
         ],
         pagedownExtra:[
             "pagedown", "prettify"
-        ]
+        ],
+        underscore: {
+            exports: '_'
+        }
     }
 });
 
