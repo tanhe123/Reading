@@ -7,13 +7,23 @@ body {
     background-color: #f5f5f5;
     /*background-image: url(../img/honeycomb.png);*/
     background-repeat: repeat;
-    /*    -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -o-user-select: none;
-        user-select: none;*/
 }
 
+.working {
+    cursor: progress;
+}
+
+.btn, .dropdown-menu {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/*
+Override Bootstrap
+*/
 div, span, a, ul, li, textarea, input {
     background-image: none !important;
     filter: none !important;
@@ -23,22 +33,24 @@ div, span, a, ul, li, textarea, input {
     text-shadow: none !important;
 }
 
-.btn, .navbar-inner, .well, textarea, input {
+.btn, .navbar-inner, .ui-layout-east, .ui-layout-south, .add-on {
     border: none !important;
 }
+
+input,
+select,
+textarea,
+.input-prepend .btn,
+.input-prepend .add-on {
+    border: 1px solid #ebebeb !important;
+}
+
+
 
 .navbar-inner .btn {
     background-color: #ddd;
 }
 
-/*
-.navbar-inner .btn:hover, .navbar-inner .btn:focus,
-.navbar-inner .btn:active, .navbar-inner .btn.active,
-.btn-group.open .btn.dropdown-toggle {
-    color: #333333;
-    background-color: #eee;
-}
-*/
 .navbar .btn:hover, .navbar .btn:focus,
 .navbar .btn:active, .navbar .btn.active,
 .btn-group.open .btn.dropdown-toggle {
@@ -46,13 +58,6 @@ div, span, a, ul, li, textarea, input {
     background-color: #eee;
 }
 
-/*.navbar-inner .btn.disabled,
-.navbar-inner .btn[disabled] {
-    color: #333333;
-    background-color: #ddd;
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-}*/
 .navbar .btn.disabled,
 .navbar .btn[disabled] {
     color: #333333;
@@ -298,6 +303,9 @@ table thead:first-child tr:first-child td {
     border-top: 0;
 }
 
+/* + 表示相邻兄弟选择器使用了加号（+），即相邻兄弟结合符（Adjacent sibling combinator）。
+http://blog.sina.com.cn/s/blog_830edcf30101f3x1.html
+*/
 table tbody + tbody {
     border-top: 2px solid #dddddd;
 }
