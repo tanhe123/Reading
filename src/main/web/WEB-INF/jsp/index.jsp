@@ -14,21 +14,21 @@
 
     <title>Pagedown editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="/res/bower-libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/res/bower-libs/font-awesome/css/font-awesome.css" rel="stylesheet"/>
 
     <link href="/res/css/main.css" rel="stylesheet" media="screen">
-
+<%--
     <script type="text/javascript" src="/res/bower-libs/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/res/libs/jquery-ui.custom.js"></script>
     <script type="text/javascript" src="/res/libs/jquery.layout-latest.js"></script>
+    <script type="text/javascript" src="/res/bower-libs/jgrowl/jquery.jgrowl.js"></script>
 
     <script type="text/javascript" src="/res/bower-libs/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="/res/libs/Markdown.Converter.js"></script>
     <script type="text/javascript" src="/res/libs/Markdown.Sanitizer.js"></script>
     <script type="text/javascript" src="/res/libs/Markdown.Editor.js"></script>
-    <script type="text/javascript" src="/res/main.js"></script>
+    <script type="text/javascript" src="/res/main.js"></script>--%>
+
+    <script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
   </head>
   <body>
 
