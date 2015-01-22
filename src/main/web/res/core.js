@@ -6,8 +6,9 @@
 define(["jquery", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($) {
     var core = {};
 
-    var settings = {
-        layoutOrientation: "horizontal"
+    core.settings = {
+        layoutOrientation: "horizontal",
+        editorFontSize : 14
     };
 
     core.init = function() {
@@ -24,6 +25,11 @@ define(["jquery", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($
         this.loadSettings();
 
         this.createLayout();
+
+        $("#wmd-input").css({
+            "font-size": core.settings.editorFontSize + "px",
+            "line-height": Math.round(core.settings.editorFontSize * (20/14)) + "px"
+        });
 
         // 加载配置
         $(".action-load-settings").click(function() {
@@ -72,24 +78,17 @@ define(["jquery", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($
 
     core.loadSettings = function () {
         if (localStorage.settings) {
-            $.extend(settings, JSON.parse(localStorage.settings));
+            $.extend(core.settings, JSON.parse(localStorage.settings));
         }
 
         // Layout orientation
-        $("input:radio[name=radio-layout-orientation][value=" + settings.layoutOrientation + "]").prop("checked", true);
+        $("input:radio[name=radio-layout-orientation][value=" + core.settings.layoutOrientation + "]").prop("checked", true);
     };
 
     core.saveSettings = function() {
         // Layout orientation
-        settings.layoutOrientation = $("input:radio[name=radio-layout-orientation]:checked").prop("value");
-        localStorage.settings = JSON.stringify(settings);
-
-        /*settings.layoutOrientation = "horizontal";
-         if($("#radio-layout-orientation-vertical").is(":checked")) {
-         settings.layoutOrientation = "vertical";
-         }
-
-         localStorage.settings = JSON.stringify(settings);*/
+        core.settings.layoutOrientation = $("input:radio[name=radio-layout-orientation]:checked").prop("value");
+        localStorage.settings = JSON.stringify(core.settings);
     };
 
     core.createLayout = function() {
@@ -111,12 +110,12 @@ define(["jquery", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($
             center__minHeight : 100,
             stateManagement__enabled : false};
 
-        if (settings.layoutOrientation == "horizontal") {
+        if (core.settings.layoutOrientation == "horizontal") {
             $(".ui-layout-east").addClass("well").prop("id", "wmd-preview");
             layout = $('body').layout(
                 $.extend(layoutGlobalConfig,
                     {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
-        } else if (settings.layoutOrientation === "vertical") {
+        } else if (core.settings.layoutOrientation === "vertical") {
             $(".ui-layout-east").remove();
             $(".ui-layout-south").addClass("well").prop("id", "wmd-preview");
             layout = $('body').layout(
