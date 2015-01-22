@@ -129,9 +129,30 @@ var fileManager = (function($) {
             save = true;
         });
 
-/*        $("#wmd-input").keyup(function() {
-            save = true;
-        });*/
+        $("#action-download-md").click(function () {
+            var content = $("#wmd-input").val();
+            var filename = $("#file-title").text() + ".md";
+
+            /*var uriContent = "data:application/octet-stream,"
+                + encodeURIComponent(content);*/
+
+            $(this).prop("href", "data:application/octet-stream," + encodeURIComponent(content))
+                .prop("download", filename);
+
+            //window.open(uriContent, 'file');
+        });
+
+        $("#action-download-html").click(function() {
+            var content = $("#wmd-preview").html();
+            var filename = $("#file-title").text() + ".html";
+
+            /*var uriContent = "data:application/octet-stream,"
+                    + encodeURIComponent(content);
+                window.open(uriContent, 'file');*/
+
+            $(this).prop("href", "data:application/octet-stream," + encodeURIComponent(content))
+                .prop("download", filename);
+        });
     };
 
     // 新建一个文件

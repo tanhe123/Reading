@@ -61,6 +61,19 @@
 
                   <li><a id="remove-file" data-toggle="modal"
                          data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> Remove file</a></li>
+
+                  <li class="divider"></li>
+
+                  <li><a id="action-download-md" href="#" title="下载当前mrkdown文档">
+                      <i class="fa fa-download"></i>
+                      下载Markdown文档
+                  </a></li>
+
+                  <li><a id="action-download-html" href="#" title="下载当前Html文档">
+                      <i class="fa fa-download"></i>
+                      下载HTML文档
+                  </a></li>
+
                   <li class="divider"></li>
 
                   <li><a href="#" title="Modify your preferences"
