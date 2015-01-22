@@ -1,4 +1,3 @@
-
 @import url("../bower-libs/bootstrap/dist/css/bootstrap.css");
 @import url("../bower-libs/font-awesome/css/font-awesome.css");
 @import url("../bower-libs/jgrowl/jquery.jgrowl.css");
@@ -8,11 +7,11 @@ body {
     background-color: #f5f5f5;
     /*background-image: url(../img/honeycomb.png);*/
     background-repeat: repeat;
-/*    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;*/
+    /*    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;*/
 }
 
 div, span, a, ul, li, textarea, input {
@@ -69,11 +68,11 @@ div, span, a, ul, li, textarea, input {
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-   background-color: #999;
+    background-color: #999;
 }
 
 .btn-primary {
-  background-color: #888;
+    background-color: #888;
 }
 
 .btn-primary:hover,
@@ -82,7 +81,7 @@ div, span, a, ul, li, textarea, input {
 .btn-primary.active,
 .btn-primary.disabled,
 .btn-primary[disabled] {
-   background-color: #999;
+    background-color: #999;
 }
 
 .btn-group {
@@ -96,42 +95,40 @@ div, span, a, ul, li, textarea, input {
 }
 
 .navbar-inner {
- 	background-color: #ddd !important;
- }
+    background-color: #ddd !important;
+}
 
 code {
     color: #333333 !important;
 }
 
 h1 {
- 	margin: 50px 0 20px;
- }
+    margin: 50px 0 20px;
+}
 
 h2 {
- 	margin-top: 30px;
- }
+    margin-top: 30px;
+}
 
 p, pre, blockquote {
-     margin: 0 0 20px;
- }
+    margin: 0 0 20px;
+}
 
 hr {
-     border-top: 1px solid #ddd;
-     margin: 30px 0;
- }
-
+    border-top: 1px solid #ddd;
+    margin: 30px 0;
+}
 
 #navbar {
     position: static;
 }
 
-.ui-layout-center,.ui-layout-east,.ui-layout-south {
-	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
-	-moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
-	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
-	border-color: #cccccc !important;
+.ui-layout-center, .ui-layout-east, .ui-layout-south {
+    -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
+    -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
+    border-color: #cccccc !important;
 }
-
 
 #menu-bar {
     margin-right: 15px;
@@ -145,7 +142,7 @@ hr {
     display: none;
 }
 
-#wmd-input, #wmd-preview  {
+#wmd-input, #wmd-preview {
     position: absolute;
 }
 
@@ -164,11 +161,11 @@ hr {
 
 /*按钮组*/
 .wmd-button-row {
-/*    margin: 10px 30px;
-    top: 10px;
-    left: 30px;
-    padding: 0px;
-    height: 20px;*/
+    /*    margin: 10px 30px;
+        top: 10px;
+        left: 30px;
+        padding: 0px;
+        height: 20px;*/
     margin: 10px 0;
 }
 
@@ -193,7 +190,7 @@ hr {
     cursor: pointer;
 }*/
 
-.wmd-button>span {
+.wmd-button > span {
     background-image: url(../bower-libs/pagedown-extra/pagedown/wmd-buttons.png);
     background-repeat: no-repeat;
     background-position: 0px 0px;
@@ -212,17 +209,17 @@ hr {
     background-color: #F5F5F5;
 }
 
-.wmd-prompt-dialog>div {
+.wmd-prompt-dialog > div {
     font-size: 0.8em;
     font-family: arial, helvetica, sans-serif;
 }
 
-.wmd-prompt-dialog>form>input[type="text"] {
+.wmd-prompt-dialog > form > input[type="text"] {
     border: 1px solid #999999;
     color: black;
 }
 
-.wmd-prompt-dialog>form>input[type="button"] {
+.wmd-prompt-dialog > form > input[type="button"] {
     border: 1px solid #888888;
     font-family: trebuchet MS, helvetica, sans-serif;
     font-size: 0.8em;
@@ -249,15 +246,14 @@ hr {
     margin-top: 40px;
 }
 
-
 .ui-layout-toggler-east-open .caret, .ui-layout-toggler-west-closed .caret {
     border-bottom: 5px solid transparent;
     border-top: 5px solid transparent;
     border-left: 5px solid #525252;
     border-right: 0;
-/*
-    margin-top: 40px;
-*/
+    /*
+        margin-top: 40px;
+    */
 }
 
 .ui-layout-toggler-east-closed .caret, .ui-layout-toggler-west-opened .caret {
@@ -265,9 +261,43 @@ hr {
     border-top: 5px solid transparent;
     border-right: 5px solid #525252;
     border-left: 0;
-/*    margin-top: 40px;*/
- }
+    /*    margin-top: 40px;*/
+}
 
 .ui-layout-toggler-north .caret, .ui-layout-toggler-south .caret {
     margin-top: 5px;
+}
+
+table {
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table thead th {
+    vertical-align: bottom;
+}
+
+table caption + thead tr:first-child th,
+table caption + thead tr:first-child td,
+table colgroup + thead tr:first-child th,
+table colgroup + thead tr:first-child td,
+table thead:first-child tr:first-child th,
+table thead:first-child tr:first-child td {
+    border-top: 0;
+}
+
+table tbody + tbody {
+    border-top: 2px solid #dddddd;
 }
