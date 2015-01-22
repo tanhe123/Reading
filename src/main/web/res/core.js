@@ -29,6 +29,23 @@ define(["jquery", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($
         $("#wmd-input").css({
             "font-size": core.settings.editorFontSize + "px",
             "line-height": Math.round(core.settings.editorFontSize * (20/14)) + "px"
+        }).keydown(function (e) {
+            // 定义 tab 键
+            if (e.keyCode == 9) {
+                var value = $(this).val();
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                // IE8 does not support selection attributes
+                if(start === undefined || end === undefined) {
+                    return;
+                }
+                $(this).val(value.substring(0, start) + "\t" + value.substring(end));
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                // 阻止按键的默认处理
+                e.preventDefault();
+            }
         });
 
         // 加载配置
