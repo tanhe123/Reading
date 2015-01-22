@@ -3,7 +3,7 @@
  */
 
 
-define(["jquery", "bootstrap", "jgrowl", "layout", "pagedown"], function ($) {
+define(["jquery", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($) {
     var core = {};
 
     var settings = {
@@ -146,6 +146,11 @@ define(["jquery", "bootstrap", "jgrowl", "layout", "pagedown"], function ($) {
         });
 
         var editor = new Markdown.Editor(converter);
+        // 启用 Markdown.Extra
+        Markdown.Extra.init(converter, {highlighter: "prettify"});
+
+        editor.hooks.chain("onPreviewRefresh", prettyPrint);
+
         editor.run();
 
 
