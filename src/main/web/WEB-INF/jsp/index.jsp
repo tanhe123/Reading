@@ -34,7 +34,8 @@
 
   <%-- 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html --%>
   <div id="navbar" class="navbar navbar-defaul ui-layout-north">
-      <div id="wmd-button-bar" style="float: left"></div>
+      <div id="wmd-button-bar" class="pull-left"></div>
+
       <ul class="nav navbar-nav navbar-right" id="menu-bar">
           <li>
               <div class="navbar-form navbar-left">
