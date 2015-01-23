@@ -31,6 +31,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         });
 
         $("#file-title").click(function () {
+            if (viewerMode === true) {
+                return ;
+            }
+
             $(this).hide();
             $("#file-title-input").show().focus();
         });

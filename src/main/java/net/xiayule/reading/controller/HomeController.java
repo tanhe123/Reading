@@ -14,8 +14,16 @@ public class HomeController {
     @RequestMapping({"/", "/home"})
     public String showHomePage() {
 
+        System.out.println("home");
 
         return "index";
     }
 
+    @RequestMapping({"/viewer"})
+    public String showViewerMode() {
+
+        System.out.println("viewer");
+
+        return "viewer";
+    }
 }

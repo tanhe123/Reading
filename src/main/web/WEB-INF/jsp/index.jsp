@@ -15,7 +15,7 @@
     <title>Pagedown editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="/res/css/main.css" rel="stylesheet" media="screen">
+    <link href="/res/css/main.css" rel="stylesheet">
 <%--
     <script type="text/javascript" src="/res/bower-libs/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/res/libs/jquery-ui.custom.js"></script>
@@ -29,6 +29,9 @@
     <script type="text/javascript" src="/res/main.js"></script>--%>
 
     <script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
+    <script>
+        var viewerMode = false;
+    </script>
   </head>
   <body>
 
@@ -76,6 +79,10 @@
 
                   <li class="divider"></li>
 
+                  <li><a href="viewer"><i class="fa fa-desktop"></i> Open in viewer</a></li>
+
+                  <li class="divider"></li>
+
                   <li><a href="#" title="Modify your preferences"
                          data-toggle="modal" data-target="#modal-settings"
                          class="action-load-settings">
@@ -96,7 +103,7 @@
       </ul>
   </div>
 
-  <textarea id="wmd-input"  class="ui-layout-center"></textarea>
+  <textarea id="wmd-input" class="ui-layout-center"></textarea>
 
   <div class="ui-layout-east"></div>
   <div class="ui-layout-south"></div>

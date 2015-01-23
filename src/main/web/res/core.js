@@ -144,20 +144,25 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
             padding = 0;
         }
         // Create MD sections by finding title patterns (excluding gfm blocs)
+        // makrdown sections 的正则分隔符
         var text = editorElt.val() + "\n\n";
         text.replace(/^```.*\n[\s\S]*?\n```|(^.+[ \t]*\n=+[ \t]*\n+|^.+[ \t]*\n-+[ \t]*\n+|^\#{1,6}[ \t]*.+?[ \t]*\#*\n+)/gm,
             function(match, title, matchOffset) {
                 if(title) {
                     // We just found a title which means end of the previous section
                     // Exclude last \n of the section
+                    // offset 为上一 section 开始的位置
                     addMdSection(text.substring(offset, matchOffset-1));
+
                     offset = matchOffset;
                 }
+
                 return "";
             }
         );
 
         // Last section
+        // 将剩下的部分作为一个section, 要考虑 bottom padding 和 自己加入先前加入的 "\n\n"
         // Consider wmd-input bottom padding and exclude \n\n previously added
         padding += pxToFloat(editorElt.css('padding-bottom'));
         addMdSection(text.substring(offset, text.length-2));
@@ -170,6 +175,9 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
         // Each title element is a section separator
         previewElt.children("h1,h2,h3,h4,h5,h6").each(function() {
             // Consider div scroll position and header element top margin
+            // position() 方法返回匹配元素相对于父元素的位置（偏移）。
+            // 该方法返回的对象包含两个整型属性：top 和 left，以像素计。
+            // 此方法只对可见元素有效。
             var newSectionOffset = $(this).position().top + previewScrollTop + pxToFloat($(this).css('margin-top'));
             htmlSectionList.push({
                 startOffset: htmlSectionOffset,
@@ -197,7 +205,7 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
         lastEditorScrollTop = -99;
         lastPreviewScrollTop = -99;
         scrollLink();
-    });
+    }, 800);
 
     var lastEditorScrollTop = -99;
     var lastPreviewScrollTop = -99;
@@ -242,6 +250,11 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
 
 
     core.createLayout = function() {
+
+        if (viewerMode === true) {
+            return;
+        }
+
         var layout;
 
         // layout 配置项
@@ -300,7 +313,14 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
         var editor = new Markdown.Editor(converter);
 
         editor.hooks.chain("onPreviewRefresh", function() {
+            // Modify scroll position of the preview not the editor
+            lastEditorScrollTop = -9;
             buildSections();
+            // Preview may change if images are loading
+            $("#wmd-preview img").load(function() {
+                lastEditorScrollTop = -9;
+                buildSections();
+            });
         });
 
         // 启用 Markdown.Extra
