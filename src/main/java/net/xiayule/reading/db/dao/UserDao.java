@@ -9,4 +9,6 @@ public interface UserDao {
     public void save(User user);
 
     public Boolean exist(String username);
+    public Boolean exist(String username, String password);
+    public User get(String username);
 }

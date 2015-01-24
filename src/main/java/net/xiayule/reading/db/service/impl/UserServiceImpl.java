@@ -17,8 +17,28 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    public User get(String username) {
+        return userDao.get(username);
+    }
+
     public Boolean exist(String username) {
         return userDao.exist(username);
+    }
+
+    public Boolean login(String username, String password) {
+        if (StringUtils.isBlank(username.trim())
+                || StringUtils.isBlank(password)) {
+            return false;
+        }
+
+        username = username.trim();
+        password = password.trim();
+
+        if (!userDao.exist(username, password)) {
+            return false;
+        }
+
+        return true;
     }
 
     public Boolean register(User user) {

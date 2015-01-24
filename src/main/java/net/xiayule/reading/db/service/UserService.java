@@ -10,4 +10,8 @@ public interface UserService {
     public Boolean exist(String username);
 
     public Boolean register(User user);
+
+    public Boolean login(String username, String password);
+
+    public User get(String username);
 }
