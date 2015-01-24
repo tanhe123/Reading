@@ -1,6 +1,7 @@
 package net.xiayule.reading.db;
 
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
 import java.net.UnknownHostException;
@@ -11,18 +12,19 @@ import java.net.UnknownHostException;
 public class MongoDbManager {
 
     private static MongoClient mongoClient;
+    private static DB db;
 
     static {
         try {
             mongoClient = new MongoClient("localhost", 27017);
+            db = mongoClient.getDB("reading");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
     }
 
 
-    public static DB getUserDb() {
-        DB db = mongoClient.getDB("user");
-        return db;
+    public static DBCollection getUserDb() {
+        return db.getCollection("user");
     }
 }

@@ -249,6 +249,14 @@
             <version>0.9.0</version>
         </dependency>
 
+        <!--servlet-api-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+
         <!-- mysql -->
 <!--        <dependency>
             <groupId>mysql</groupId>
