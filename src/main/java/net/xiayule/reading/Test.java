@@ -1,41 +1,48 @@
 package net.xiayule.reading;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import net.xiayule.reading.db.model.Book;
 import net.xiayule.reading.db.service.BookService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.net.UnknownHostException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by tan on 14-12-23.
  */
 public class Test {
-    public static void main(String[] args) {
-       /* System.out.println("haha");
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("");
-        BookService bookService = ctx.getBean("", BookService.class);
+    public static void main(String[] args) throws UnknownHostException {
 
-        //todo: book get save 测试
-        Book book = new Book();
-        book.setBookName("test");
-        book.setIsbn("123");
-        book.setBookDesc("this is just a test");
-        book.setDate(new Date());
-        book.addAuthor("tan");
-        book.addAuthor("he");
-        book.setImgUrl("http://123");
-        book.setPublisher("sdut");
+        // Old version, uses Mongo
+//        Mongo mongo = new Mongo("localhost", 27017);
 
-        bookService.saveBook(book);
+        // new version
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
 
-        System.out.println(bookService.getBook(3));
-        System.out.println("haha");*/
+        DB db = mongoClient.getDB("test");
 
-        char [] a = new char[] {'你', '好', '吗'};
+//        boolean auth = db.authenticate()
 
-        System.out.println(a);
-        System.out.println(a.toString());
-        System.out.println(""+a);
+        // Display all databases
+        /*List<String> dbs = mongoClient.getDatabaseNames();
+        for (String d : dbs) {
+            System.out.println(d);
+        }*/
+
+        // Display all collections from selected database.
+        for (String collectionName : db.getCollectionNames()) {
+            System.out.println(collectionName);
+        }
+
+        // Get collection / table.
+        DBCollection dbCollection = db.getCollection("test");
+
+        // Save example
     }
 }

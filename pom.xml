@@ -21,10 +21,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springversion>4.0.5.RELEASE</springversion>
         <junitversion>3.8.1</junitversion>
-        <hibernateversion>4.3.5.Final</hibernateversion>
+        <!--<hibernateversion>4.3.5.Final</hibernateversion>-->
     </properties>
 
     <dependencies>
+        <!-- mongodb -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.12.4</version>
+        </dependency>
+
+        <!--spring data for mongodb-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.6.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>1.6.1.RELEASE</version>
+        </dependency>
+
         <!-- gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -179,11 +199,11 @@
         </dependency>
 
         <!-- Hibernate -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernateversion}</version>
-        </dependency>
+        </dependency>-->
 
         <!--hibernate 注解 -->
 
@@ -195,11 +215,11 @@
 -->
 
         <!--校验规则 -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.0.1.Final</version>
-        </dependency>
+        </dependency>-->
 
         <!--slf4j-->
 <!--        <dependency>
@@ -230,11 +250,11 @@
         </dependency>
 
         <!-- mysql -->
-        <dependency>
+<!--        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.31</version>
-        </dependency>
+        </dependency>-->
 
         <!-- junit -->
         <dependency>

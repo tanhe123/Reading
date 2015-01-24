@@ -18,8 +18,8 @@ import java.util.List;
 @RequestMapping("/article")
 public class ArticleController {
 
-    @Autowired
-    private ArticleService articleService;
+//    @Autowired
+//    private ArticleService articleService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newArticle() {
@@ -37,18 +37,18 @@ public class ArticleController {
         article.setTitle(title);
         article.setContent(content);
 
-        articleService.saveArticle(article);
+//        articleService.saveArticle(article);
 
         return "redirect:/article/show";
     }
 
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String showArticle(Model model) {
-        List<Article> articles = articleService.getAllArticle();
+//        List<Article> articles = articleService.getAllArticle();
 
-        System.out.println(articles);
+//        System.out.println(articles);
 
-        model.addAttribute("articles", articles);
+//        model.addAttribute("articles", articles);
 
         return "/article/show";
     }
@@ -56,11 +56,11 @@ public class ArticleController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteArticle(@RequestParam Integer id) {
 
-        try {
-            articleService.deleteArticle(id);
-        } catch (Exception e) {
-            System.out.println("删除失败");
-        }
+//        try {
+//            articleService.deleteArticle(id);
+//        } catch (Exception e) {
+//            System.out.println("删除失败");
+//        }
 
         return "redirect:/article/show";
     }

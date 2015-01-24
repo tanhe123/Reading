@@ -2,9 +2,7 @@ package net.xiayule.reading.controller;
 
 import net.xiayule.reading.db.model.Book;
 import net.xiayule.reading.db.service.BookService;
-import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +20,8 @@ import java.util.List;
 @RequestMapping("/book")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+//    @Autowired
+//    private BookService bookService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newBook() {
@@ -46,11 +44,11 @@ public class BookController {
         book.setBookName(bookName);
         book.setBookDesc(bookDesc);
 
-        try {
-            bookService.saveBook(book);
-        } catch (Exception e) {
-            System.out.println("保存错误");
-        }
+//        try {
+//            bookService.saveBook(book);
+//        } catch (Exception e) {
+//            System.out.println("保存错误");
+//        }
 
         return "redirect:/book/show";
     }
@@ -58,28 +56,28 @@ public class BookController {
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String show(Model model) {
 
-        List<Book> books = bookService.getAllBook();
-
-        model.addAttribute("books", books);
-
+//        List<Book> books = bookService.getAllBook();
+//
+//        model.addAttribute("books", books);
+//
         return "/book/show";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam Integer id) {
 
-        try {
-            bookService.deleteBook(id);
-        } catch (Exception e) {
-            System.out.println("删除失败");
-        }
+//        try {
+//            bookService.deleteBook(id);
+//        } catch (Exception e) {
+//            System.out.println("删除失败");
+//        }
 
         return "redirect:/book/show";
     }
 
     // get and set methods
 
-    public void setBookService(BookService bookService) {
-        this.bookService = bookService;
-    }
+//    public void setBookService(BookService bookService) {
+//        this.bookService = bookService;
+//    }
 }

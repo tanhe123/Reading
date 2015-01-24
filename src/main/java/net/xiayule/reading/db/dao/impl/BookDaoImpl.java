@@ -9,24 +9,6 @@ import java.util.List;
 /**
  * Created by tan on 14-12-23.
  */
-public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
-    public Book get(Integer id) {
-        return getHibernateTemplate().get(Book.class, id);
-    }
+public class BookDaoImpl  {
 
-    public void save(Book book) {
-        getHibernateTemplate().saveOrUpdate(book);
-    }
-
-    public void delete(Integer id) {
-        getHibernateTemplate().delete(get(id));
-    }
-
-    public void delete(Book book) {
-        getHibernateTemplate().delete(book);
-    }
-
-    public List<Book> findAll() {
-        return (List<Book>)getHibernateTemplate().find("from Book as book");
-    }
 }
