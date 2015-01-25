@@ -1,5 +1,7 @@
 package net.xiayule.reading.db.model;
 
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 
 /**
@@ -15,9 +17,16 @@ public class Note {
     private Integer versionId;
 
     /**
+     * todo 增加一个 desc， 用来描述文章
+     * 可以使用文章内容的前多少个文字来表示
+     * 方便显示文章缩略图
+     */
+    private String desc;
+
+    /**
      * 笔记所属的用户id
      */
-    private String noteOwner;
+    private String ownerId;
 
 
     public Note() {
@@ -27,7 +36,10 @@ public class Note {
 
     @Override
     public String toString() {
-        return "id:" + id + " title:" + title + " content:" + content;
+        return "id:" + id + " title:" + title + " content:" + content
+                + " isPublic:" + isPublic + " versionId:" + versionId
+                + " ownerId:" + ownerId + " desc:" + desc
+                + " createTime:" + createTime + "\n";
     }
 
     // get and set methods
@@ -41,12 +53,25 @@ public class Note {
         this.id = id;
     }
 
-    public String getNoteOwner() {
-        return noteOwner;
+    public void setId(ObjectId objectId) {
+        this.id = objectId.toHexString();
     }
 
-    public void setNoteOwner(String noteOwner) {
-        this.noteOwner = noteOwner;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {

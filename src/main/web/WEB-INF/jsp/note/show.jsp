@@ -19,16 +19,24 @@
     <th>id</th>
     <th>笔记名称</th>
     <th>笔记内容</th>
-    <th>操作</th>
+    <th>是否公开</th>
+    <th>版本号</th>
+    <th>ownerId</th>
+    <th>创建时间</th>
   </tr>
 
-<c:forEach var="article" items="${articles}">
+<c:forEach var="note" items="${notes}">
 
   <tr>
-    <td>${article.id}</td>
-    <td>${article.title}</td>
-    <td>${article.content}</td>
-    <td><a href="/article/delete?id=${article.id}">删除</a></td>
+    <td>${note.id}</td>
+    <td>${note.title}</td>
+    <td>${note.content}</td>
+    <td>${note.isPublic}</td>
+    <td>${note.versionId}</td>
+    <td>${note.ownerId}</td>
+    <td>${note.createTime}</td>
+
+    <%--<td><a href="/article/delete?id=${note.id}">删除</a></td>--%>
   </tr>
 
 </c:forEach>

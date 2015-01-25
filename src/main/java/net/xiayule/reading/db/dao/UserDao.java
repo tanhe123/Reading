@@ -11,4 +11,6 @@ public interface UserDao {
     public Boolean exist(String username);
     public Boolean exist(String username, String password);
     public User get(String username);
+
+    public String findUserIdByUsername(String username);
 }

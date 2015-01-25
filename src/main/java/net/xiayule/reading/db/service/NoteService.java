@@ -9,5 +9,9 @@ import java.util.List;
  */
 public interface NoteService {
 
+    /**
+     * 返回owner所有的笔记
+     */
+    public List<Note> find(String owner);
 
 }

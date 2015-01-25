@@ -8,6 +8,7 @@ import net.xiayule.reading.db.MongoDbManager;
 import net.xiayule.reading.db.dao.UserDao;
 import net.xiayule.reading.db.model.User;
 import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -52,5 +53,18 @@ public class UserDaoImpl implements UserDao {
         user.setPassword((String)dbObject.get("password"));
 
         return user;
+    }
+
+
+    public String findUserIdByUsername(String username) {
+        BasicDBObject query = new BasicDBObject("username", username);
+
+        BasicDBObject queryFilter = new BasicDBObject("_id", 1);
+
+        DBObject dbObject = getTable().findOne(query);
+
+        String userId = ((ObjectId) dbObject.get("_id")).toHexString();
+
+        return userId;
     }
 }

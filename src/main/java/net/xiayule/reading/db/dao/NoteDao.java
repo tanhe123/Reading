@@ -10,4 +10,9 @@ import java.util.List;
 public interface NoteDao {
     public void save(Note note);
 
+    /**
+     * 返回owner所有的笔记
+     */
+    public List<Note> find(String owner);
+
 }

@@ -1,16 +1,8 @@
 package net.xiayule.reading;
 
-import com.mongodb.*;
-import net.xiayule.reading.db.MongoDbManager;
-import net.xiayule.reading.db.model.Book;
-import net.xiayule.reading.db.model.Note;
-import net.xiayule.reading.db.service.BookService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import net.xiayule.reading.db.dao.impl.UserDaoImpl;
 
 import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by tan on 14-12-23.
@@ -18,10 +10,10 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) throws UnknownHostException {
 
-        Note note = new Note();
+        /*Note note = new Note();
         note.setTitle("test");
         note.setContent("hahatest");
-        note.setNoteOwner("1");
+        note.setOwnerId("1");
         note.setVersionId(1);
 
         BasicDBObject document = new BasicDBObject()
@@ -30,8 +22,11 @@ public class Test {
                 .append("isPublic", note.getIsPublic())
                 .append("createTime", note.getCreateTime())
                 .append("versionId", note.getVersionId())
-                .append("noteOwner", note.getNoteOwner());
+                .append("noteOwner", note.setOwnerId(1));
 
-        MongoDbManager.getNoteDb().insert(document);
+        MongoDbManager.getNoteDb().insert(document);*/
+
+        UserDaoImpl userService = new UserDaoImpl();
+        System.out.println(userService.findUserIdByUsername("1"));
     }
 }

@@ -14,4 +14,7 @@ public interface UserService {
     public Boolean login(String username, String password);
 
     public User get(String username);
+
+    public String findUserIdByUsername(String username);
+
 }

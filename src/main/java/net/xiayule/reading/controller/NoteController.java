@@ -1,6 +1,9 @@
 package net.xiayule.reading.controller;
 
 import net.xiayule.reading.db.model.Note;
+import net.xiayule.reading.db.service.NoteService;
+import net.xiayule.reading.db.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +17,11 @@ import java.util.List;
 @RequestMapping("/{username}/note")
 public class NoteController {
 
-//    @Autowired
-//    private ArticleService articleService;
+    @Autowired
+    private NoteService noteService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newNote(@PathVariable String username) {
@@ -37,7 +43,7 @@ public class NoteController {
         note.setTitle(title);
         note.setContent(content);
         //todo: noteOwener
-        note.setNoteOwner("1");
+        note.setOwnerId("1");
         //todo: version id
         note.setVersionId(1);
 
@@ -45,23 +51,24 @@ public class NoteController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showAllNote(Model model) {
+    public String showAllNote(@PathVariable String username,
+                              Model model) {
 
-        
+        // 获得 id
+        String userId = userService.findUserIdByUsername(username);
 
+        // 获得其所有的 note
+        List<Note> notes = noteService.find(userId);
 
-//        List<Article> articles = articleService.getAllArticle();
+        System.out.println("NoteController: showAllNote: " + notes);
 
-//        System.out.println(articles);
-
-//        model.addAttribute("articles", articles);
+        model.addAttribute("notes", notes);
 
         return "/note/show";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteNote(@RequestParam Integer id) {
-
 //        try {
 //            articleService.deleteArticle(id);
 //        } catch (Exception e) {
