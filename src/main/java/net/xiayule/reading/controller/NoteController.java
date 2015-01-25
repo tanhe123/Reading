@@ -1,41 +1,36 @@
 package net.xiayule.reading.controller;
 
-import net.xiayule.reading.db.model.Article;
-import net.xiayule.reading.db.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 /**
  * Created by tan on 14-12-27.
  */
 @Controller
 @RequestMapping("/article")
-public class ArticleController {
+public class NoteController {
 
 //    @Autowired
 //    private ArticleService articleService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newArticle() {
+    public String newNote() {
         return "/article/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createArticle(@RequestParam String title,
+    public String createNote(@RequestParam String title,
                                 @RequestParam String content) {
 
-        System.out.println(title);
-        System.out.println(content);
+//        System.out.println(title);
+//        System.out.println(content);
 
-        Article article = new Article();
-        article.setTitle(title);
-        article.setContent(content);
+//        Article article = new Article();
+//        article.setTitle(title);
+//        article.setContent(content);
 
 //        articleService.saveArticle(article);
 
@@ -43,7 +38,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public String showArticle(Model model) {
+    public String showNote(Model model) {
 //        List<Article> articles = articleService.getAllArticle();
 
 //        System.out.println(articles);
@@ -54,7 +49,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteArticle(@RequestParam Integer id) {
+    public String deleteNote(@RequestParam Integer id) {
 
 //        try {
 //            articleService.deleteArticle(id);

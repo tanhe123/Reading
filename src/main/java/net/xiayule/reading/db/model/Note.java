@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by tan on 14-12-27.
  * 文章笔记类
  */
-public class Article {
+public class Note {
     private Integer id;
     private String title;
     private String content;
@@ -15,11 +15,11 @@ public class Article {
     private Integer versionId;
 
     /**
-     * user 与 article 之间的关系为 一对多
+     * user 与 note 之间的关系为 一对多
      */
     private User owner;
 
-    public Article() {
+    public Note() {
         createTime = new Date();
     }
 

@@ -27,4 +27,8 @@ public class MongoDbManager {
     public static DBCollection getUserDb() {
         return db.getCollection("user");
     }
+
+    public static DBCollection getNoteDb() {
+        return db.getCollection("article");
+    }
 }

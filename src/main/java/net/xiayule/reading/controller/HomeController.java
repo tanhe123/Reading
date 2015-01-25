@@ -56,8 +56,8 @@ public class HomeController {
             return "user/register";
         }
 
-        //todo: 进入个人主页
-        System.out.println("创建成功");
+        // 进入个人主页
+        System.out.println("createUser: 创建成功");
 
         return "redirect:/" + username;
     }
@@ -84,19 +84,20 @@ public class HomeController {
         System.out.println("username:" + username + " password:" + password);
 
         if (userService.login(username, password)) {
-            //todo: 登录成功
+            // 登录成功
             System.out.println("loginDo: 登录成功");
 
 /*            User user = userService.get(username);
             model.addAttribute("user", user.getEmail());*/
 
-            // todo: 写入 cookie
+            // 写入 cookie
+            //todo: cookie 加密
             response.addCookie(new Cookie("auth", username));
 
             return "redirect:/" + username;
         }
 
-        // todo: 登录失败
+        // 登录失败
         System.out.println("loginDo: 登录失败");
         return "user/login";
     }

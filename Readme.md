@@ -20,3 +20,12 @@ jquery ui
 jquery layout
 
 underscore
+
+
+mongodb:
+
+数据表:
+
+user
+note
+noteHistory
