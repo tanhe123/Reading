@@ -10,7 +10,7 @@ public class BookExamine {
     /**
      * 审批项目对应的id
      */
-    private Integer id;
+    private String id;
 
     /**
      * 对应的书籍的 id

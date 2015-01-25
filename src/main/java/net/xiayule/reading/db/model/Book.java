@@ -11,7 +11,7 @@ public class Book implements Serializable {
     /**
      * 书籍的 id
      */
-    private Integer id;
+    private String id;
 
     /**
      * 书籍的名称
@@ -65,11 +65,11 @@ public class Book implements Serializable {
     // get and set methods
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

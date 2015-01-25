@@ -8,7 +8,7 @@ public class User {
     /**
      * 用户的 id
      */
-    private Integer id;
+    private String id;
 
     /**
      * 用户名
@@ -36,11 +36,11 @@ public class User {
     private String mobile;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

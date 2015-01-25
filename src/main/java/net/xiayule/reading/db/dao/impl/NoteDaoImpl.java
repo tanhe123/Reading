@@ -1,5 +1,7 @@
 package net.xiayule.reading.db.dao.impl;
 
+import net.xiayule.reading.db.model.Note;
+
 import java.util.List;
 
 /**
@@ -7,4 +9,7 @@ import java.util.List;
  */
 public class NoteDaoImpl {
 
+    public void save(Note note) {
+
+    }
 }

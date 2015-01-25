@@ -7,7 +7,7 @@ import java.util.Date;
  * 文章笔记类
  */
 public class Note {
-    private Integer id;
+    private String id;
     private String title;
     private String content;
     private Boolean isPublic;
@@ -15,9 +15,10 @@ public class Note {
     private Integer versionId;
 
     /**
-     * user 与 note 之间的关系为 一对多
+     * 笔记所属的用户id
      */
-    private User owner;
+    private String noteOwner;
+
 
     public Note() {
         createTime = new Date();
@@ -31,12 +32,20 @@ public class Note {
     // get and set methods
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNoteOwner() {
+        return noteOwner;
+    }
+
+    public void setNoteOwner(String noteOwner) {
+        this.noteOwner = noteOwner;
     }
 
     public String getTitle() {
@@ -79,7 +88,5 @@ public class Note {
         this.versionId = versionId;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
+
 }
