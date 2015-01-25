@@ -21,6 +21,7 @@
     <td>${note.versionId}</td>
     <td>${note.ownerId}</td>
     <td>${note.createTime}</td>
+    <td><a href="${note.id}/edit">编辑</a></td>
   </tr>
 </table>
 

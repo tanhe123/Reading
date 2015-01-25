@@ -70,6 +70,22 @@ public class NoteController {
         return "/note/view";
     }
 
+    @RequestMapping(value = "/{noteId}/edit", method = RequestMethod.GET)
+    public String editNote(@PathVariable String username,
+                           @PathVariable String noteId,
+                           Model model) {
+
+        System.out.println("NoteController: editNote: username" + username + " noteid:" + noteId);
+
+        String ownerId = userService.findUserIdByUsername(username);
+
+        Note note = noteService.find(ownerId, noteId);
+
+        model.addAttribute("note", note);
+
+        return "/note/edit";
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllNote(@PathVariable String username,
                               Model model) {

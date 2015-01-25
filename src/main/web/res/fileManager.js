@@ -10,6 +10,9 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     fileManager.init = function () {
         //synchronizer.init();
 
+        //todo: 获取note和note列表
+        console.log(note.id);
+
         fileManager.selectFile();
 
         // 自动调用保存
@@ -20,12 +23,12 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             //synchronizer.run();
         }, 3000);
 
-        $("#new-file").click(function () {
+        /*$("#new-file").click(function () {
             fileManager.saveFile();
             fileManager.createFile();
             fileManager.selectFile();
         });
-
+*/
         $("#remove-file").click(function () {
             //todo:
         });
@@ -39,6 +42,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             $("#file-title-input").show().focus();
         });
 
+/*
         $("#file-title-input").blur(function () {
             var title = $.trim($(this).val());
             if (title) {
@@ -53,6 +57,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
 
             save = true;
         });
+*/
 
         //保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {
@@ -69,16 +74,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             fileManager.downloadFile(filename, content);
         });
 
-        // 自定义处理 Ctrl+S 保存
-        $(window).keydown(function(e) {
-            if (e.keyCode == 83 && e.ctrlKey) {
 
-                //todo: 保存
-                console.log("Ctrl+S");
-
-                e.preventDefault();
-            }
-        });
     };
 
     fileManager.downloadFile = function(filename, content, elt) {
@@ -95,6 +91,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     };
 
     // 新建一个文件
+/*
     fileManager.createFile = function (title) {
         if (!title) {
             title = "New File";
@@ -106,6 +103,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         localStorage["file.count"] = parseInt(localStorage["file.count"]) + 1;
         localStorage["file.current"] = fileIndex;
     };
+*/
 
     // 读取 file.current 文件
     fileManager.selectFile = function () {
@@ -148,7 +146,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     };
 
     // 更新持有的 文件描述，包括 title和index
-    fileManager.updateFileDescList = function () {
+/*    fileManager.updateFileDescList = function () {
         var fileCount = parseInt((localStorage["file.count"]));
         this.fileDescList = [];
         for (var i = 0; i < fileCount; i++) {
@@ -168,10 +166,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                 return 0;
             })
         }
-    };
+    };*/
 
     // 将持有的 titleList 显示
-    fileManager.updateFileTitleUI = function () {
+    /*fileManager.updateFileTitleUI = function () {
         var fileIndex = localStorage["file.current"];
         var title = localStorage[fileIndex + ".title"];
 
@@ -201,10 +199,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             }
             $("#file-selector").append(li);
         }
-    };
+    };*/
 
     // 保存文件
-    fileManager.saveFile = function () {
+    /*fileManager.saveFile = function () {
         if (save) {
             var content = $("#wmd-input").val();
             var fileIndex = localStorage["file.current"];
@@ -213,7 +211,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             //synchronizer.addFile(fileIndex);
             save = false;
         }
-    };
+    };*/
 
     return fileManager;
 });

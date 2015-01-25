@@ -3,7 +3,7 @@
  */
 
 requirejs.config({
-    baseUrl: 'res',
+    baseUrl: '/res',
 
     paths: {
         jquery: 'bower-libs/jquery/dist/jquery',
@@ -39,7 +39,9 @@ require(["jquery", "core", "fileManager"], function ($, core, fileManager) {
     $(function() {
         core.init();
 
-        fileManager.init();
+        core.createEditor();
+
+        //fileManager.init();
     });
 });
 

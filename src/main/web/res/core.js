@@ -57,6 +57,17 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
             core.saveSettings();
             location.reload();
         });
+
+        // 自定义处理 Ctrl+S 保存
+        $(window).keydown(function(e) {
+            if (e.keyCode == 83 && e.ctrlKey) {
+
+                //todo: 保存
+                console.log("Ctrl+S");
+
+                e.preventDefault();
+            }
+        });
     };
 
 
@@ -306,7 +317,10 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
 
         converter.hooks.chain("preConversion", function (text) {
             //todo 会导致第一次加载文档时，保存
-            textChangeCallback();
+            if (textChangeCallback) {
+                textChangeCallback();
+            }
+
             return text;
         });
 
@@ -329,7 +343,6 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
         editor.hooks.chain("onPreviewRefresh", prettyPrint);
 
         editor.run();
-
 
         $(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
         $("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
