@@ -1,44 +1,55 @@
 package net.xiayule.reading.controller;
 
+import net.xiayule.reading.db.model.Note;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by tan on 14-12-27.
  */
 @Controller
-@RequestMapping("/article")
+@RequestMapping("/{username}/note")
 public class NoteController {
 
 //    @Autowired
 //    private ArticleService articleService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newNote() {
+    public String newNote(@PathVariable String username) {
+
+        System.out.println(username);
+
         return "/note/new";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createNote(@RequestParam String title,
-                                @RequestParam String content) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public @ResponseBody
+    Note createNote(@PathVariable String username,
+                    @RequestParam String title,
+                    @RequestParam String content) {
 
-//        System.out.println(title);
-//        System.out.println(content);
+        System.out.println(username);
 
-//        Article article = new Article();
-//        article.setTitle(title);
-//        article.setContent(content);
+        Note note = new Note();
+        note.setTitle(title);
+        note.setContent(content);
+        //todo: noteOwener
+        note.setNoteOwner("1");
+        //todo: version id
+        note.setVersionId(1);
 
-//        articleService.saveArticle(article);
-
-        return "redirect:/note/show";
+        return note;
     }
 
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public String showNote(Model model) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String showAllNote(Model model) {
+
+        
+
+
 //        List<Article> articles = articleService.getAllArticle();
 
 //        System.out.println(articles);

@@ -29,3 +29,10 @@ mongodb:
 user
 note
 noteHistory
+
+url path:
+
+note:
+
+post /{username}/note 创建笔记 返回类型 json
+get /{username}/note 显示所有笔记列表 返回类型 html
