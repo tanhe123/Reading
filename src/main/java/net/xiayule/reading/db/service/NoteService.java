@@ -14,4 +14,6 @@ public interface NoteService {
      */
     public List<Note> find(String owner);
 
+    public Note find(String ownerId, String noteId);
+
 }

@@ -50,6 +50,26 @@ public class NoteController {
         return note;
     }
 
+    @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
+    public String showNote(@PathVariable String username,
+                           @PathVariable String noteId,
+                           Model model) {
+
+//        System.out.println(username + " " + noteId);
+
+        String ownerId = userService.findUserIdByUsername(username);
+
+//        System.out.println("ownerId: " + ownerId);
+
+        Note note = noteService.find(ownerId, noteId);
+
+//        System.out.println(note);
+
+        model.addAttribute("note", note);
+
+        return "/note/view";
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllNote(@PathVariable String username,
                               Model model) {
@@ -67,14 +87,13 @@ public class NoteController {
         return "/note/show";
     }
 
+
+
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteNote(@RequestParam Integer id) {
-//        try {
-//            articleService.deleteArticle(id);
-//        } catch (Exception e) {
-//            System.out.println("删除失败");
-//        }
 
-        return "redirect:/note/show";
+        //todo: 删除
+
+        return "redirect:/note";
     }
 }

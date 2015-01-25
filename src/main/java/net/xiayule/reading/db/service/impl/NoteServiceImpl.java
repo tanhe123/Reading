@@ -23,4 +23,8 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> find(String owner) {
         return noteDao.find(owner);
     }
+
+    public Note find(String ownerId, String noteId) {
+        return noteDao.find(ownerId, noteId);
+    }
 }

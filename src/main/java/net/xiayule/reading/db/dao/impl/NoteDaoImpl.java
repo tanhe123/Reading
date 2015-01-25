@@ -46,8 +46,6 @@ public class NoteDaoImpl implements NoteDao {
 
         ArrayList<Note> notes = new ArrayList<Note>();
 
-        System.out.println("cursor size:" + cursor.size());
-
         while (cursor.hasNext()) {
             DBObject dbObject = cursor.next();
 
@@ -64,5 +62,28 @@ public class NoteDaoImpl implements NoteDao {
         }
 
         return notes;
+    }
+
+    public Note find(String ownerId, String noteId) {
+        DBCollection userTable = MongoDbManager.getNoteDb();
+
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.put("ownerId", ownerId);
+        searchQuery.put("_id", new ObjectId(noteId));
+
+        DBObject dbObject = userTable.findOne(searchQuery);
+
+        System.out.println("NoteDaoImpl find:" + dbObject);
+
+        Note note = new Note();
+        note.setId((ObjectId) dbObject.get("_id"));
+        note.setOwnerId((String) dbObject.get("ownerId"));
+        note.setVersionId((Integer)dbObject.get("versionId"));
+        note.setContent((String)dbObject.get("content"));
+        note.setCreateTime((Date)dbObject.get("createTime"));
+        note.setIsBlog((Boolean) dbObject.get("isBlog"));
+        note.setTitle((String)dbObject.get("title"));
+
+        return note;
     }
 }

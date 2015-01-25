@@ -36,6 +36,7 @@
     <td>${note.ownerId}</td>
     <td>${note.createTime}</td>
 
+    <td><a href="note/${note.id}">查看</a></td>
     <%--<td><a href="/article/delete?id=${note.id}">删除</a></td>--%>
   </tr>
 

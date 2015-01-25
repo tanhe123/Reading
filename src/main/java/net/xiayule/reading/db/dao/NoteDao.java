@@ -15,4 +15,5 @@ public interface NoteDao {
      */
     public List<Note> find(String owner);
 
+    public Note find(String ownerId, String noteId);
 }
