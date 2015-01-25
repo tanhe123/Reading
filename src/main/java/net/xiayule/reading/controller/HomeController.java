@@ -3,10 +3,15 @@ package net.xiayule.reading.controller;
 import net.xiayule.reading.db.dao.UserDao;
 import net.xiayule.reading.db.model.User;
 import net.xiayule.reading.db.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by tan on 14-12-21.
@@ -59,7 +64,12 @@ public class HomeController {
 
     // 用户登录
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    public String login() {
+    public String login(@CookieValue(value = "auth", defaultValue = "") String username) {
+
+        // 如果用户已经登录了，则跳转到该用户首页
+        if (StringUtils.isNotBlank(username)) {
+            return "redirect:/" + username;
+        }
 
         return "user/login";
     }
@@ -68,7 +78,8 @@ public class HomeController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public String loginDo(@RequestParam("username") String username,
                           @RequestParam("password") String password,
-                          Model model) {
+                          Model model,
+                          HttpServletResponse response) {
 
         System.out.println("username:" + username + " password:" + password);
 
@@ -80,6 +91,7 @@ public class HomeController {
             model.addAttribute("user", user.getEmail());*/
 
             // todo: 写入 cookie
+            response.addCookie(new Cookie("auth", username));
 
             return "redirect:/" + username;
         }
