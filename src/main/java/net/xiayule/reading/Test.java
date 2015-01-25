@@ -1,10 +1,9 @@
 package net.xiayule.reading;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
+import com.mongodb.*;
+import net.xiayule.reading.db.MongoDbManager;
 import net.xiayule.reading.db.model.Book;
+import net.xiayule.reading.db.model.Note;
 import net.xiayule.reading.db.service.BookService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,6 +18,20 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) throws UnknownHostException {
 
+        Note note = new Note();
+        note.setTitle("test");
+        note.setContent("hahatest");
+        note.setNoteOwner("1");
+        note.setVersionId(1);
 
+        BasicDBObject document = new BasicDBObject()
+                .append("title", note.getTitle())
+                .append("content", note.getContent())
+                .append("isPublic", note.getIsPublic())
+                .append("createTime", note.getCreateTime())
+                .append("versionId", note.getVersionId())
+                .append("noteOwner", note.getNoteOwner());
+
+        MongoDbManager.getNoteDb().insert(document);
     }
 }

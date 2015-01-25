@@ -22,6 +22,7 @@ public class Note {
 
     public Note() {
         createTime = new Date();
+        isPublic = false;
     }
 
     @Override

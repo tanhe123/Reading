@@ -18,7 +18,7 @@ public class NoteController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newNote() {
-        return "/article/new";
+        return "/note/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -34,7 +34,7 @@ public class NoteController {
 
 //        articleService.saveArticle(article);
 
-        return "redirect:/article/show";
+        return "redirect:/note/show";
     }
 
     @RequestMapping(value = "/show", method = RequestMethod.GET)
@@ -45,7 +45,7 @@ public class NoteController {
 
 //        model.addAttribute("articles", articles);
 
-        return "/article/show";
+        return "/note/show";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -57,6 +57,6 @@ public class NoteController {
 //            System.out.println("删除失败");
 //        }
 
-        return "redirect:/article/show";
+        return "redirect:/note/show";
     }
 }
