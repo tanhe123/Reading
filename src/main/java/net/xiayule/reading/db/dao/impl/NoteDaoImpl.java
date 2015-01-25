@@ -25,7 +25,7 @@ public class NoteDaoImpl implements NoteDao {
         BasicDBObject document = new BasicDBObject()
                 .append("title", note.getTitle())
                 .append("content", note.getContent())
-                .append("isPublic", note.getIsPublic())
+                .append("isBlog", note.getIsBlog())
                 .append("createTime", note.getCreateTime())
                 .append("versionId", note.getVersionId())
                 .append("ownerId", note.getOwnerId());
@@ -57,7 +57,7 @@ public class NoteDaoImpl implements NoteDao {
             note.setVersionId((Integer)dbObject.get("versionId"));
             note.setContent((String)dbObject.get("content"));
             note.setCreateTime((Date)dbObject.get("createTime"));
-            note.setIsPublic((Boolean)dbObject.get("isPublic"));
+            note.setIsBlog((Boolean) dbObject.get("isBlog"));
             note.setTitle((String)dbObject.get("title"));
 
             notes.add(note);

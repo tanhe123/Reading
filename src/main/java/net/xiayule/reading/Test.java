@@ -19,7 +19,7 @@ public class Test {
         BasicDBObject document = new BasicDBObject()
                 .append("title", note.getTitle())
                 .append("content", note.getContent())
-                .append("isPublic", note.getIsPublic())
+                .append("isBlog", note.getIsBlog())
                 .append("createTime", note.getCreateTime())
                 .append("versionId", note.getVersionId())
                 .append("noteOwner", note.setOwnerId(1));

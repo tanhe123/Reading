@@ -12,7 +12,7 @@ public class Note {
     private String id;
     private String title;
     private String content;
-    private Boolean isPublic;
+    private Boolean isBlog;
     private Date createTime;
     private Integer versionId;
 
@@ -31,13 +31,13 @@ public class Note {
 
     public Note() {
         createTime = new Date();
-        isPublic = false;
+        isBlog = false;
     }
 
     @Override
     public String toString() {
         return "id:" + id + " title:" + title + " content:" + content
-                + " isPublic:" + isPublic + " versionId:" + versionId
+                + " isBlog:" + isBlog + " versionId:" + versionId
                 + " ownerId:" + ownerId + " desc:" + desc
                 + " createTime:" + createTime + "\n";
     }
@@ -90,12 +90,12 @@ public class Note {
         this.content = content;
     }
 
-    public Boolean getIsPublic() {
-        return isPublic;
+    public Boolean getIsBlog() {
+        return isBlog;
     }
 
-    public void setIsPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
+    public void setIsBlog(Boolean isBlog) {
+        this.isBlog = isBlog;
     }
 
     public Date getCreateTime() {

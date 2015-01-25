@@ -31,7 +31,7 @@
     <td>${note.id}</td>
     <td>${note.title}</td>
     <td>${note.content}</td>
-    <td>${note.isPublic}</td>
+    <td>${note.isBlog}</td>
     <td>${note.versionId}</td>
     <td>${note.ownerId}</td>
     <td>${note.createTime}</td>
