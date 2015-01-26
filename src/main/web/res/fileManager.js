@@ -21,7 +21,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
 
             //todo: 还未写同步功能
             //synchronizer.run();
-        }, 3000);
+        }, 6000);
 
         /*$("#new-file").click(function () {
             fileManager.saveFile();
@@ -75,6 +75,18 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         });
 
 
+        // 自定义处理 Ctrl+S 保存
+        $(window).keydown(function(e) {
+            if (e.keyCode == 83 && e.ctrlKey) {
+
+                //todo: 保存
+                console.log("Ctrl+S");
+
+                fileManager.saveFile();
+
+                e.preventDefault();
+            }
+        });
     };
 
     fileManager.downloadFile = function(filename, content, elt) {
@@ -153,6 +165,8 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             core.createEditor(function () {
                 save = true;
             });
+
+            // 缓存
         });
 
         // Update the editor and the file title
@@ -220,16 +234,36 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     };*/
 
     // 保存文件
-    /*fileManager.saveFile = function () {
+    //todo: 增加本地缓存功能
+    //todo: 通过比对版本号，来选择是否使用缓存
+    fileManager.saveFile = function () {
         if (save) {
+
             var content = $("#wmd-input").val();
-            var fileIndex = localStorage["file.current"];
-            localStorage[fileIndex + ".content"] = content;
+            var title = $("#file-title").val();
+
+            var params = {
+                noteId: note.id,
+                title: title,
+                content: content
+            };
+
+            console.log("params:" + params);
+
+            $.post("/note/updateNoteTitleOrContent", params, function (rs) {
+                console.log("rs:" + rs);
+            });
+            save = false;
+
+            //todo: 更新
+
+            //var fileIndex = localStorage["file.current"];
+            //localStorage[fileIndex + ".content"] = content;
             //todo: 同步功能
             //synchronizer.addFile(fileIndex);
-            save = false;
+            //save = false;
         }
-    };*/
+    };
 
     return fileManager;
 });

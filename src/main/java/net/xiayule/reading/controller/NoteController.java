@@ -77,6 +77,24 @@ public class NoteController {
         return noteService.find(noteId);
     }
 
+    @RequestMapping(value = "/updateNoteTitleOrContent", method = RequestMethod.POST)
+    public @ResponseBody
+    Boolean updateNoteTitleOrContent(@RequestParam String noteId,
+                                     @RequestParam String title,
+                                     @RequestParam String content) {
+        Note note = new Note();
+        note.setId(noteId);
+        note.setTitle(title);
+        note.setContent(content);
+
+        System.out.println("Notecontroller: updateNoteTitleOrContent:" + note);
+
+        noteService.updateContentOrTitle(note);
+
+        return true;
+    }
+
+
     @RequestMapping(value = "/{noteId}/edit", method = RequestMethod.GET)
     public String editNote(@PathVariable String noteId,
                            Model model) {

@@ -39,8 +39,6 @@ require(["jquery", "core", "fileManager"], function ($, core, fileManager) {
     $(function() {
         core.init();
 
-        core.createEditor();
-
         fileManager.init();
     });
 });

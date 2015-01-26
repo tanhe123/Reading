@@ -57,17 +57,6 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
             core.saveSettings();
             location.reload();
         });
-
-        // 自定义处理 Ctrl+S 保存
-        $(window).keydown(function(e) {
-            if (e.keyCode == 83 && e.ctrlKey) {
-
-                //todo: 保存
-                console.log("Ctrl+S");
-
-                e.preventDefault();
-            }
-        });
     };
 
 
