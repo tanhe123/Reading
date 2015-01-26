@@ -31,7 +31,7 @@ public class Test {
         System.out.println(userService.findUserIdByUsername("1"));
 
         NoteDaoImpl notedao = new NoteDaoImpl();
-        Note note = notedao.find("54c34c36c830f154f3741062", "54c5ce2ec830217223499f46");
+        Note note = notedao.find("54c5ce2ec830217223499f46");
         System.out.println(note);
 
         note.setContent("updated content");

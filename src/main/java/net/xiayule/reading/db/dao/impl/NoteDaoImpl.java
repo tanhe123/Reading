@@ -37,7 +37,7 @@ public class NoteDaoImpl implements NoteDao {
     /**
      * 返回owner所有的笔记
      */
-    public List<Note> find(String ownerId) {
+    public List<Note> findByOwner(String ownerId) {
         DBCollection noteTable = getTable();
 
         BasicDBObject searchQuery = new BasicDBObject();
@@ -66,11 +66,11 @@ public class NoteDaoImpl implements NoteDao {
     }
 
     //todo:这里只需要 noteid
-    public Note find(String ownerId, String noteId) {
+    public Note find(String noteId) {
         DBCollection noteTable = getTable();
 
         BasicDBObject searchQuery = new BasicDBObject();
-        searchQuery.put("ownerId", ownerId);
+//        searchQuery.put("ownerId", ownerId);
         searchQuery.put("_id", new ObjectId(noteId));
 
         DBObject dbObject = noteTable.findOne(searchQuery);

@@ -45,7 +45,8 @@
           <li>
               <div class="navbar-form navbar-left">
                   <div class="form-group">
-                      <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
+                      <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title"
+                              value="${note.title}">
                   </div>
                   <%--<button type="submit" class="btn btn-default">提交按钮</button>--%>
               </div>
@@ -94,7 +95,7 @@
               </ul>
           </li>
 
-          <li><a id="file-title"><span class="file-title"></span></a></li>
+          <li><a id="file-title"><span class="file-title">${note.titlej}</span></a></li>
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <b class="caret"></b>

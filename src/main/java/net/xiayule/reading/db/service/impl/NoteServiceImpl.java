@@ -20,12 +20,12 @@ public class NoteServiceImpl implements NoteService {
     /**
      * 返回owner所有的笔记
      */
-    public List<Note> find(String owner) {
-        return noteDao.find(owner);
+    public List<Note> findByOwner(String owner) {
+        return noteDao.findByOwner(owner);
     }
 
-    public Note find(String ownerId, String noteId) {
-        return noteDao.find(ownerId, noteId);
+    public Note find(String noteId) {
+        return noteDao.find(noteId);
     }
 
     /**

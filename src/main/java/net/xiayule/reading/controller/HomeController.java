@@ -64,11 +64,16 @@ public class HomeController {
 
     // 用户登录
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    public String login(@CookieValue(value = "auth", defaultValue = "") String username) {
+    public String login(@CookieValue(value = "userId", defaultValue = "") String userId) {
+
+
 
         // 如果用户已经登录了，则跳转到该用户首页
-        if (StringUtils.isNotBlank(username)) {
-            return "redirect:/" + username;
+        if (StringUtils.isNotBlank(userId)) {
+            System.out.println("HomeController: login: userid:" + userId + " 已登录");
+//            return "redirect:/" + userId;
+            return "redirect:/";
+
         }
 
         return "user/login";
@@ -78,7 +83,6 @@ public class HomeController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public String loginDo(@RequestParam("username") String username,
                           @RequestParam("password") String password,
-                          Model model,
                           HttpServletResponse response) {
 
         System.out.println("username:" + username + " password:" + password);
@@ -92,7 +96,8 @@ public class HomeController {
 
             // 写入 cookie
             //todo: cookie 加密
-            response.addCookie(new Cookie("auth", username));
+            String userId = userService.findUserIdByUsername(username);
+            response.addCookie(new Cookie("userId", userId));
 
             return "redirect:/" + username;
         }

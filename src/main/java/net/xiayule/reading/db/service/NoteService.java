@@ -12,9 +12,9 @@ public interface NoteService {
     /**
      * 返回owner所有的笔记
      */
-    public List<Note> find(String owner);
+    public List<Note> findByOwner(String owner);
 
-    public Note find(String ownerId, String noteId);
+    public Note find(String noteId);
 
     /**
      * 更新note的title和content
