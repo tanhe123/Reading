@@ -42,22 +42,25 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             $("#file-title-input").show().focus();
         });
 
-/*
         $("#file-title-input").blur(function () {
             var title = $.trim($(this).val());
+
             if (title) {
-                var fileIndex = localStorage["file.current"];
-                localStorage[fileIndex + ".title"] = title;
+                //var fileIndex = localStorage["file.current"];
+                //localStorage[fileIndex + ".title"] = title;
+                //fileManager.saveFile();
+                $("#file-title").text(title);
+                save = true;
             }
+
             $(this).hide();
             $("#file-title").show();
-            // 更名后，需要更新title和ui
-            fileManager.updateFileDescList();
-            fileManager.updateFileTitleUI();
 
-            save = true;
+            // 更名后，需要更新title和ui
+            //fileManager.updateFileDescList();
+            //fileManager.updateFileTitleUI();
+
         });
-*/
 
         //保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {
@@ -89,7 +92,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         });
     };
 
-    fileManager.downloadFile = function(filename, content, elt) {
+    fileManager.downloadFile = function(filename, content) {
         if (saveAs !== undefined) {
             var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
             saveAs(blob, filename);
@@ -240,7 +243,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         if (save) {
 
             var content = $("#wmd-input").val();
-            var title = $("#file-title").val();
+            var title = $("#file-title").text();
 
             var params = {
                 noteId: note.id,
