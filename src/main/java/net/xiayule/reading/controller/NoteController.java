@@ -103,7 +103,9 @@ public class NoteController {
         return "/note/show";
     }
 
+/*    public String updateNote() {
 
+    }*/
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteNote(@RequestParam Integer id) {

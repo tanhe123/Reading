@@ -27,4 +27,12 @@ public class NoteServiceImpl implements NoteService {
     public Note find(String ownerId, String noteId) {
         return noteDao.find(ownerId, noteId);
     }
+
+    /**
+     * 更新note的title和content
+     * @param note 更新的note
+     */
+    public void updateContentOrTitle(Note note) {
+        noteDao.updateContentOrTitle(note);
+    }
 }

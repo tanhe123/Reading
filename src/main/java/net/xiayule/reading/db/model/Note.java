@@ -12,9 +12,14 @@ public class Note {
     private String id;
     private String title;
     private String content;
-    private Boolean isBlog;
+    private boolean isBlog;
     private Date createTime;
-    private Integer versionId;
+
+    /**
+     * 版本号
+     * 这里如果用 Integer, mongo会把它识别为Double类型
+     */
+    private int versionId;
 
     /**
      * todo 增加一个 desc， 用来描述文章
@@ -90,7 +95,7 @@ public class Note {
         this.content = content;
     }
 
-    public Boolean getIsBlog() {
+    public boolean getIsBlog() {
         return isBlog;
     }
 
@@ -106,11 +111,11 @@ public class Note {
         this.createTime = createTime;
     }
 
-    public Integer getVersionId() {
+    public int getVersionId() {
         return versionId;
     }
 
-    public void setVersionId(Integer versionId) {
+    public void setVersionId(int versionId) {
         this.versionId = versionId;
     }
 

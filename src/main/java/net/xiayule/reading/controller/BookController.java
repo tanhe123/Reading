@@ -1,7 +1,6 @@
 package net.xiayule.reading.controller;
 
 import net.xiayule.reading.db.model.Book;
-import net.xiayule.reading.db.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;

@@ -7,6 +7,7 @@ import net.xiayule.reading.db.model.Note;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,12 +38,12 @@ public class NoteDaoImpl implements NoteDao {
      * 返回owner所有的笔记
      */
     public List<Note> find(String ownerId) {
-        DBCollection userTable = MongoDbManager.getNoteDb();
+        DBCollection noteTable = getTable();
 
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("ownerId", ownerId);
 
-        DBCursor cursor = userTable.find(searchQuery);
+        DBCursor cursor = noteTable.find(searchQuery);
 
         ArrayList<Note> notes = new ArrayList<Note>();
 
@@ -64,14 +65,15 @@ public class NoteDaoImpl implements NoteDao {
         return notes;
     }
 
+    //todo:这里只需要 noteid
     public Note find(String ownerId, String noteId) {
-        DBCollection userTable = MongoDbManager.getNoteDb();
+        DBCollection noteTable = getTable();
 
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("ownerId", ownerId);
         searchQuery.put("_id", new ObjectId(noteId));
 
-        DBObject dbObject = userTable.findOne(searchQuery);
+        DBObject dbObject = noteTable.findOne(searchQuery);
 
         System.out.println("NoteDaoImpl find:" + dbObject);
 
@@ -85,5 +87,25 @@ public class NoteDaoImpl implements NoteDao {
         note.setTitle((String)dbObject.get("title"));
 
         return note;
+    }
+
+    /**
+     * 更新note的title和content
+     * @param note 更新的note
+     */
+    public void updateContentOrTitle(Note note) {
+
+//        db.note.update({"_id": ObjectId("54c49161c830e2fddcf8ecf6")}, {"$set":{"content":"content", "title":"title"}, "$inc":{"versionId":1}})
+
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.put("_id", new ObjectId(note.getId()));
+
+        DBObject updateQuery = new BasicDBObject()
+                .append("$set", new BasicDBObject("title", note.getTitle())
+                        .append("content", note.getContent())
+                )
+                .append("$inc", new BasicDBObject("versionId", 1));
+
+        getTable().update(searchQuery, updateQuery);
     }
 }

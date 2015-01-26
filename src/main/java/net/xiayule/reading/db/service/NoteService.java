@@ -16,4 +16,9 @@ public interface NoteService {
 
     public Note find(String ownerId, String noteId);
 
+    /**
+     * 更新note的title和content
+     * @param note 更新的note
+     */
+    public void updateContentOrTitle(Note note);
 }
