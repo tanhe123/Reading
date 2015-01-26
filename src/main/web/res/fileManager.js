@@ -11,9 +11,9 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         //synchronizer.init();
 
         //todo: 获取note和note列表
-        console.log(note.id);
+        //console.log(note.id);
 
-        fileManager.selectFile();
+        fileManager.queryFile();
 
         // 自动调用保存
         window.setInterval(function () {
@@ -26,7 +26,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         /*$("#new-file").click(function () {
             fileManager.saveFile();
             fileManager.createFile();
-            fileManager.selectFile();
+            fileManager.queryFile();
         });
 */
         $("#remove-file").click(function () {
@@ -106,24 +106,28 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
 */
 
     // 读取 file.current 文件
-    fileManager.selectFile = function () {
+    fileManager.queryFile = function (noteId) {
+        noteId = noteId || note.id;
+
         // 如果文件不存在
-        if (!localStorage["file.count"]) {
+       /* if (!localStorage["file.count"]) {
             localStorage.clear();
             localStorage["file.count"] = 0;
-        }
+        }*/
 
         // 在view中更新文件列表
-        this.updateFileDescList();
+        //this.updateFileDescList();
 
         // 如果没有缓存文件
+/*
         if (this.fileDescList.length === 0) {
             this.createFile();
             this.updateFileDescList();
         }
+*/
 
         // 如果找不到默认的文件，就选择第一个
-        if (!localStorage["file.current"]) {
+/*        if (!localStorage["file.current"]) {
             var fileCount = parseInt(localStorage["file.count"]);
             for (var i = 0; i < fileCount; i++) {
                 var fileIndex = "file." + i;
@@ -132,17 +136,31 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                     break;
                 }
             }
-        }
+        }*/
 
-        // Update the editor and the file title
-        var fileIndex = localStorage["file.current"];
-        $("#wmd-input").val(localStorage[fileIndex + ".content"]);
+        $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {
+            note = rsNote;
 
-        core.createEditor(function () {
-            save = true;
+            $("#wmd-input").val(note.content);
+
+            document.title = "Reading - " + note.title;
+
+            //可以更新所有 class 为 file-title 的内容
+            $(".file-title").text(note.title);
+
+            $("#file-title-input").val(note.title);
+
+            core.createEditor(function () {
+                save = true;
+            });
         });
 
-        this.updateFileTitleUI();
+        // Update the editor and the file title
+        //var fileIndex = localStorage["file.current"];
+        //$("#wmd-input").val(localStorage[fileIndex + ".content"]);
+
+
+        //this.updateFileTitleUI();
     };
 
     // 更新持有的 文件描述，包括 title和index
@@ -193,7 +211,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                     .click((function (fileIndex) {
                         return function () {
                             localStorage["file.current"] = fileIndex;
-                            fileManager.selectFile();
+                            fileManager.queryFile();
                         }
                     })(fileDesc.index));
             }

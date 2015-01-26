@@ -69,6 +69,14 @@ public class NoteController {
         return "/note/view";
     }
 
+    @RequestMapping(value = "/getNoteContent", method = RequestMethod.GET)
+    public @ResponseBody Note getNoteContent(@RequestParam String noteId) {
+
+        System.out.println("NoteController: getNoteContent: noteId:" + noteId);
+
+        return noteService.find(noteId);
+    }
+
     @RequestMapping(value = "/{noteId}/edit", method = RequestMethod.GET)
     public String editNote(@PathVariable String noteId,
                            Model model) {

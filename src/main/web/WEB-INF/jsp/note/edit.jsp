@@ -12,7 +12,7 @@
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <script data-main="/res/main.js" src="/res/require.js"></script>--%>
 
-    <title>${note.title}--edit</title>
+    <title><%--${note.title}--%>--edit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="/res/css/main.css" rel="stylesheet">
@@ -46,7 +46,7 @@
               <div class="navbar-form navbar-left">
                   <div class="form-group">
                       <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title"
-                              value="${note.title}">
+                              value="<%--${note.title}--%>">
                   </div>
                   <%--<button type="submit" class="btn btn-default">提交按钮</button>--%>
               </div>
@@ -95,7 +95,7 @@
               </ul>
           </li>
 
-          <li><a id="file-title"><span class="file-title">${note.titlej}</span></a></li>
+          <li><a id="file-title"><span class="file-title"><%--${note.title}--%></span></a></li>
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <b class="caret"></b>
@@ -106,7 +106,7 @@
       </ul>
   </div>
 
-  <textarea id="wmd-input" class="ui-layout-center">${note.content}</textarea>
+  <textarea id="wmd-input" class="ui-layout-center"><%--${note.content}--%></textarea>
 
   <div class="ui-layout-east"></div>
   <div class="ui-layout-south"></div>
