@@ -37,6 +37,7 @@ public class Note {
     public Note() {
         createTime = new Date();
         isBlog = false;
+        versionId = 1;
     }
 
     @Override

@@ -27,14 +27,14 @@ public class HomeController {
     @RequestMapping({"/", "/home"})
     public String showHomePage() {
 
-        return "index";
+        return "/index";
     }
 
     // 显示注册页面
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public String newUser() {
 
-        return "user/register";
+        return "/user/register";
     }
 
     // 注册用户
@@ -76,7 +76,7 @@ public class HomeController {
 
         }
 
-        return "user/login";
+        return "/user/login";
     }
 
     // 处理用户登录表单
@@ -104,22 +104,29 @@ public class HomeController {
 
         // 登录失败
         System.out.println("loginDo: 登录失败");
-        return "user/login";
+        return "/user/login";
     }
 
     // 显示个人主页
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public String showUserHome(@PathVariable String username) {
+    public String showUserHome(@CookieValue(value = "cookie", defaultValue = "") String userId,
+                               @PathVariable String username) {
 
         System.out.println("showUserHome:" + username);
 
         if (!userService.exist(username)) {
             // todo: 如果用户不存在，则404, 提示用户找不到
+            return "/user/404";
         }
 
-        //todo: 如果用户存在，则显示个人的主页
+        // 用户没有登录
+        if (StringUtils.isBlank(userId)) {
 
-        return "index";
+        }
+
+        //todo 显示所有的博客文章
+
+        return "/user/index";
     }
 
     @RequestMapping({"/viewer"})
@@ -127,6 +134,6 @@ public class HomeController {
 
         System.out.println("viewer");
 
-        return "viewer";
+        return "/viewer";
     }
 }

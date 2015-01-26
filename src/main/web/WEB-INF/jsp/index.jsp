@@ -12,7 +12,7 @@
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <script data-main="/res/main.js" src="/res/require.js"></script>--%>
 
-    <title>Pagedown editor</title>
+    <title>Home--Reading</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="/res/css/main.css" rel="stylesheet">
@@ -28,14 +28,17 @@
     <script type="text/javascript" src="/res/libs/Markdown.Editor.js"></script>
     <script type="text/javascript" src="/res/main.js"></script>--%>
 
-    <script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
+    <%--<script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
     <script>
         var viewerMode = false;
-    </script>
+    </script>--%>
   </head>
   <body>
 
-  <%-- 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html --%>
+  index
+
+<%--
+  &lt;%&ndash; 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html &ndash;%&gt;
   <div id="navbar" class="navbar navbar-defaul ui-layout-north">
       <div id="wmd-button-bar" class="pull-left"></div>
 
@@ -45,11 +48,11 @@
                   <div class="form-group">
                       <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
                   </div>
-                  <%--<button type="submit" class="btn btn-default">提交按钮</button>--%>
+                  &lt;%&ndash;<button type="submit" class="btn btn-default">提交按钮</button>&ndash;%&gt;
               </div>
-<%--              <button type="button" class="btn btn-default navbar-btn">
+&lt;%&ndash;              <button type="button" class="btn btn-default navbar-btn">
                   导航栏按钮
-              </button>--%>
+              </button>&ndash;%&gt;
           </li>
 
           <li class="divider-vertical"></li>
@@ -108,7 +111,7 @@
   <div class="ui-layout-east"></div>
   <div class="ui-layout-south"></div>
 
-  <%--删除确认模态框--%>
+  &lt;%&ndash;删除确认模态框&ndash;%&gt;
   <div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"
        aria-labelledby="modal-remove-file-confirm-label" aria-hidden="true">
       <div class="modal-dialog">
@@ -138,7 +141,7 @@
       </div><!-- /.modal -->
   </div>
 
-  <%--设置模态框--%>
+  &lt;%&ndash;设置模态框&ndash;%&gt;
   <div class="modal fade" id="modal-settings" tabindex="-1" role="dialog"
        aria-labelledby="modal-settings-label" aria-hidden="true">
       <div class="modal-dialog">
@@ -180,6 +183,6 @@
       </div><!-- /.modal -->
   </div>
 
-  <textarea id="md-section-helper"></textarea>
+  <textarea id="md-section-helper"></textarea>--%>
   </body>
 </html>

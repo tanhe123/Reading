@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<a href="/note/new">新建笔记</a> <br/>
+
 <table border="1">
 
   <tr>
@@ -23,6 +25,7 @@
     <th>版本号</th>
     <th>ownerId</th>
     <th>创建时间</th>
+    <th>操作</th>
   </tr>
 
 <c:forEach var="note" items="${notes}">

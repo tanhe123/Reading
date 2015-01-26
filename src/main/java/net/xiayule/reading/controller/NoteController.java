@@ -25,11 +25,23 @@ public class NoteController {
     private UserService userService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newNote() {
+    public String newNote(@CookieValue(value = "userId", defaultValue = "") String userId,
+                          Model model) {
 
-//        System.out.println(username);
+        Note note = new Note();
+        note.setTitle("new note");
+        note.setOwnerId(userId);
+        note.setContent("new note");
 
-        return "/note/new";
+        noteService.create(note);
+
+//        System.out.println("NoteController: newNote: noteId:" + note.getId());
+
+//        model.addAttribute(note);
+
+        String noteId = note.getId();
+
+        return "redirect:/note/" + noteId + "/edit";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)

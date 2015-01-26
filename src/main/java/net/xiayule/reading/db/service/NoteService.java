@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface NoteService {
 
+    public void create(Note note);
+
     /**
      * 返回owner所有的笔记
      */

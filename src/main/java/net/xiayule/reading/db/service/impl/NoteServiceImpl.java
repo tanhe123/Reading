@@ -17,6 +17,10 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteDao noteDao;
 
+    public void create(Note note) {
+        noteDao.create(note);
+    }
+
     /**
      * 返回owner所有的笔记
      */

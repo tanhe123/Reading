@@ -22,7 +22,7 @@ public class NoteDaoImpl implements NoteDao {
         return MongoDbManager.getNoteDb();
     }
 
-    public void save(Note note) {
+    public void create(Note note) {
         BasicDBObject document = new BasicDBObject()
                 .append("title", note.getTitle())
                 .append("content", note.getContent())
@@ -32,6 +32,9 @@ public class NoteDaoImpl implements NoteDao {
                 .append("ownerId", note.getOwnerId());
 
         getTable().insert(document);
+
+        // 更新note在mongo插入时生成的id
+        note.setId((ObjectId) document.get("_id"));
     }
 
     /**

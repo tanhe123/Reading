@@ -8,7 +8,7 @@ import java.util.List;
  * Created by tan on 14-12-27.
  */
 public interface NoteDao {
-    public void save(Note note);
+    public void create(Note note);
 
     /**
      * 返回owner所有的笔记
