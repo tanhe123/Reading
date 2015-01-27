@@ -25,7 +25,8 @@
     <th>版本号</th>
     <th>ownerId</th>
     <th>创建时间</th>
-    <th>操作</th>
+    <th>查看</th>
+    <th>删除</th>
   </tr>
 
 <c:forEach var="note" items="${notes}">
@@ -39,8 +40,8 @@
     <td>${note.ownerId}</td>
     <td>${note.createTime}</td>
 
-    <td><a href="note/${note.id}">查看</a></td>
-    <%--<td><a href="/article/delete?id=${note.id}">删除</a></td>--%>
+    <td><a href="/note/${note.id}">查看</a></td>
+    <td><a href="/note/deleteNote?noteId=${note.id}">删除</a></td>
   </tr>
 
 </c:forEach>

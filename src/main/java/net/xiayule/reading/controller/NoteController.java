@@ -78,6 +78,9 @@ public class NoteController {
 
         model.addAttribute("note", note);
 
+        // 查看模式
+//        model.addAttribute("viewer", true);
+
         return "/note/view";
     }
 
@@ -150,10 +153,11 @@ public class NoteController {
 
     }*/
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteNote(@RequestParam Integer id) {
+    @RequestMapping(value = "/deleteNote", method = RequestMethod.GET)
+    public String deleteNote(@RequestParam String noteId) {
 
         //todo: 删除
+
 
         return "redirect:/note";
     }

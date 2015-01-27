@@ -8,22 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="/res/css/main.css" rel="stylesheet">
+
+  <script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
+
+  <script>
+    var viewerMode = true;
+    var note = {id : "${note.id}"};
+  </script>
 </head>
-<body>
-
-<table border="1">
-  <tr>
-    <td>${note.id}</td>
-    <td>${note.title}</td>
-    <td>${note.content}</td>
-    <td>${note.isBlog}</td>
-    <td>${note.versionId}</td>
-    <td>${note.ownerId}</td>
-    <td>${note.createTime}</td>
-    <td><a href="${note.id}/edit">编辑</a></td>
-  </tr>
-</table>
-
+<body class="viewer">
+<div id="wmd-button-bar" class="hide"></div>
+<textarea id="wmd-input" class="hide"></textarea>
+<div id="wmd-preview" class="well"></div>
 </body>
 </html>
