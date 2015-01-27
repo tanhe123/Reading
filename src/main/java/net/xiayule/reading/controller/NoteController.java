@@ -157,7 +157,8 @@ public class NoteController {
     public String deleteNote(@RequestParam String noteId) {
 
         //todo: 删除
-
+        System.out.println("删除笔记");
+        noteService.deleteNote(noteId);
 
         return "redirect:/note";
     }

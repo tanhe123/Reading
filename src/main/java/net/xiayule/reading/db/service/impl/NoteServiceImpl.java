@@ -39,4 +39,11 @@ public class NoteServiceImpl implements NoteService {
     public void updateContentOrTitle(Note note) {
         noteDao.updateContentOrTitle(note);
     }
+
+    /**
+     * 删除笔记
+     */
+    public void deleteNote(String noteId) {
+        noteDao.delete(noteId);
+    }
 }

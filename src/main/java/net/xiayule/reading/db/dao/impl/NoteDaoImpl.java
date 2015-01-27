@@ -111,4 +111,14 @@ public class NoteDaoImpl implements NoteDao {
 
         getTable().update(searchQuery, updateQuery);
     }
+
+    /**
+     * 删除笔记
+     */
+    public void delete(String noteId) {
+        BasicDBObject deleteQuery = new BasicDBObject();
+        deleteQuery.put("_id", new ObjectId(noteId));
+
+        getTable().remove(deleteQuery);
+    }
 }

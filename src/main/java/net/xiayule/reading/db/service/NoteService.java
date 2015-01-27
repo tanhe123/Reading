@@ -23,4 +23,9 @@ public interface NoteService {
      * @param note 更新的note
      */
     public void updateContentOrTitle(Note note);
+
+    /**
+     * 删除笔记
+     */
+    public void deleteNote(String noteId);
 }
