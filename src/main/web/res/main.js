@@ -15,7 +15,8 @@ requirejs.config({
         pagedownExtra: 'bower-libs/pagedown-extra/Markdown.Extra',
         prettify: "bower-libs/google-code-prettify/bin/prettify.min",
         FileSaver: "bower-libs/file-saver/FileSaver",
-        underscore: "bower-libs/underscore/underscore"
+        underscore: "bower-libs/underscore/underscore",
+        MathJax: "bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"
     },
 
     shim: {

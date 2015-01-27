@@ -3,7 +3,7 @@
  */
 
 
-define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($, _) {
+define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($, _, mathjaxEditing) {
     var core = {};
 
     core.settings = {
@@ -315,7 +315,15 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
 
         var editor = new Markdown.Editor(converter);
 
-        editor.hooks.chain("onPreviewRefresh", function() {
+        // 启用 Markdown.Extra
+        Markdown.Extra.init(converter, {highlighter: "prettify"});
+
+        editor.hooks.chain("onPreviewRefresh", prettyPrint);
+
+        /*editor.hooks.chain("onPreviewRefresh", function() {
+            // MathJax may have change the scroll position. Restore it
+            $("#wmd-preview").scrollTop(lastPreviewScrollTop);
+
             // Modify scroll position of the preview not the editor
             lastEditorScrollTop = -9;
             buildSections();
@@ -324,14 +332,29 @@ define(["jquery", "underscore", "bootstrap", "jgrowl", "layout", "pagedownExtra"
                 lastEditorScrollTop = -9;
                 buildSections();
             });
-        });
+        });*/
 
-        // 启用 Markdown.Extra
-        Markdown.Extra.init(converter, {highlighter: "prettify"});
+        // MathJax
+        mathjaxEditing.prepareWmdForMathJax(editor, [["$", "$"], ["\\\\(", "\\\\)"]], previewFinished);
 
-        editor.hooks.chain("onPreviewRefresh", prettyPrint);
+        function previewFinished() {
+            // MathJax may have change the scroll position. Restore it
+            $("#wmd-preview").scrollTop(lastPreviewScrollTop);
+
+            // Modify scroll position of the preview not the editor
+            lastEditorScrollTop = -9;
+            buildSections();
+            // Preview may change if images are loading
+            $("#wmd-preview img").load(function() {
+                lastEditorScrollTop = -9;
+                buildSections();
+            });
+        };
+
 
         editor.run();
+
+        $("#wmd-input").bind('input propertychange', _.throttle(editor.refreshPreview, 1000));
 
         $(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
         $("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
