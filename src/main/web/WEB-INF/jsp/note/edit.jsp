@@ -10,25 +10,10 @@
 
 <html>
 <head>
-<%--    <title></title>
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <script data-main="/res/main.js" src="/res/require.js"></script>--%>
-
-    <title><%--${note.title}--%>--edit</title>
+    <title>Reading</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="/res/css/main.css" rel="stylesheet">
-<%--
-    <script type="text/javascript" src="/res/bower-libs/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/res/libs/jquery-ui.custom.js"></script>
-    <script type="text/javascript" src="/res/libs/jquery.layout-latest.js"></script>
-    <script type="text/javascript" src="/res/bower-libs/jgrowl/jquery.jgrowl.js"></script>
-
-    <script type="text/javascript" src="/res/bower-libs/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/res/libs/Markdown.Converter.js"></script>
-    <script type="text/javascript" src="/res/libs/Markdown.Sanitizer.js"></script>
-    <script type="text/javascript" src="/res/libs/Markdown.Editor.js"></script>
-    <script type="text/javascript" src="/res/main.js"></script>--%>
 
     <script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
     <script>
@@ -56,9 +41,9 @@
           <a id="file-title" style="line-height: 50px;"><span class="file-title"><%--${note.title}--%></span></a>
       </div>
 
-      <div class="pull-right">
+      <div class="pull-left">
           <div class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height: 60px;">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height: 50px; margin-left: 20px">
                   <span>Menu</span>
                   <i class="fa fa-angle-down"></i>
               </a>

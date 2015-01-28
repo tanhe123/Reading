@@ -3,21 +3,6 @@
 @import url("../bower-libs/jgrowl/jquery.jgrowl.css");
 @import url("../bower-libs/google-code-prettify/bin/prettify.min.css");
 
-
-@media print {
-    @page {
-        margin: 25mm 25mm 25mm 25mm;
-    }
-
-    #wmd-preview {
-        padding: 0px;
-        margin: 0px;
-    }
-    #navbar {
-        display: none;
-    }
-}
-
 body {
     background-color: #f5f5f5;
     /*background-image: url(../img/honeycomb.png);*/
@@ -25,63 +10,6 @@ body {
 
     tab-size: 4;
 }
-
-.working {
-    cursor: progress;
-}
-
-.btn, .dropdown-menu {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-}
-
-/*
-Override Bootstrap
-*/
-div, span, a, ul, li, textarea, input {
-    background-image: none !important;
-    filter: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-}
-
-.btn, .navbar-inner, #wmd-preview, .add-on {
-    border: none !important;
-}
-
-/*input,
-select,
-textarea,
-.input-prepend .btn,
-.input-prepend .add-on {
-    border: 1px solid #ebebeb !important;
-}*/
-
-/*.navbar-inner .btn {
-    background-color: #ddd;
-}*/
-
-/*
-.navbar .btn:hover, .navbar .btn:focus,
-.navbar .btn:active, .navbar .btn.active,
-.btn-group.open .btn.dropdown-toggle {
-    color: #8d1d26;
-    background-color: #eee;
-}
-*/
-
-/*.navbar .btn.disabled,
-.navbar .btn[disabled] {
-    color: #333333;
-    background-color: #ddd;
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-}*/
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
@@ -115,35 +43,6 @@ textarea,
     padding-left: 12px;
 }
 
-/*.navbar-inner {
-    background-color: #ddd !important;
-}*/
-
-code {
-    color: #333333 !important;
-}
-
-h1 {
-    margin: 50px 0 20px;
-}
-
-h2 {
-    margin-top: 30px;
-}
-
-p, pre, blockquote {
-    margin: 0 0 20px;
-}
-
-hr {
-    border-top: 1px solid #ddd;
-    margin: 30px 0;
-}
-
-/*#navbar {
-    position: static;
-}*/
-
 .ui-layout-center, .ui-layout-east, .ui-layout-south {
     -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
     -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1) !important;
@@ -151,25 +50,9 @@ hr {
     border-color: #cccccc !important;
 }
 
-/*#menu-bar {
-    margin-right: 15px;
-}*/
-
-/*
-#wmd-button-bar {
-    margin-left: 15px;
-}
-*/
-
 #file-title-input {
     display: none;
 }
-
-/*
-#wmd-input, #wmd-preview {
-    position: absolute;
-}
-*/
 
 #wmd-input, #md-section-helper{
     /*left: 20px;*/
