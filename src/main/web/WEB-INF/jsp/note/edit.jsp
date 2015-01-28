@@ -24,7 +24,7 @@
   </head>
   <body>
 
-  <div class="header ui-layout-north" style="position: absolute; top: 0; left: 0;">
+  <div class="header ui-layout-north" id="navbar" style="position: absolute; top: 0; left: 0;">
 
       <div class="pull-left">
           <div id="wmd-button-bar"></div>

@@ -291,7 +291,7 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
         $(".ui-layout-toggler-east").addClass("btn").append($("<b>").addClass("caret"));
         $(".ui-layout-toggler-south").addClass("btn").append($("<b>").addClass("caret"));
 
-        $("#navbar").click(function() {
+         $("#navbar").click(function() {
             // 使得pop窗口菜单能够不被遮拦
             layout.allowOverflow('north');
         });
