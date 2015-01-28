@@ -7,7 +7,7 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
     var core = {};
 
     core.settings = {
-        layoutOrientation: "horizontal",
+        //layoutOrientation: "horizontal",
         editorFontSize : 14
     };
 
@@ -99,12 +99,12 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
         }
 
         // Layout orientation
-        $("input:radio[name=radio-layout-orientation][value=" + core.settings.layoutOrientation + "]").prop("checked", true);
+        //$("input:radio[name=radio-layout-orientation][value=" + core.settings.layoutOrientation + "]").prop("checked", true);
     };
 
     core.saveSettings = function() {
         // Layout orientation
-        core.settings.layoutOrientation = $("input:radio[name=radio-layout-orientation]:checked").prop("value");
+        //core.settings.layoutOrientation = $("input:radio[name=radio-layout-orientation]:checked").prop("value");
         localStorage.settings = JSON.stringify(core.settings);
     };
 
@@ -273,18 +273,10 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
             center__minHeight : 100,
             stateManagement__enabled : false};
 
-        if (core.settings.layoutOrientation == "horizontal") {
-            $(".ui-layout-east").addClass("well").prop("id", "wmd-preview");
-            layout = $('body').layout(
-                $.extend(layoutGlobalConfig,
-                    {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
-        } else if (core.settings.layoutOrientation === "vertical") {
-            $(".ui-layout-east").remove();
-            $(".ui-layout-south").addClass("well").prop("id", "wmd-preview");
-            layout = $('body').layout(
-                $.extend(layoutGlobalConfig, { south__resizable : true,
-                    south__size : .5, south__minSize : 200}));
-        };
+        $(".ui-layout-east").addClass("well").prop("id", "wmd-preview");
+        layout = $('body').layout(
+            $.extend(layoutGlobalConfig,
+                {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
 
         // 添加一个箭头指示
         $(".ui-layout-toggler-north").addClass("btn").append($("<b>").addClass("caret"));
@@ -319,21 +311,7 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
         Markdown.Extra.init(converter, {highlighter: "prettify"});
 
         editor.hooks.chain("onPreviewRefresh", prettyPrint);
-
-        /*editor.hooks.chain("onPreviewRefresh", function() {
-            // MathJax may have change the scroll position. Restore it
-            $("#wmd-preview").scrollTop(lastPreviewScrollTop);
-
-            // Modify scroll position of the preview not the editor
-            lastEditorScrollTop = -9;
-            buildSections();
-            // Preview may change if images are loading
-            $("#wmd-preview img").load(function() {
-                lastEditorScrollTop = -9;
-                buildSections();
-            });
-        });*/
-
+        
         // MathJax
         mathjaxEditing.prepareWmdForMathJax(editor, [["$", "$"], ["\\\\(", "\\\\)"]], previewFinished);
 

@@ -132,7 +132,7 @@
                   </h4>
               </div>
               <div class="modal-body">
-                  <h1>布局</h1><br/>
+                  <%--<h1>布局</h1><br/>
 
                   <label for="radio-layout-orientation-horizontal">水平</label>
                   <input type="radio" name="radio-layout-orientation"
@@ -142,7 +142,7 @@
                   <label for="radio-layout-orientation-vertical">纵向</label>
                   <input type="radio" name="radio-layout-orientation"
                          id="radio-layout-orientation-vertical"
-                         value="vertical">
+                         value="vertical">--%>
 
               </div>
 
