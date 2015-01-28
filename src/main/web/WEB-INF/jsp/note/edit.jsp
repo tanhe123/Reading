@@ -32,47 +32,37 @@
 
     <script data-main="/res/main" src="/res/bower-libs/requirejs/require.js"></script>
     <script>
-        <%--<c:choose>--%>
-        <%--<c:when test="${empty viewer}">--%>
         var viewerMode = false;
-        <%--</c:when>--%>
-        <%--<c:otherwise>--%>
-//        var viewerMode = true;
-        <%--</c:otherwise>--%>
-        <%--</c:choose>--%>
-
 
         var note = {id : "${note.id}"};
     </script>
   </head>
   <body>
 
-  <%-- 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html --%>
-  <div id="navbar" class="navbar navbar-defaul ui-layout-north">
-      <div id="wmd-button-bar" class="pull-left"></div>
+  <div class="header ui-layout-north" style="position: absolute; top: 0; left: 0;">
 
-      <ul class="nav navbar-nav navbar-right" id="menu-bar">
-          <li>
-              <div class="navbar-form navbar-left">
-                  <div class="form-group">
-                      <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title"
-                              value="<%--${note.title}--%>">
-                  </div>
-                  <%--<button type="submit" class="btn btn-default">提交按钮</button>--%>
-              </div>
-<%--              <button type="button" class="btn btn-default navbar-btn">
-                  导航栏按钮
-              </button>--%>
-          </li>
+      <div class="pull-left">
+          <div id="wmd-button-bar"></div>
+      </div>
 
-          <li class="divider-vertical"></li>
+      <div class="pull-left">
+          <div class="navbar-form form-inline col-lg-2">
+              <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
+          </div>
+      </div>
 
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Menu
-                  <b class="caret"></b>
+      <div class="pull-left">
+          <%--line-height为了让其居中--%>
+          <a id="file-title" style="line-height: 50px;"><span class="file-title"><%--${note.title}--%></span></a>
+      </div>
+
+      <div class="pull-right">
+          <div class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height: 60px;">
+                  <span>Menu</span>
+                  <i class="fa fa-angle-down"></i>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu li-a">
                   <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> New file</a></li>
 
                   <li><a id="remove-file" data-toggle="modal"
@@ -103,17 +93,8 @@
                       设置</a>
                   </li>
               </ul>
-          </li>
-
-          <li><a id="file-title"><span class="file-title"><%--${note.title}--%></span></a></li>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu" id="file-selector">
-              </ul>
-          </li>
-      </ul>
+          </div>
+      </div>
   </div>
 
   <textarea id="wmd-input" class="ui-layout-center"><%--${note.content}--%></textarea>
