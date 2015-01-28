@@ -61,10 +61,22 @@ public class UserDaoImpl implements UserDao {
 
         BasicDBObject queryFilter = new BasicDBObject("_id", 1);
 
-        DBObject dbObject = getTable().findOne(query);
+        DBObject dbObject = getTable().findOne(query, queryFilter);
 
         String userId = ((ObjectId) dbObject.get("_id")).toHexString();
 
         return userId;
+    }
+
+    public String findUsernameByUserId(String userId) {
+        BasicDBObject query = new BasicDBObject("_id", new ObjectId(userId));
+
+        BasicDBObject queryFilter = new BasicDBObject("username", 1);
+
+        DBObject dbObject = getTable().findOne(query, queryFilter);
+
+        String username = (String) dbObject.get("username");
+
+        return username;
     }
 }

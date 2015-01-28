@@ -25,7 +25,18 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping({"/", "/home"})
-    public String showHomePage() {
+    public String showHomePage(@CookieValue(value = "userId", defaultValue = "") String userId,
+                               Model model) {
+
+        // 已登录
+        if (StringUtils.isNotBlank(userId)) {
+            String username = userService.findUsernameByUserId(userId);
+
+            model.addAttribute("userId", userId);
+            model.addAttribute("username", username);
+
+            System.out.println("HomeController: ShowHomePage: userId:" + userId + " username:" + username);
+        }
 
         return "/index";
     }

@@ -11,6 +11,9 @@
     <title></title>
 </head>
 <body>
-user index
+
+<a href="/note">查看note</a>
+
+
 </body>
 </html>

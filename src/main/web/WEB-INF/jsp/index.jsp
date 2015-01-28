@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <%--    <title></title>
@@ -35,7 +36,17 @@
   </head>
   <body>
 
-  index
+  <c:choose>
+      <c:when test="${empty username}">
+          <a href="/login">登录</a>
+          <a href="/register">注册</a>
+      </c:when>
+
+      <c:otherwise>
+          <a href="/${username}">个人主页</a>
+      </c:otherwise>
+  </c:choose>
+
 
 <%--
   &lt;%&ndash; 导航栏知识参见 http://www.w3cschool.cc/bootstrap/bootstrap-navbar.html &ndash;%&gt;

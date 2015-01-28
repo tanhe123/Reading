@@ -17,4 +17,5 @@ public interface UserService {
 
     public String findUserIdByUsername(String username);
 
+    public String findUsernameByUserId(String userId);
 }
