@@ -22,30 +22,37 @@
         var note = {id : "${note.id}"};
     </script>
   </head>
+
   <body>
 
   <div class="container">
-      <div class="row">
 
+      <!-- 菜单栏-->
+      <div id="header" class="row">
+
+          <!--mdEditor 按钮组-->
           <div class="pull-left">
               <div id="wmd-button-bar"></div>
           </div>
 
+          <!--title输入框-->
           <div class="pull-left">
               <div class="navbar-form form-inline col-lg-2">
                   <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
               </div>
           </div>
 
+          <!--title显示-->
           <div class="pull-left">
               <%--line-height为了让其居中--%>
               <%--todo: 使用这里保存的数据--%>
-              <a id="file-title" style="line-height: 50px;"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
+              <a id="file-title"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
           </div>
 
+          <%--菜单按钮--%>
           <div class="pull-left">
               <div class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height: 50px; margin-left: 20px">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-left: 20px">
                       <span>Menu</span>
                       <i class="fa fa-angle-down"></i>
                   </a>
@@ -85,7 +92,8 @@
       </div>
 
 
-      <div class="row mdEditor">
+      <%--编辑器--%>
+      <div class="row">
 
           <div id="left-column" class="pull-left">
               <div id="wmd-panel-editor" class="wmd-panel-editor">
@@ -100,10 +108,6 @@
           </div>
       </div>
   </div>
-
-
-  <%--<div class="ui-layout-east"></div>
-  <div class="ui-layout-south"></div>--%>
 
   <%--删除确认模态框--%>
   <div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"
