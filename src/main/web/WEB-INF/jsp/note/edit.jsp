@@ -25,10 +25,9 @@
 
   <body>
 
-  <div class="container">
-
+  <nav class="navbar navbar-default">
       <!-- 菜单栏-->
-      <div id="header" class="row">
+      <div id="header" class="nav navbar-nav">
 
           <!--mdEditor 按钮组-->
           <div class="pull-left">
@@ -90,21 +89,19 @@
               </div>
           </div>
       </div>
+  </nav>
 
-
+  <div id="mainContainer">
       <%--编辑器--%>
-      <div class="row">
-
-          <div id="left-column" class="pull-left">
-              <div id="wmd-panel-editor" class="wmd-panel-editor">
-                  <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
-              </div>
+      <div id="left-column" class="pull-left">
+          <div id="wmd-panel-editor" class="wmd-panel-editor">
+              <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
           </div>
+      </div>
 
-          <div id="right-column" class="well pull-right">
-              <div id="wmd-panel-preview" class="wmd-panel-preview">
-                  <div id="wmd-preview" class="wmd-preview"></div>
-              </div>
+      <div id="right-column" class="well pull-right">
+          <div id="wmd-panel-preview" class="wmd-panel-preview">
+              <div id="wmd-preview" class="wmd-preview"></div>
           </div>
       </div>
   </div>

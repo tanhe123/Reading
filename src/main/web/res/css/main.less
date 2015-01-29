@@ -15,16 +15,27 @@ body {
     background-repeat: repeat;
 
     tab-size: 4;
+    overflow: auto;
 }
 
 #header {
     background: @headerBackgroundColor;
+    width: 100%;
     height: @headerHeight;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ccc;
     line-height: @headerHeight;
 
     /*会导致弹出菜单不显示*/
-    overflow: hidden;
+//    overflow: hidden;
+}
+
+#mainContainer {
+    position: absolute;
+    top: @headerHeight;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
 }
 
 .wmd-panel-editor, .preview-container, #wmd-input {
@@ -38,10 +49,6 @@ body {
 .wmd-panel-editor, .wmd-panel-preview, #wmd-input, #wmd-preview {
     height: 100%;
     width: 100%;
-}
-
-#mdEditor {
-    background-color: #fff;
 }
 
 #left-column, #right-column {

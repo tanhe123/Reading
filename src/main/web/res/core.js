@@ -248,39 +248,6 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", /*"lay
             return;
         }
 
-        //var layout;
-
-        // layout 配置项
-        /*var layoutGlobalConfig = {
-            closable : true,
-            resizable : false,
-            slidable : false,
-            livePaneResizing : true,
-            spacing_open : 20,
-            spacing_closed : 20,
-
-            // 切换按钮的长度
-            togglerLength_open : 90,
-            togglerLength_closed : 90,
-            center__minWidth : 300,
-            center__minHeight : 100,
-            stateManagement__enabled : false};
-
-        $(".ui-layout-east").addClass("well").prop("id", "wmd-preview");
-        layout = $('body').layout(
-            $.extend(layoutGlobalConfig,
-                {east__resizable: true, east__size: .5, east__minSize: 200, south__closable: false}));
-
-        // 添加一个箭头指示
-        $(".ui-layout-toggler-north").addClass("btn").append($("<b>").addClass("caret"));
-        $(".ui-layout-toggler-east").addClass("btn").append($("<b>").addClass("caret"));
-        $(".ui-layout-toggler-south").addClass("btn").append($("<b>").addClass("caret"));
-
-         $("#navbar").click(function() {
-            // 使得pop窗口菜单能够不被遮拦
-            layout.allowOverflow('north');
-        });*/
-
         // 同步滚动
         $("#wmd-input, #wmd-preview").scroll(scrollLink)
     };
