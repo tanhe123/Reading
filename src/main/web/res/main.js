@@ -5,6 +5,12 @@
 requirejs.config({
     baseUrl: '/res',
 
+    map: {
+        '*': {
+            'less': 'bower-libs/require-less/less' // path to less
+        }
+    },
+
     paths: {
         jquery: 'bower-libs/jquery/dist/jquery',
         'jquery-ui': 'libs/jquery-ui',
@@ -36,7 +42,11 @@ requirejs.config({
     }
 });
 
-require(["jquery", "core", "fileManager"], function ($, core, fileManager) {
+require([
+    "jquery",
+    "core",
+    "fileManager",
+    "less!css/main"], function ($, core, fileManager) {
     $(function() {
         core.init();
 

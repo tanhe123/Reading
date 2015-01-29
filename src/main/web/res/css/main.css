@@ -2,10 +2,13 @@
 @import url("../bower-libs/font-awesome/css/font-awesome.css");
 @import url("../bower-libs/jgrowl/jquery.jgrowl.css");
 @import url("../bower-libs/google-code-prettify/bin/prettify.min.css");
+/*
 
 body {
     background-color: #f5f5f5;
-    /*background-image: url(../img/honeycomb.png);*/
+    */
+/*background-image: url(../img/honeycomb.png);*//*
+
     background-repeat: repeat;
 
     tab-size: 4;
@@ -55,37 +58,61 @@ body {
 }
 
 #wmd-input, #md-section-helper{
-    /*left: 20px;*/
-    /*font-family: "Courier New", Courier, monospace;*/
+    */
+/*left: 20px;*//*
+
+    */
+/*font-family: "Courier New", Courier, monospace;*//*
+
     font-family: "Inconsolata", Courier, monospace;
-    /*用户不可改变大小*/
+    */
+/*用户不可改变大小*//*
+
     resize: none;
 }
 
 #wmd-preview {
-    /*left: 50%;*/
+    */
+/*left: 50%;*//*
+
     overflow: auto;
 }
 
-/*按钮组*/
+*/
+/*按钮组*//*
+
 .wmd-button-row {
-    /*    margin: 10px 30px;
+    */
+/*    margin: 10px 30px;
         top: 10px;
         left: 30px;
         padding: 0px;
-        height: 20px;*/
+        height: 20px;*//*
+
     margin: 10px 0;
 }
 
-/*本来是按钮间隔的一条竖线, 隐藏起来*/
+*/
+/*本来是按钮间隔的一条竖线, 隐藏起来*//*
+
 .wmd-spacer {
-    /*width: 1px;*/
-    /*height: 20px;*/
-    /*0表示默认值*/
+    */
+/*width: 1px;*//*
+
+    */
+/*height: 20px;*//*
+
+    */
+/*0表示默认值*//*
+
     margin: 0 10px;
-    /*background-color: Silver;*/
+    */
+/*background-color: Silver;*//*
+
     display: inline-block;
-    /*list-style: none;*/
+    */
+/*list-style: none;*//*
+
 }
 
 .wmd-button > span {
@@ -124,7 +151,9 @@ body {
     font-weight: bold;
 }
 
-/*north打开、south关闭时是一个正三角*/
+*/
+/*north打开、south关闭时是一个正三角*//*
+
 .ui-layout-toggler-north-open .caret, .ui-layout-toggler-south-closed .caret {
     border-bottom: 5px solid #525252;
     border-right: 5px solid transparent;
@@ -132,7 +161,9 @@ body {
     border-top: 0;
 }
 
-/*north关闭、south打开时是一个正三角*/
+*/
+/*north关闭、south打开时是一个正三角*//*
+
 .ui-layout-toggler-north-closed .caret, .ui-layout-toggler-south-open .caret {
     border-top: 5px solid #525252;
     border-right: 5px solid transparent;
@@ -149,9 +180,11 @@ body {
     border-top: 5px solid transparent;
     border-left: 5px solid #525252;
     border-right: 0;
-    /*
-        margin-top: 40px;
     */
+/*
+        margin-top: 40px;
+    *//*
+
 }
 
 .ui-layout-toggler-east-closed .caret, .ui-layout-toggler-west-opened .caret {
@@ -159,7 +192,9 @@ body {
     border-top: 5px solid transparent;
     border-right: 5px solid #525252;
     border-left: 0;
-    /*    margin-top: 40px;*/
+    */
+/*    margin-top: 40px;*//*
+
 }
 
 .ui-layout-toggler-north .caret, .ui-layout-toggler-south .caret {
@@ -196,9 +231,11 @@ table thead:first-child tr:first-child td {
     border-top: 0;
 }
 
+*/
 /* + 表示相邻兄弟选择器使用了加号（+），即相邻兄弟结合符（Adjacent sibling combinator）。
 http://blog.sina.com.cn/s/blog_830edcf30101f3x1.html
-*/
+*//*
+
 table tbody + tbody {
     border-top: 2px solid #dddddd;
 }
@@ -228,23 +265,4 @@ blockquote p {
     overflow-y: scroll;
     z-index: -1;
 }
-
-/* Viewer */
-/*
-.viewer #navbar {
-    position: fixed;
-}
-
-.viewer .navbar-inner {
-    background-color: rgba(200, 200, 200, 0.5) !important;
-}
-
-.viewer #wmd-preview {
-    max-width: 1024px;
-    margin: 50px auto;
-}
-
-.viewer .btn-group {
-    margin-right: 0;
-    margin-left: 0;
-}*/
+*/

@@ -38,7 +38,8 @@
 
       <div class="pull-left">
           <%--line-height为了让其居中--%>
-          <a id="file-title" style="line-height: 50px;"><span class="file-title"><%--${note.title}--%></span></a>
+          <%--todo: 使用这里保存的数据--%>
+          <a id="file-title" style="line-height: 50px;"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
       </div>
 
       <div class="pull-left">

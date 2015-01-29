@@ -311,7 +311,7 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
         Markdown.Extra.init(converter, {highlighter: "prettify"});
 
         editor.hooks.chain("onPreviewRefresh", prettyPrint);
-        
+
         // MathJax
         mathjaxEditing.prepareWmdForMathJax(editor, [["$", "$"], ["\\\\(", "\\\\)"]], previewFinished);
 

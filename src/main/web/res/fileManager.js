@@ -19,12 +19,11 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             //synchronizer.run();
         }, 6000);
 
-        /*$("#new-file").click(function () {
-            fileManager.saveFile();
-            fileManager.createFile();
-            fileManager.queryFile();
+        $("#new-file").click(function () {
+            location.href = "/"
         });
-*/
+
+
         $("#remove-file").click(function () {
             //todo:
         });
