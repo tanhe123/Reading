@@ -4,10 +4,7 @@
 @headerHeight: 50px;
 @headerIconColor: #232323;
 
-* {
-    font-family: @fontFamily;
-    padding: 0px;
-}
+@wmdInputPadding: 20px;
 
 body {
     background-color: #f5f5f5;
@@ -20,9 +17,9 @@ body {
 
 #header {
     background: @headerBackgroundColor;
-    width: 100%;
     height: @headerHeight;
-    border: 1px solid #ccc;
+    border: 1px solid @headerBackgroundColor;
+//    让文字居中
     line-height: @headerHeight;
 
     /*会导致弹出菜单不显示*/
@@ -42,6 +39,10 @@ body {
     height: 100%;
 }
 
+#wmd-input {
+    padding: @wmdInputPadding;
+}
+
 #file-title-input {
     display: none;
 }
@@ -58,8 +59,8 @@ body {
 
 #wmd-input, #md-section-helper{
     width: 100%;
-    border: 1px #b5b5b5 solid;
-    border-radius: 5px;
+//    border: 1px #b5b5b5 solid;
+//    border-radius: 5px;
     font-family: @fontFamily;
     font-size: @fontSize;
     /*用户不可改变大小*/

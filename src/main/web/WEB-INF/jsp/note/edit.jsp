@@ -27,7 +27,7 @@
 
   <nav class="navbar navbar-default">
       <!-- 菜单栏-->
-      <div id="header" class="nav navbar-nav">
+      <div id="header" class="navbar navbar-default">
 
           <!--mdEditor 按钮组-->
           <div class="pull-left">
