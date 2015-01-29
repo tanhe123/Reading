@@ -24,69 +24,86 @@
   </head>
   <body>
 
-  <div class="header ui-layout-north" id="navbar" style="position: absolute; top: 0; left: 0;">
+  <div class="container">
+      <div class="row">
 
-      <div class="pull-left">
-          <div id="wmd-button-bar"></div>
-      </div>
+          <div class="pull-left">
+              <div id="wmd-button-bar"></div>
+          </div>
 
-      <div class="pull-left">
-          <div class="navbar-form form-inline col-lg-2">
-              <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
+          <div class="pull-left">
+              <div class="navbar-form form-inline col-lg-2">
+                  <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
+              </div>
+          </div>
+
+          <div class="pull-left">
+              <%--line-height为了让其居中--%>
+              <%--todo: 使用这里保存的数据--%>
+              <a id="file-title" style="line-height: 50px;"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
+          </div>
+
+          <div class="pull-left">
+              <div class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height: 50px; margin-left: 20px">
+                      <span>Menu</span>
+                      <i class="fa fa-angle-down"></i>
+                  </a>
+                  <ul class="dropdown-menu li-a">
+                      <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> New file</a></li>
+
+                      <li><a id="remove-file" data-toggle="modal"
+                             data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> Remove file</a></li>
+
+                      <li class="divider"></li>
+
+                      <li><a id="action-download-md" href="#" title="下载当前mrkdown文档">
+                          <i class="fa fa-download"></i>
+                          下载Markdown文档
+                      </a></li>
+
+                      <li><a id="action-download-html" href="#" title="下载当前Html文档">
+                          <i class="fa fa-download"></i>
+                          下载HTML文档
+                      </a></li>
+
+                      <li class="divider"></li>
+
+                      <li><a href="viewer"><i class="fa fa-desktop"></i> Open in viewer</a></li>
+
+                      <li class="divider"></li>
+
+                      <li><a href="#" title="Modify your preferences"
+                             data-toggle="modal" data-target="#modal-settings"
+                             class="action-load-settings">
+                          <i class="fa fa-cog"></i>
+                          设置</a>
+                      </li>
+                  </ul>
+              </div>
           </div>
       </div>
 
-      <div class="pull-left">
-          <%--line-height为了让其居中--%>
-          <%--todo: 使用这里保存的数据--%>
-          <a id="file-title" style="line-height: 50px;"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
-      </div>
 
-      <div class="pull-left">
-          <div class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height: 50px; margin-left: 20px">
-                  <span>Menu</span>
-                  <i class="fa fa-angle-down"></i>
-              </a>
-              <ul class="dropdown-menu li-a">
-                  <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> New file</a></li>
+      <div class="row mdEditor">
 
-                  <li><a id="remove-file" data-toggle="modal"
-                         data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> Remove file</a></li>
+          <div id="left-column" class="pull-left">
+              <div id="wmd-panel-editor" class="wmd-panel-editor">
+                  <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
+              </div>
+          </div>
 
-                  <li class="divider"></li>
-
-                  <li><a id="action-download-md" href="#" title="下载当前mrkdown文档">
-                      <i class="fa fa-download"></i>
-                      下载Markdown文档
-                  </a></li>
-
-                  <li><a id="action-download-html" href="#" title="下载当前Html文档">
-                      <i class="fa fa-download"></i>
-                      下载HTML文档
-                  </a></li>
-
-                  <li class="divider"></li>
-
-                  <li><a href="viewer"><i class="fa fa-desktop"></i> Open in viewer</a></li>
-
-                  <li class="divider"></li>
-
-                  <li><a href="#" title="Modify your preferences"
-                         data-toggle="modal" data-target="#modal-settings"
-                         class="action-load-settings">
-                      <i class="fa fa-cog"></i>
-                      设置</a>
-                  </li>
-              </ul>
+          <div id="right-column" class="well pull-right">
+              <div id="wmd-panel-preview" class="wmd-panel-preview">
+                  <div id="wmd-preview" class="wmd-preview"></div>
+              </div>
           </div>
       </div>
   </div>
 
-  <textarea id="wmd-input" class="ui-layout-center"><%--${note.content}--%></textarea>
 
-  <div class="ui-layout-east"></div>
-  <div class="ui-layout-south"></div>
+  <%--<div class="ui-layout-east"></div>
+  <div class="ui-layout-south"></div>--%>
 
   <%--删除确认模态框--%>
   <div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"

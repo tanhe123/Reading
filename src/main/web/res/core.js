@@ -3,7 +3,7 @@
  */
 
 
-define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layout", "pagedownExtra"], function ($, _, mathjaxEditing) {
+define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", /*"layout",*/ "pagedownExtra"], function ($, _, mathjaxEditing) {
     var core = {};
 
     core.settings = {
@@ -194,13 +194,6 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
             height: scrollHeight - htmlSectionOffset
         });
 
-
-        /*
-        console.log("mdSectionList: " + _.map(mdSectionList, function(section) {
-            return section.endOffset;
-        }));
-        */
-
         // apply Scroll Link
         lastEditorScrollTop = -99;
         lastPreviewScrollTop = -99;
@@ -255,10 +248,10 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
             return;
         }
 
-        var layout;
+        //var layout;
 
         // layout 配置项
-        var layoutGlobalConfig = {
+        /*var layoutGlobalConfig = {
             closable : true,
             resizable : false,
             slidable : false,
@@ -286,7 +279,7 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", "layou
          $("#navbar").click(function() {
             // 使得pop窗口菜单能够不被遮拦
             layout.allowOverflow('north');
-        });
+        });*/
 
         // 同步滚动
         $("#wmd-input, #wmd-preview").scroll(scrollLink)
