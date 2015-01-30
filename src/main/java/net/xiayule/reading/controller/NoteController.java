@@ -62,6 +62,7 @@ public class NoteController {
         return note;
     }
 
+    // 已博客的形式显示内容
     @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
     public String showNote(@PathVariable String noteId,
                            Model model) {
@@ -76,6 +77,7 @@ public class NoteController {
         return "/note/view";
     }
 
+    // ajax方式获取笔记内容
     @RequestMapping(value = "/getNoteContent", method = RequestMethod.GET)
     public @ResponseBody Note getNoteContent(@RequestParam String noteId) {
 
@@ -145,13 +147,13 @@ public class NoteController {
 
     }*/
 
-    @RequestMapping(value = "/deleteNote", method = RequestMethod.GET)
-    public String deleteNote(@RequestParam String noteId) {
-
-        //todo: 删除
-        System.out.println("删除笔记");
+    @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Boolean deleteNote(@PathVariable String noteId) {
+//        System.out.println(noteId);
+//        System.out.println("删除笔记");
         noteService.deleteNote(noteId);
 
-        return "redirect:/note";
+        return true;
     }
 }

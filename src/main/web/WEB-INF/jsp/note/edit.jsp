@@ -131,7 +131,7 @@
                   <button type="button" class="btn btn-default"
                           data-dismiss="modal">返回
                   </button>
-                  <button type="button" class="btn btn-primary"
+                  <button type="button" class="btn btn-primary action-remove-file"
                           data-dismiss="modal">
                       删除
                   </button>

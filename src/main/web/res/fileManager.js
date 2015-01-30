@@ -23,9 +23,24 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             location.href = "/"
         });
 
+        // 删除笔记
+        $(".action-remove-file").click(function () {
+            $.ajax({
+                url: '/note/' + note.id,
+                type: 'DELETE',
+                success: function (rs) {
+                    console.log(rs);
 
-        $("#remove-file").click(function () {
-            //todo:
+                    console.log("rs === true ? " + (rs === true));
+
+                    if (rs === true) {
+                        location.href = "/note";
+                    } else {
+                        alert("跳转失败");
+                    }
+                }
+            });
+
         });
 
         $("#file-title").click(function () {
@@ -139,9 +154,9 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                 content: content
             };
 
-            console.log("params:" + params);
-
+            //console.log("params:" + params);
             $.post("/note/updateNoteTitleOrContent", params, function (rs) {
+                //todo:
                 console.log("rs:" + rs);
             });
             save = false;
