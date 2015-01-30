@@ -25,7 +25,7 @@
 
   <body>
 
-  <nav class="navbar navbar-default">
+  <nav>
       <!-- 菜单栏-->
       <div id="header" class="navbar navbar-default">
 
