@@ -32,7 +32,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: auto;
+//    消除最外层有滚动条
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .wmd-panel-editor, .preview-container, #wmd-input {

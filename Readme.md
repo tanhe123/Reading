@@ -41,4 +41,4 @@ get /note 显示所有笔记列表 返回类型 html
 8. 自动智能同步功能
 9. showUserHome:favicon
 10. Markdown.getSanitizingConverter 经常出错
-11. 最外成的滚动条
+11. ~~最外成的滚动条~~
