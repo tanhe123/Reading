@@ -41,6 +41,11 @@ body {
     height: 100%;
 }
 
+.preview-container {
+    overflow: auto;
+    height: 40px;
+}
+
 #wmd-input {
     padding: @wmdInputPadding;
 }
@@ -57,12 +62,11 @@ body {
 #left-column, #right-column {
     width: 50%;
     height: 100%;
+    overflow: hidden;
 }
 
 #wmd-input, #md-section-helper{
     width: 100%;
-//    border: 1px #b5b5b5 solid;
-//    border-radius: 5px;
     font-family: @fontFamily;
     font-size: @fontSize;
     /*用户不可改变大小*/
@@ -70,8 +74,8 @@ body {
 }
 
 #wmd-preview {
-    /*left: 50%;*/
     overflow: auto;
+    padding: @wmdInputPadding;
 }
 
 #wmd-button-bar {

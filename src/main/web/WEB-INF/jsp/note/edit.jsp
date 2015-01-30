@@ -99,11 +99,15 @@
           </div>
       </div>
 
-      <div id="right-column" class="well pull-right">
+          <%--well带padding属性, 所以不使用--%>
+      <div id="right-column" class="<%--well --%>pull-right">
           <div id="wmd-panel-preview" class="wmd-panel-preview">
               <div id="wmd-preview" class="wmd-preview"></div>
           </div>
       </div>
+
+      <%--清除浮动效果--%>
+      <div class="clearfix"></div>
   </div>
 
   <%--删除确认模态框--%>
