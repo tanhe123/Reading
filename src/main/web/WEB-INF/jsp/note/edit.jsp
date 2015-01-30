@@ -91,7 +91,7 @@
       </div>
   </nav>
 
-  <div id="mainContainer">
+  <div class="mainContainer">
       <%--编辑器--%>
       <div id="left-column" class="pull-left">
           <div id="wmd-panel-editor" class="wmd-panel-editor">

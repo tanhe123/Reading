@@ -66,20 +66,12 @@ public class NoteController {
     public String showNote(@PathVariable String noteId,
                            Model model) {
 
-//        System.out.println(username + " " + noteId);
-
-//        String ownerId = userService.findUserIdByUsername(username);
-
-//        System.out.println("ownerId: " + ownerId);
-
         Note note = noteService.find(noteId);
-
-//        System.out.println(note);
 
         model.addAttribute("note", note);
 
         // 查看模式
-//        model.addAttribute("viewer", true);
+        model.addAttribute("viewer", true);
 
         return "/note/view";
     }

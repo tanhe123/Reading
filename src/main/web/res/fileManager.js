@@ -128,7 +128,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     //todo: 增加本地缓存功能
     //todo: 通过比对版本号，来选择是否使用缓存
     fileManager.saveFile = function () {
-        if (save) {
+        if (save && viewerMode === false) {
 
             var content = $("#wmd-input").val();
             var title = $("#file-title").text();
