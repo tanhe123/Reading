@@ -30,6 +30,9 @@ requirejs.config({
         'bootstrap': ['jquery'],
         'jgrowl': ['jquery'],
         'layout': ['jquery-ui'],
+        'libs/Markdown.Sanitizer': [
+            'libs/Markdown.Converter'
+        ],
         pagedown: [
             'libs/Markdown.Converter', 'libs/Markdown.Sanitizer'
         ],

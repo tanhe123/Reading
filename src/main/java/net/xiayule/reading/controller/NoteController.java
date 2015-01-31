@@ -62,28 +62,22 @@ public class NoteController {
         return note;
     }
 
+    // 已博客的形式显示内容
     @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
     public String showNote(@PathVariable String noteId,
                            Model model) {
 
-//        System.out.println(username + " " + noteId);
-
-//        String ownerId = userService.findUserIdByUsername(username);
-
-//        System.out.println("ownerId: " + ownerId);
-
         Note note = noteService.find(noteId);
-
-//        System.out.println(note);
 
         model.addAttribute("note", note);
 
         // 查看模式
-//        model.addAttribute("viewer", true);
+        model.addAttribute("viewer", true);
 
         return "/note/view";
     }
 
+    // ajax方式获取笔记内容
     @RequestMapping(value = "/getNoteContent", method = RequestMethod.GET)
     public @ResponseBody Note getNoteContent(@RequestParam String noteId) {
 
@@ -153,13 +147,13 @@ public class NoteController {
 
     }*/
 
-    @RequestMapping(value = "/deleteNote", method = RequestMethod.GET)
-    public String deleteNote(@RequestParam String noteId) {
-
-        //todo: 删除
-        System.out.println("删除笔记");
+    @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Boolean deleteNote(@PathVariable String noteId) {
+//        System.out.println(noteId);
+//        System.out.println("删除笔记");
         noteService.deleteNote(noteId);
 
-        return "redirect:/note";
+        return true;
     }
 }

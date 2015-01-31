@@ -20,9 +20,11 @@
     var note = {id : "${note.id}"};
   </script>
 </head>
-<body class="viewer">
-<div id="wmd-button-bar" class="hide"></div>
-<textarea id="wmd-input" class="hide"></textarea>
-<div id="wmd-preview" class="well"></div>
+<body class="viewer" style="overflow: hidden">
+
+  <div id="wmd-button-bar" class="hide"></div>
+  <textarea id="wmd-input" class="hide"></textarea>
+  <div id="wmd-preview" class="well"></div>
+
 </body>
 </html>

@@ -118,6 +118,9 @@ define(["jquery", "underscore", "mathjax-editing", "bootstrap", "jgrowl", /*"lay
     }
 
     var buildSections = _.debounce(function() {
+        // 如果是viewer模式，则不用同步滚动条
+        if (viewerMode === true) return;
+
         // Try to find Markdown sections by looking for titles
         var editorElt = $("#wmd-input");
         mdSectionList = [];

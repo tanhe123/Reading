@@ -56,10 +56,10 @@
                       <i class="fa fa-angle-down"></i>
                   </a>
                   <ul class="dropdown-menu li-a">
-                      <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> New file</a></li>
+                      <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> 新建笔记</a></li>
 
                       <li><a id="remove-file" data-toggle="modal"
-                             data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> Remove file</a></li>
+                             data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> 删除笔记</a></li>
 
                       <li class="divider"></li>
 
@@ -91,7 +91,7 @@
       </div>
   </nav>
 
-  <div id="mainContainer">
+  <div class="mainContainer">
       <%--编辑器--%>
       <div id="left-column" class="pull-left">
           <div id="wmd-panel-editor" class="wmd-panel-editor">
@@ -131,7 +131,7 @@
                   <button type="button" class="btn btn-default"
                           data-dismiss="modal">返回
                   </button>
-                  <button type="button" class="btn btn-primary"
+                  <button type="button" class="btn btn-primary action-remove-file"
                           data-dismiss="modal">
                       删除
                   </button>

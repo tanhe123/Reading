@@ -13,19 +13,28 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
 
         // 自动调用保存
         window.setInterval(function () {
+            //todo: 修改为智能同步，而不是定时检查
             fileManager.saveFile();
-
-            //todo: 还未写同步功能
-            //synchronizer.run();
         }, 6000);
 
         $("#new-file").click(function () {
             location.href = "/"
         });
 
+        // 删除笔记
+        $(".action-remove-file").click(function () {
+            $.ajax({
+                url: '/note/' + note.id,
+                type: 'DELETE',
+                success: function (rs) {
+                    if (rs === true) {
+                        location.href = "/note";
+                    } else {
+                        alert("删除文章失败");
+                    }
+                }
+            });
 
-        $("#remove-file").click(function () {
-            //todo:
         });
 
         $("#file-title").click(function () {
@@ -34,13 +43,17 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             }
 
             $(this).hide();
+
+            // 显示修改标题的输入框，并选中输入框内的文本
             $("#file-title-input").show().focus();
+            $("#file-title-input").select();
         });
 
+        // 输入标题时，失去焦点保存文件名
         $("#file-title-input").blur(function () {
             var title = $.trim($(this).val());
 
-            if (title) {
+            if (title && title != "") {
                 $("#file-title").text(title);
                 save = true;
             }
@@ -48,6 +61,15 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             $(this).hide();
             $("#file-title").show();
         });
+
+
+        // 修改标题时，回车保存文件名
+        $("#file-title-input").keydown(function (event) {
+            if (event.keyCode == "13") {
+                this.blur();
+            }
+        });
+
 
         //保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {
@@ -115,7 +137,7 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     //todo: 增加本地缓存功能
     //todo: 通过比对版本号，来选择是否使用缓存
     fileManager.saveFile = function () {
-        if (save) {
+        if (save && viewerMode === false) {
 
             var content = $("#wmd-input").val();
             var title = $("#file-title").text();
@@ -126,10 +148,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                 content: content
             };
 
-            console.log("params:" + params);
-
             $.post("/note/updateNoteTitleOrContent", params, function (rs) {
-                console.log("rs:" + rs);
+                if (rs !== true) {
+                    alert("获取文章内容失败");
+                }
             });
             save = false;
         }
