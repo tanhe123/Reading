@@ -13,10 +13,8 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
 
         // 自动调用保存
         window.setInterval(function () {
+            //todo: 修改为智能同步，而不是定时检查
             fileManager.saveFile();
-
-            //todo: 还未写同步功能
-            //synchronizer.run();
         }, 6000);
 
         $("#new-file").click(function () {
@@ -29,14 +27,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                 url: '/note/' + note.id,
                 type: 'DELETE',
                 success: function (rs) {
-                    console.log(rs);
-
-                    console.log("rs === true ? " + (rs === true));
-
                     if (rs === true) {
                         location.href = "/note";
                     } else {
-                        alert("跳转失败");
+                        alert("删除文章失败");
                     }
                 }
             });
@@ -154,10 +148,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
                 content: content
             };
 
-            //console.log("params:" + params);
             $.post("/note/updateNoteTitleOrContent", params, function (rs) {
-                //todo:
-                console.log("rs:" + rs);
+                if (rs !== true) {
+                    alert("获取文章内容失败");
+                }
             });
             save = false;
         }

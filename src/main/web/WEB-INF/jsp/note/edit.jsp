@@ -56,10 +56,10 @@
                       <i class="fa fa-angle-down"></i>
                   </a>
                   <ul class="dropdown-menu li-a">
-                      <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> New file</a></li>
+                      <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> 新建笔记</a></li>
 
                       <li><a id="remove-file" data-toggle="modal"
-                             data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> Remove file</a></li>
+                             data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> 删除笔记</a></li>
 
                       <li class="divider"></li>
 
