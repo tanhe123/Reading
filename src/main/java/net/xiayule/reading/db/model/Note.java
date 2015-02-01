@@ -1,14 +1,17 @@
 package net.xiayule.reading.db.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bson.types.ObjectId;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by tan on 14-12-27.
  * 文章笔记类
  */
-public class Note {
+public class Note implements Serializable {
+
     private String id;
     private String title;
     private String content;

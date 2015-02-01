@@ -62,21 +62,6 @@ public class NoteController {
         return note;
     }
 
-    // 已博客的形式显示内容
-    @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
-    public String showNote(@PathVariable String noteId,
-                           Model model) {
-
-        Note note = noteService.find(noteId);
-
-        model.addAttribute("note", note);
-
-        // 查看模式
-        model.addAttribute("viewer", true);
-
-        return "/note/view";
-    }
-
     // ajax方式获取笔记内容
     @RequestMapping(value = "/getNoteContent", method = RequestMethod.GET)
     public @ResponseBody Note getNoteContent(@RequestParam String noteId) {
@@ -143,9 +128,6 @@ public class NoteController {
         return "/note/show";
     }
 
-/*    public String updateNote() {
-
-    }*/
 
     @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
     public @ResponseBody
@@ -157,10 +139,27 @@ public class NoteController {
         return true;
     }
 
+    @RequestMapping(value = "/{noteId}/publish", method = RequestMethod.POST)
     public @ResponseBody
-    Boolean publish(@RequestBody Note note) {
-        System.out.println(note);
+    Boolean publish(@PathVariable String noteId) {
+
+        System.out.println(noteId);
 
         return true;
+    }
+
+    // 已博客的形式显示内容
+    @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
+    public String showNote(@PathVariable String noteId,
+                           Model model) {
+
+        Note note = noteService.find(noteId);
+
+        model.addAttribute("note", note);
+
+        // 查看模式
+        model.addAttribute("viewer", true);
+
+        return "/note/view";
     }
 }

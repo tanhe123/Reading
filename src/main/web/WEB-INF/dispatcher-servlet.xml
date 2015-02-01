@@ -24,9 +24,10 @@
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
         <property name="messageConverters">
-            <util:list id="beanList">
+            <!--<util:list id="beanList">-->
+            <list>
                 <ref bean="mappingJacksonHttpMessageConverter"/>
-            </util:list>
+            </list>
         </property>
     </bean>
 

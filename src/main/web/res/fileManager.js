@@ -62,7 +62,6 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             $("#file-title").show();
         });
 
-
         // 修改标题时，回车保存文件名
         $("#file-title-input").keydown(function (event) {
             if (event.keyCode == "13") {
@@ -71,10 +70,13 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         });
 
         $("#action-publish-blog").click(function () {
-
-
+            Note.publish();
         });
 
+
+        $("#action-update-blog").click(function () {
+
+        });
 
         // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {

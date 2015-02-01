@@ -7,7 +7,6 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
     var core = {};
 
     core.settings = {
-        //layoutOrientation: "horizontal",
         editorFontSize : 14
     };
 
