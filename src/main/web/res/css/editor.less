@@ -1,0 +1,77 @@
+
+
+.wmd-panel-editor, .preview-container, #wmd-input {
+  height: 100%;
+}
+
+.preview-container {
+  overflow: auto;
+  height: 40px;
+}
+
+#wmd-input {
+  padding: @wmdInputPadding;
+}
+
+#file-title-input {
+  display: none;
+}
+
+.wmd-panel-editor, .wmd-panel-preview, #wmd-input, #wmd-preview {
+  height: 100%;
+  width: 100%;
+}
+
+
+#wmd-input, #md-section-helper{
+  width: 100%;
+  font-family: @fontFamily;
+  font-size: @fontSize;
+  /*用户不可改变大小*/
+  resize: none;
+}
+
+#wmd-preview {
+  overflow: auto;
+  padding: @wmdInputPadding;
+}
+
+#wmd-button-bar {
+  height: 100%;
+}
+
+/*按钮组*/
+.wmd-button-row {
+  padding: 0px;
+  height: 100%;
+}
+
+//让按钮局中
+#wmd-button-bar {
+  margin-top: @headerHeight/2 - 14px;
+}
+
+/*本来是按钮间隔的一条竖线, 隐藏起来
+但是没有起作用
+*/
+.wmd-spacer {
+  /*0表示默认值*/
+  margin: 0 10px;
+  background-color: Silver;
+  display: inline-block;
+  list-style: none;
+}
+
+.wmd-button > span {
+  width: 20px;
+  height: 20px;
+}
+
+#md-section-helper {
+  position: absolute;
+  top: -100px;
+  height: 0px;
+  padding: 0 6px;
+  overflow-y: scroll;
+  z-index: -1;
+}

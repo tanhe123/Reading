@@ -121,8 +121,6 @@ public class NoteController {
         // 获得其所有的 note
         List<Note> notes = noteService.findByOwner(userId);
 
-        System.out.println("NoteController: showAllNote: " + notes);
-
         model.addAttribute("notes", notes);
 
         return "/note/show";

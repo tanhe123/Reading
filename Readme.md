@@ -43,5 +43,20 @@ get /note 显示所有笔记列表 返回类型 html
 10. ~~Markdown.getSanitizingConverter 经常出错~~
 11. ~~最外成的滚动条~~
 12. ~~发布博客~~
-13. 展示博客
+13. 显示笔记、博客
 14. 博客、笔记分开存储
+15. 内容直接被解析为html, 如果放在网页正文，会被执行，应该转换html实体
+
+    例如
+    ```
+    <!DOCTYPE HTML>
+    <html>
+    <body>
+        <pre id="pid" contenteditable="true" style="padding-left: 35px; padding-right: 35px; padding-bottom: 251px;"><div>这是一行</div><div>这是另一行</div></pre>
+    <script>
+        var inputElt = document.getElementById("pid");
+        alert(inputElt.textContent)
+    </script>
+    </body>
+    </html>
+    ```
