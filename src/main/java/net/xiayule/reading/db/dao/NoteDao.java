@@ -27,4 +27,11 @@ public interface NoteDao {
      * 删除笔记
      */
     public void delete(String noteId);
+
+    /**
+     * 更新 blog 状态
+     * @param noteId
+     * @param flag
+     */
+    public void updateBlog(String noteId, Boolean flag);
 }

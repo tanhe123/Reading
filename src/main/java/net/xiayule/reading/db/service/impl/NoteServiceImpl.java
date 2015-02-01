@@ -46,4 +46,13 @@ public class NoteServiceImpl implements NoteService {
     public void deleteNote(String noteId) {
         noteDao.delete(noteId);
     }
+
+    /**
+     * 更新 blog 状态
+     * @param noteId
+     * @param flag
+     */
+    public void updateBlog(String noteId, Boolean flag) {
+        noteDao.updateBlog(noteId, flag);
+    }
 }

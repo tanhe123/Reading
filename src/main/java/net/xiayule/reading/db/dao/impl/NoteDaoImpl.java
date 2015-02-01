@@ -113,6 +113,21 @@ public class NoteDaoImpl implements NoteDao {
     }
 
     /**
+     * 更新 blog 状态
+     * @param noteId
+     * @param flag
+     */
+    public void updateBlog(String noteId, Boolean flag) {
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.put("_id", new ObjectId(noteId));
+
+        DBObject updateQuery = new BasicDBObject()
+                .append("$set", new BasicDBObject("isBlog", flag));
+
+        getTable().update(searchQuery, updateQuery);
+    }
+
+    /**
      * 删除笔记
      */
     public void delete(String noteId) {

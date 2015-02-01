@@ -143,7 +143,9 @@ public class NoteController {
     public @ResponseBody
     Boolean publish(@PathVariable String noteId) {
 
-        System.out.println(noteId);
+        // todo: 暂时只将标记为blog，以后blog要单独存放一个表，可以blog和笔记独立，笔记更新blog
+
+        noteService.updateBlog(noteId, true);
 
         return true;
     }

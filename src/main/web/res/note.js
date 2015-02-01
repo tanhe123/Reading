@@ -44,6 +44,11 @@ define([], function() {
 
         $.post("/note/" + note.id + "/publish", function (rs) {
             console.log(rs);
+
+            if (rs === true) {
+                $("#action-publish-blog").hide();
+                $("#action-update-blog").show();
+            }
         });
 
         //var jsonObj = JSON.stringify(note);
