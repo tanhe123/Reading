@@ -1,7 +1,7 @@
 /**
  * Created by tan on 15-1-22.
  */
-define(['jquery', 'core', 'FileSaver'], function ($, core) {
+define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
     var fileManager = {};
 
     // 内容是否有变化的标志, true 为有变化
@@ -70,8 +70,13 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
             }
         });
 
+        $("#action-publish-blog").click(function () {
 
-        //保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
+
+        });
+
+
+        // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {
             var content = $("#wmd-input").val();
             var filename = $("#file-title").text() + ".md";
@@ -116,15 +121,10 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
         $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {
             note = rsNote;
 
-            $("#wmd-input").val(note.content);
+            // 显示笔记
+            Note.renderNote(note);
 
-            document.title = "Reading - " + note.title;
-
-            //可以更新所有 class 为 file-title 的内容
-            $(".file-title").text(note.title);
-
-            $("#file-title-input").val(note.title);
-
+            // 重新初始化 markdown 编辑器
             core.createEditor(function () {
                 save = true;
             });
@@ -139,20 +139,8 @@ define(['jquery', 'core', 'FileSaver'], function ($, core) {
     fileManager.saveFile = function () {
         if (save && viewerMode === false) {
 
-            var content = $("#wmd-input").val();
-            var title = $("#file-title").text();
+            Note.updateContentAndTitle();
 
-            var params = {
-                noteId: note.id,
-                title: title,
-                content: content
-            };
-
-            $.post("/note/updateNoteTitleOrContent", params, function (rs) {
-                if (rs !== true) {
-                    alert("获取文章内容失败");
-                }
-            });
             save = false;
         }
     };

@@ -156,4 +156,11 @@ public class NoteController {
 
         return true;
     }
+
+    public @ResponseBody
+    Boolean publish(@RequestBody Note note) {
+        System.out.println(note);
+
+        return true;
+    }
 }

@@ -61,6 +61,10 @@
                       <li><a id="remove-file" data-toggle="modal"
                              data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> 删除笔记</a></li>
 
+                      <li id="action-publish-blog"><a href="#"><i class="fa fa-share-square-o"></i> 发布</a></li>
+
+                      <li id="action-update-blog"><a href="#"><i class="fa fa-share-square-o"></i> 更新</a></li>
+
                       <li class="divider"></li>
 
                       <li><a id="action-download-md" href="#" title="下载当前mrkdown文档">
