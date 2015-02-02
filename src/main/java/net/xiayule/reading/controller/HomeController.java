@@ -51,7 +51,8 @@ public class HomeController {
     // 注册用户
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public String createUser(@RequestParam("username") String username,
-                             @RequestParam("password") String password) {
+                             @RequestParam("password") String password,
+                             @RequestParam("nick") String nick) {
 
         System.out.println("create user: " + username + " " + password);
 
@@ -60,7 +61,7 @@ public class HomeController {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-
+        user.setNick(nick);
 
         if (!userService.register(user)) {// todo: 注册失败，返回继续编辑
             System.out.println("创建失败");

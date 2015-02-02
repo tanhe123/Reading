@@ -26,6 +26,7 @@ public class UserDaoImpl implements UserDao {
 
         document.put("username", user.getUsername());
         document.put("password", user.getPassword());
+        document.put("nick", user.getNick());
 
         getTable().insert(document);
     }
@@ -78,5 +79,14 @@ public class UserDaoImpl implements UserDao {
         String username = (String) dbObject.get("username");
 
         return username;
+    }
+
+    /**
+     * nick是否已经存在
+     */
+    public Boolean existNick(String nick) {
+        BasicDBObject query = new BasicDBObject("nick", nick);
+
+        return getTable().find(query).count() > 0;
     }
 }

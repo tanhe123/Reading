@@ -14,6 +14,7 @@
 
 <form action="/register" method="post">
   用户名: <input type="text" name="username"> &nbsp; &nbsp; <br/>
+  昵称: <input type="text" name="nick"> <br/>
   密码: <input type="text" name="password"><br/>
 
   <input type="submit" value="提交">

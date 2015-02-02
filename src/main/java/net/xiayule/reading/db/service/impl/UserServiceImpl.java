@@ -43,12 +43,20 @@ public class UserServiceImpl implements UserService {
 
     public Boolean register(User user) {
 
-        // 检测用户名、密码是否为空
+        // 检测用户名是否为空
         if (StringUtils.isBlank(user.getUsername())) return false;
+        // 检测昵称是否为空
+        if (StringUtils.isBlank(user.getNick())) return false;
+        // 检测密码是否为空
         if (StringUtils.isBlank(user.getPassword())) return false;
 
         // 检测用户名是否存在
         if (userDao.exist(user.getUsername())) {
+            return false;
+        }
+
+        // 检查昵称是否存在
+        if (userDao.existNick(user.getNick())) {
             return false;
         }
 
