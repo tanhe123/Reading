@@ -1,6 +1,7 @@
 package net.xiayule.reading.controller;
 
 import net.xiayule.reading.db.model.Note;
+import net.xiayule.reading.db.model.User;
 import net.xiayule.reading.db.service.NoteService;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -117,10 +118,15 @@ public class NoteController {
 //        String userId = userService.findUserIdByUsername(username);
 
 //        System.out.println("NoteController: showAllnote: userId:" + userId);
+        
+        //todo: 检查该用户是否存在
+        
+        User user = userService.get(userId);
 
         // 获得其所有的 note
         List<Note> notes = noteService.findByOwner(userId);
 
+        model.addAttribute("user", user);
         model.addAttribute("notes", notes);
 
         return "/note/show";

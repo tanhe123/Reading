@@ -21,7 +21,7 @@
 
   <div class="headerContainer">
     <div class="blogOwner">
-      <h1>Tan's Blog</h1>
+      <h1>${user.nick}'s Blog</h1>
     </div>
 
     <div class="separator">

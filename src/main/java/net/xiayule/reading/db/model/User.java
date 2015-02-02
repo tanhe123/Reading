@@ -1,5 +1,7 @@
 package net.xiayule.reading.db.model;
 
+import org.bson.types.ObjectId;
+
 /**
  * Created by tan on 14-12-23.
  * 用户 Model
@@ -42,6 +44,10 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id.toHexString();
     }
 
     public String getUsername() {

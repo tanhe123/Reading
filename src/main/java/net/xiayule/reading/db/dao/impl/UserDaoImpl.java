@@ -43,7 +43,22 @@ public class UserDaoImpl implements UserDao {
         return getTable().find(query).count() > 0;
     }
 
-    public User get(String username) {
+    public User get(String id) {
+        BasicDBObject query = new BasicDBObject("_id", new ObjectId(id));
+
+        DBObject dbObject = getTable().findOne(query);
+
+        User user = new User();
+
+        user.setId((ObjectId)dbObject.get("_id"));
+        user.setUsername((String)dbObject.get("username"));
+//        user.setPassword((String)dbObject.get("password"));
+        user.setNick((String)dbObject.get("nick"));
+
+        return user;
+    }
+
+    public User getByUsername(String username) {
         BasicDBObject query = new BasicDBObject("username", username);
 
         DBObject dbObject = getTable().findOne(query);
@@ -51,7 +66,8 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
 
         user.setUsername((String)dbObject.get("username"));
-        user.setPassword((String)dbObject.get("password"));
+//        user.setPassword((String)dbObject.get("password"));
+        user.setNick((String)dbObject.get("nick"));
 
         return user;
     }
