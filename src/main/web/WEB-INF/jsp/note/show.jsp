@@ -9,13 +9,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>笔记列表</title>
+  <title>笔记列表</title>
+
+  <link rel="stylesheet" href="/res/css/note.css"/>
 </head>
 <body>
 
 <a href="/note/new">新建笔记</a> <br/>
 
-<table border="1">
+
+
+<c:forEach var="note" items="${notes}">
+  <div class="note">
+    <div class="noteTitle">
+        <a href="/note/${note.id}">${note.title}</a>
+    </div>
+
+    <div class="noteDesc">
+      ${note.content}
+    </div>
+  </div>
+</c:forEach>
+
+
+<%--<table border="1">
 
   <tr>
     <th>笔记名称</th>
@@ -44,7 +61,7 @@
 
 </c:forEach>
 
-</table>
+</table>--%>
 
 </body>
 </html>
