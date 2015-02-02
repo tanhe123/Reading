@@ -10,8 +10,10 @@
 <html>
 <head>
   <title>笔记列表</title>
-
+  
+  <link rel="stylesheet" href="/res/bower-libs/bootstrap/dist/css/bootstrap.css"/>
   <link rel="stylesheet" href="/res/css/note.css"/>
+
 </head>
 <body>
 
@@ -26,10 +28,15 @@
 
     <div class="separator">
     </div>
+
+
+    <ul class="nav nav-pills nav-stacked">
+      <%--todo: 如果用户登录了，则可以创建笔记--%>
+      <li><a href="/note/new">新建笔记</a></li>
+      <%--分类列表--%>
+
+    </ul>
   </div>
-
-
-
 </div>
 
 <div class="postsContainer">
@@ -51,7 +58,8 @@
   </c:forEach>
 </div>
 
-
+<script src="/res/bower-libs/jquery/dist/jquery.min.js"></script>
+<script src="/res/bower-libs/bootstrap/dist/js/bootstrap.js"></script>
 
 <%--<table border="1">
 
