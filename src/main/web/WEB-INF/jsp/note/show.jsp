@@ -15,21 +15,42 @@
 </head>
 <body>
 
-<a href="/note/new">新建笔记</a> <br/>
+<%--<a href="/note/new">新建笔记</a> <br/>--%>
 
+<div class="leftHeader">
 
-
-<c:forEach var="note" items="${notes}">
-  <div class="note">
-    <div class="noteTitle">
-        <a href="/note/${note.id}">${note.title}</a>
+  <div class="headerContainer">
+    <div class="blogOwner">
+      <h1>Tan's Blog</h1>
     </div>
 
-    <div class="noteDesc">
-      ${note.content}
+    <div class="separator">
     </div>
   </div>
-</c:forEach>
+
+
+
+</div>
+
+<div class="postsContainer">
+  <c:forEach var="note" items="${notes}">
+    <div class="note">
+      <div class="noteTitle">
+        <a href="/note/${note.id}">${note.title}</a>
+      </div>
+
+      <div class="noteDesc">
+          ${note.content}
+      </div>
+
+      <div class="noteInfo">
+        posted @ ${note.createTime}
+        <a href="/note/${note.id}/edit">编辑</a>
+      </div>
+    </div>
+  </c:forEach>
+</div>
+
 
 
 <%--<table border="1">

@@ -4,38 +4,76 @@ body {
     background-repeat: repeat;
 }
 
+.postsContainer {
+    margin-left: 300px;
+    padding: 20px;
+}
+
+.leftHeader {
+    position: absolute;
+    left: 0px;
+    width: 300px;
+    bottom: 0px;
+    top: 0px;
+    padding: 20px;
+    /*使得宽度的设定包括border的宽度*/
+    box-sizing: border-box;
+}
+
+.leftHeader .headerContainer {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border: 1px dotted #8b8d72;
+    box-sizing: border-box;
+}
+
+.leftHeader .headerContainer .blogOwner {
+    text-align: center;
+    /*border-bottom: 1px solid #dedede;*/
+}
+
+.leftHeader .headerContainer .separator {
+    margin-left: 40px;
+    margin-right: 40px;
+    /*color: #aaaaaa;*/
+    border-top: 1px solid #cccccc;
+    height: 0px;
+}
+
+
 .note {
     padding: 20px;
     background: #fff;
     color: #4b4b4b;
-    border: 1px solid #8b8d72;
+    border: 1px dotted #8b8d72;
     margin-bottom: 20px;
 }
 
-.noteTitle {
+.note a {
+    text-decoration: none;
+}
+
+/*未访问的链接*/
+.note a:link, .note a:visited {
+    color: #1a8bc8;
+}
+
+.note a:hover {
+    color: #36c3ff; /*当有鼠标悬停在链接上*/
+}
+
+.note a:active {
+    color: #0000FF
+}
+
+.note .noteTitle {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.noteTitle a {
-    text-decoration: none;
-}
-
-/*未访问的链接*/
-.noteTitle a:link, .noteTitle a:visited {
-    color: #1a8bc8;
-}
-
-.noteTitle a:hover {
-    color: #36c3ff; /*当有鼠标悬停在链接上*/
-}
-
-.noteTitle a:active {
-    color: #0000FF
-}
-
-.noteDesc {
+.note .noteDesc {
     /*允许长单词切换到下一行*/
     word-wrap:break-word;
     /*允许在单词内换行*/
@@ -46,3 +84,7 @@ body {
     font-size: 14px;
 }
 
+.note .noteInfo {
+    text-align: right;
+    font-size: 13px;
+}
