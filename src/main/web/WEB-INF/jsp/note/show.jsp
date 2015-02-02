@@ -26,15 +26,13 @@
       <h1>${user.nick}'s Blog</h1>
     </div>
 
-    <div class="separator">
-    </div>
-
+    <div class="separator"></div>
 
     <ul class="nav nav-pills nav-stacked">
-      <%--todo: 如果用户登录了，则可以创建笔记--%>
+      <!--todo: 如果用户登录了，则可以创建笔记-->
       <li><a href="/note/new">新建笔记</a></li>
+      <li><a href="/note">主页</a></li>
       <%--分类列表--%>
-
     </ul>
   </div>
 </div>
