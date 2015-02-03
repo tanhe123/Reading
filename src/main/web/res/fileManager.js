@@ -143,6 +143,9 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
 
             Note.updateContentAndTitle();
 
+            // 显示
+            $("#action-has-saving").show().fadeTo(30, 1).fadeTo(1000, 0);
+
             save = false;
         }
     };

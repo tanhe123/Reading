@@ -34,24 +34,11 @@
               <div id="wmd-button-bar"></div>
           </div>
 
-          <!--title输入框-->
-          <div class="pull-left">
-              <div class="navbar-form form-inline col-lg-2">
-                  <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
-              </div>
-          </div>
-
-          <!--title显示-->
-          <div class="pull-left">
-              <%--line-height为了让其居中--%>
-              <%--todo: 使用这里保存的数据--%>
-              <a id="file-title"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
-          </div>
 
           <%--菜单按钮--%>
-          <div class="pull-left">
+          <div class="pull-right" style="margin-right: 140px">
               <div class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-left: 20px">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <span>Menu</span>
                       <i class="fa fa-angle-down"></i>
                   </a>
@@ -64,6 +51,8 @@
                       <li id="action-publish-blog"><a href="#"><i class="fa fa-share-square-o"></i> 发布</a></li>
 
                       <li id="action-update-blog"><a href="#"><i class="fa fa-share-square-o"></i> 更新</a></li>
+
+                      <li><a href="/note"><i class="fa fa-home"> 返回主页</i></a></li>
 
                       <li class="divider"></li>
 
@@ -92,6 +81,26 @@
                   </ul>
               </div>
           </div>
+
+          <!--title输入框-->
+          <div class="pull-right" style="margin-right: 20px">
+              <div class="navbar-form form-inline col-lg-2">
+                  <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
+              </div>
+          </div>
+
+          <!--title显示-->
+          <div class="pull-right" style="margin-right: 20px">
+              <%--line-height为了让其居中--%>
+              <%--todo: 使用这里保存的数据--%>
+              <a id="file-title"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
+          </div>
+
+          <div id="action-has-saving" class="pull-right hideme" style="margin-right: 20px">
+              <div><i class="fa fa-save"></i> 已保存</div>
+          </div>
+
+
       </div>
   </nav>
 
