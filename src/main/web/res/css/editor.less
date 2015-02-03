@@ -8,11 +8,12 @@
   //    消除最外层有滚动条
   overflow: hidden;
   box-sizing: border-box;
+  font-size: @fontSize !important;
 }
 
 .editorContainer .noteTitle input {
   color: #707070;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 100;
   padding: 10px 20px 10px 20px;
   margin-top: 20px;
@@ -61,7 +62,8 @@
 #wmd-input, #md-section-helper{
   width: 100%;
   font-family: @fontFamily;
-  font-size: @fontSize;
+//  不知道为什么会有element.style覆盖这个样式
+  font-size: @fontSize !important;
   /*用户不可改变大小*/
   resize: none;
 }

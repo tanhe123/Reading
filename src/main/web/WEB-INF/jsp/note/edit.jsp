@@ -114,7 +114,7 @@
       <%--编辑器--%>
       <div id="left-column" class="pull-left">
           <div class="noteTitle">
-              <input type="text" id="file-title-input" placeholder="笔记标题">
+              <input type="text" id="note-title" placeholder="笔记标题">
           </div>
 
           <div class="editorTools">

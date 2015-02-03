@@ -66,14 +66,14 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {
             var content = $("#wmd-input").val();
-            var filename = $("#file-title").text() + ".md";
+            var filename = $("#note-title").text() + ".md";
 
             fileManager.downloadFile(filename, content);
         });
 
         $("#action-download-html").click(function () {
             var content = $("#wmd-preview").html();
-            var filename = $("#file-title").text() + ".html";
+            var filename = $("#note-title").text() + ".html";
 
             fileManager.downloadFile(filename, content);
         });

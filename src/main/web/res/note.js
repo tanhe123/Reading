@@ -72,7 +72,7 @@ define([], function() {
      */
     var updateNote = function () {
         var content = $("#wmd-input").val();
-        var title = $("#file-title").text();
+        var title = $("#note-title").text();
 
         note.title = title;
         note.content = content;
