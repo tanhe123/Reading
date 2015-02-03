@@ -19,7 +19,7 @@
     <script>
         var viewerMode = false;
 
-        var note = {id : "${note.id}"};
+        var note = {};
     </script>
   </head>
 
@@ -119,7 +119,7 @@
       <%--编辑器--%>
       <div id="left-column" class="pull-left">
           <div class="noteTitle">
-              <input type="text" id="note-title" placeholder="笔记标题">
+              <input type="text" id="note-title" data-note-id="${note.id}" placeholder="笔记标题">
           </div>
 
           <div class="editorTools">

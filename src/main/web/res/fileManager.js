@@ -112,8 +112,17 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
     };*/
 
     // 获取文件内容
-    fileManager.queryFile = function (noteId) {
-        noteId = noteId || note.id;
+    fileManager.queryFile = function () {
+        var noteId = $("#note-title").data("noteId");
+
+        console.log("noteid:" + noteId);
+
+
+        //todo:
+        if (!noteId) {
+            console.error("error noteid null");
+            return;
+        }
 
         $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {
             note = rsNote;
