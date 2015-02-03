@@ -17,7 +17,8 @@
   padding: 10px 20px 10px 20px;
   margin-top: 20px;
   width: 100%;
-  border: 0px;
+//  不加这一句会导致input获得焦点时，会微小的改变布局
+  border: 1px dotted #fff;
 }
 
 .editorContainer .noteTitle input:focus {
