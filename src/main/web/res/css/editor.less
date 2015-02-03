@@ -88,14 +88,14 @@
 /*按钮组*/
 .wmd-button-row {
   padding: 0px;
+  width: 100%;
 }
 
 /*本来是按钮间隔的一条竖线, 隐藏起来
 但是没有起作用
 */
 .wmd-spacer {
-  /*0表示默认值*/
-  margin: 0 10px;
+  width: 1px;
   background-color: Silver;
   display: inline-block;
   list-style: none;
@@ -113,6 +113,14 @@
 }
 .wmd-button > i:hover {
   color: #e6ead5;
+}
+
+// wmd-button-bar 工具栏上的 label
+#wmd-button-row .label {
+  font-size: 12px;
+  color: #797d71;
+  line-height: 25px;
+  font-weight: normal;
 }
 
 #md-section-helper {

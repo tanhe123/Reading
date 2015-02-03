@@ -22,7 +22,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         });
 
         // 删除笔记
-        $(".action-remove-file").click(function () {
+        /*$(".action-remove-file").click(function () {
             $.ajax({
                 url: '/note/' + note.id,
                 type: 'DELETE',
@@ -35,7 +35,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
                 }
             });
 
-        });
+        });*/
 
         // 输入标题时，失去焦点保存文件名
         $("#note-title").blur(function () {
@@ -58,17 +58,17 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             }
         });
 
-        $("#action-publish-blog").click(function () {
+        /*$("#action-publish-blog").click(function () {
             Note.publish();
         });
 
 
         $("#action-update-blog").click(function () {
 
-        });
+        });*/
 
         // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
-        $("#action-download-md").click(function () {
+        /*$("#action-download-md").click(function () {
             var content = $("#wmd-input").val();
             var filename = $("#note-title").val() + ".md";
 
@@ -80,7 +80,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             var filename = $("#note-title").val() + ".html";
 
             fileManager.downloadFile(filename, content);
-        });
+        });*/
 
         // 自定义处理 Ctrl+S 保存
         $(window).keydown(function(e) {
@@ -94,7 +94,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         });
     };
 
-    fileManager.downloadFile = function(filename, content) {
+    /*fileManager.downloadFile = function(filename, content) {
         if (saveAs !== undefined) {
             var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
             saveAs(blob, filename);
@@ -103,7 +103,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
                 + content;
             window.open(uriContent, 'file');
         }
-    };
+    };*/
 
     // 获取文件内容
     fileManager.queryFile = function (noteId) {
@@ -133,7 +133,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             Note.updateContentAndTitle();
 
             // 显示
-            $("#action-has-saving").show().fadeTo(30, 1).fadeTo(1000, 0);
+            $("#statusLabel").show().fadeTo(500, 1).fadeTo(1500, 0);
 
             save = false;
         }

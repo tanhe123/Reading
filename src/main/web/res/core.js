@@ -147,6 +147,7 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         $("#wmd-input").bind('input propertychange', _.throttle(editor.refreshPreview, 1000));
 
         $(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
+        //$(".wmd-button-row").addClass("btn-group").find("li").addClass("btn").css({"left": 0}).find("span").hide();
         $("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
         $("#wmd-italic-button").append($("<i>").addClass("fa fa-italic"));
         $("#wmd-link-button").append($("<i>").addClass("fa fa-link"));
@@ -159,6 +160,10 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         $("#wmd-hr-button").append($("<i>").addClass("fa fa-ellipsis-h"));
         $("#wmd-undo-button").append($("<i>").addClass("fa fa-undo"));
         $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));
+
+
+        // 添加其他的组件
+        $("#wmd-button-row").append($("<li id='statusLabel' class='label pull-right hideme'>已保存</li>"));
 
     };
 

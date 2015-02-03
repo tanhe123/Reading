@@ -118,7 +118,17 @@
           </div>
 
           <div class="editorTools">
-              <div id="wmd-button-bar"></div>
+              <div id="wmd-button-bar"<%-- class="pull-left"--%>></div>
+
+              <%--<div class="pull-right">
+                  <ul>
+
+                  </ul>
+                  <div>已保存</div>
+              </div>
+
+              &lt;%&ndash;清除浮动的导致的父容器塌陷&ndash;%&gt;
+              <div class="clearfix"></div>--%>
           </div>
 
           <div id="wmd-panel-editor" class="wmd-panel-editor">
