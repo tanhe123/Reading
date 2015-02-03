@@ -1,13 +1,15 @@
 package net.xiayule.reading.db.dao.impl;
 
-import com.mongodb.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import net.xiayule.reading.db.MongoDbManager;
 import net.xiayule.reading.db.dao.NoteDao;
 import net.xiayule.reading.db.model.Note;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +48,8 @@ public class NoteDaoImpl implements NoteDao {
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("ownerId", ownerId);
 
-        DBCursor cursor = noteTable.find(searchQuery);
+        // 查找并按照时间降序排序
+        DBCursor cursor = noteTable.find(searchQuery).sort(new BasicDBObject("createTime", -1));
 
         ArrayList<Note> notes = new ArrayList<Note>();
 
