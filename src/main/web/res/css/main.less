@@ -14,6 +14,11 @@
     display: none;
 }
 
+//覆盖 bootstrap 默认
+ul {
+    margin-bottom: 0px;
+}
+
 body {
 //    background-color: #f5f5f5;
     background-image: url(../img/honeycomb.png);
@@ -36,22 +41,16 @@ body {
 //    overflow: hidden;
 }
 
-.mainContainer {
-    position: absolute;
-    top: @headerHeight;
-    left: 0;
-    right: 0;
-    bottom: 0;
-//    消除最外层有滚动条
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
 
 #left-column, #right-column {
     width: 50%;
     height: 100%;
     overflow: hidden;
+}
+
+#left-column {
+//    设置左右区域的分割条
+    border-right: 1px dotted #c8d1ba;
 }
 
 

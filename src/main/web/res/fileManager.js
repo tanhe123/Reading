@@ -37,29 +37,14 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
 
         });
 
-        $("#file-title").click(function () {
-            if (viewerMode === true) {
-                return ;
-            }
-
-            $(this).hide();
-
-            // 显示修改标题的输入框，并选中输入框内的文本
-            $("#file-title-input").show().focus();
-            $("#file-title-input").select();
-        });
-
         // 输入标题时，失去焦点保存文件名
         $("#file-title-input").blur(function () {
             var title = $.trim($(this).val());
 
-            if (title && title != "") {
-                $("#file-title").text(title);
-                save = true;
-            }
+            save = true;
 
-            $(this).hide();
-            $("#file-title").show();
+            //todo: 检测文件名是否为空
+
         });
 
         // 修改标题时，回车保存文件名

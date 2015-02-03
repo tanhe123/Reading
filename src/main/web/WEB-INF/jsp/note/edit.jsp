@@ -25,18 +25,18 @@
 
   <body>
 
-  <nav>
+  <%--<nav>--%>
       <!-- 菜单栏-->
-      <div id="header" class="navbar navbar-default">
+     <%-- <div id="header" class="navbar navbar-default">
 
           <!--mdEditor 按钮组-->
           <div class="pull-left">
               <div id="wmd-button-bar"></div>
           </div>
 
-
+--%>
           <%--菜单按钮--%>
-          <div class="pull-right" style="margin-right: 140px">
+          <%--<div class="pull-right" style="margin-right: 140px">
               <div class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <span>Menu</span>
@@ -80,40 +80,54 @@
                       </li>
                   </ul>
               </div>
-          </div>
+          </div>--%>
 
           <!--title输入框-->
-          <div class="pull-right" style="margin-right: 20px">
+          <%--<div class="pull-right" style="margin-right: 20px">
               <div class="navbar-form form-inline col-lg-2">
                   <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
               </div>
-          </div>
+          </div>--%>
 
           <!--title显示-->
+<%--
           <div class="pull-right" style="margin-right: 20px">
-              <%--line-height为了让其居中--%>
-              <%--todo: 使用这里保存的数据--%>
-              <a id="file-title"><span class="file-title" data-note-id="${note.id}"><%--${note.title}--%></span></a>
+              &lt;%&ndash;line-height为了让其居中&ndash;%&gt;
+              &lt;%&ndash;todo: 使用这里保存的数据&ndash;%&gt;
+              <a id="file-title"><span class="file-title" data-note-id="${note.id}">&lt;%&ndash;${note.title}&ndash;%&gt;</span></a>
           </div>
+--%>
 
-          <div id="action-has-saving" class="pull-right hideme" style="margin-right: 20px">
+<%--          <div id="action-has-saving" class="pull-right hideme" style="margin-right: 20px">
               <div><i class="fa fa-save"></i> 已保存</div>
-          </div>
+          </div>--%>
 
+<%--
 
       </div>
   </nav>
+--%>
 
-  <div class="mainContainer">
+
+  <div class="editorContainer">
+
       <%--编辑器--%>
       <div id="left-column" class="pull-left">
+          <div class="noteTitle">
+              <input type="text" id="file-title-input" placeholder="笔记标题">
+          </div>
+
+          <div class="editorTools">
+              <div id="wmd-button-bar"></div>
+          </div>
+
           <div id="wmd-panel-editor" class="wmd-panel-editor">
               <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
           </div>
       </div>
 
           <%--well带padding属性, 所以不使用--%>
-      <div id="right-column" class="<%--well --%>pull-right">
+      <div id="right-column" class="pull-right">
           <div id="wmd-panel-preview" class="wmd-panel-preview">
               <div id="wmd-preview" class="wmd-preview"></div>
           </div>
