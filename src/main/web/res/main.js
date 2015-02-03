@@ -50,6 +50,7 @@ require([
     "core",
     "fileManager",
     "less!css/main"], function ($, core, fileManager) {
+
     $(function() {
         core.init();
 

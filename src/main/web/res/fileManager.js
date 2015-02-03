@@ -17,9 +17,9 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             fileManager.saveFile();
         }, 6000);
 
-        $("#new-file").click(function () {
+/*        $("#new-file").click(function () {
             location.href = "/"
-        });
+        });*/
 
         // 删除笔记
         /*$(".action-remove-file").click(function () {
@@ -56,6 +56,12 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
                 //todo: 聚焦后出现问题
                 $('#wmd-input').focus();
             }
+        });
+
+        $("#action-exit").click(function () {
+            console.log("haha");
+            fileManager.saveFile();
+            location.href = "/note";
         });
 
         /*$("#action-publish-blog").click(function () {
@@ -133,7 +139,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             Note.updateContentAndTitle();
 
             // 显示
-            $("#statusLabel").show().fadeTo(500, 1).fadeTo(1500, 0);
+            $("#saving-notice").show().fadeTo(500, 1).fadeTo(1500, 0);
 
             save = false;
         }

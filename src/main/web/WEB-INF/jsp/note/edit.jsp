@@ -118,17 +118,18 @@
           </div>
 
           <div class="editorTools">
-              <div id="wmd-button-bar"<%-- class="pull-left"--%>></div>
+              <div id="wmd-button-bar" class="pull-left"></div>
 
-              <%--<div class="pull-right">
-                  <ul>
+              <div class="pull-right">
 
-                  </ul>
-                  <div>已保存</div>
+                  <%--// 添加其他的组件--%>
+                  <li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>
+
+                  <li id='saving-notice' class='label pull-right hideme'>已保存</li>
               </div>
 
-              &lt;%&ndash;清除浮动的导致的父容器塌陷&ndash;%&gt;
-              <div class="clearfix"></div>--%>
+              <%--清除浮动的导致的父容器塌陷--%>
+              <div class="clearfix"></div>
           </div>
 
           <div id="wmd-panel-editor" class="wmd-panel-editor">

@@ -161,10 +161,6 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         $("#wmd-undo-button").append($("<i>").addClass("fa fa-undo"));
         $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));
 
-
-        // 添加其他的组件
-        $("#wmd-button-row").append($("<li id='statusLabel' class='label pull-right hideme'>已保存</li>"));
-
     };
 
     return core;
