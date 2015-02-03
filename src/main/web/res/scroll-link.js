@@ -135,11 +135,6 @@ define(['jquery', 'underscore'], function ($, _) {
          */
         function animate(srcScrollTop, srcSectionList, destElt, destSectionList) {
 
-            if(srcSection === undefined) {
-                // Something wrong in the algorithm...
-                return 0;
-            }
-
             // Find the section corresponding to the offset
             // 寻找 srcScrollTop 所在srcSectionList中的小节
             var sectionIndex = undefined;
@@ -147,6 +142,11 @@ define(['jquery', 'underscore'], function ($, _) {
                 sectionIndex = index;
                 return srcScrollTop < section.endOffset;
             });
+
+            if(srcSection === undefined) {
+                // Something wrong in the algorithm...
+                return 0;
+            }
 
             // 在小节中的位置(百分比)
             var posInSection = (srcScrollTop - srcSection.startOffset) / srcSection.height;
