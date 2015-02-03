@@ -1,4 +1,16 @@
 
+
+#left-column, #right-column {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#left-column {
+  //    设置左右区域的分割条
+  border-right: 1px dotted #c8d1ba;
+}
+
 .editorContainer {
   position: absolute;
   top: 0px;
@@ -15,8 +27,7 @@
   color: #707070;
   font-size: 20px;
   font-weight: 100;
-  padding: 10px 20px 10px 20px;
-  margin-top: 20px;
+  padding: 30px 20px 10px 20px;
   width: 100%;
 //  不加这一句会导致input获得焦点时，会微小的改变布局
   border: 1px dotted #fff;
@@ -73,14 +84,9 @@
   padding: @wmdInputPadding;
 }
 
-
 /*按钮组*/
 .wmd-button-row {
   padding: 0px;
-}
-
-//让按钮局中
-#wmd-button-bar {
 }
 
 /*本来是按钮间隔的一条竖线, 隐藏起来
@@ -94,15 +100,18 @@
   list-style: none;
 }
 
-.wmd-button > span {
-/*  width: 20px;
-  height: 20px;*/
-
+//设置工具栏图标颜色
+.wmd-button.btn {
+  color: #797d71;
 }
 
-//设置工具栏颜色
-.wmd-button > i {
-  color: #797d71;
+// 鼠标飘过工具栏图标时的颜色
+.wmd-button.btn:hover {
+  background-color: #5f6357;
+  color: #e6ead5;
+}
+.wmd-button > i:hover {
+  color: #e6ead5;
 }
 
 #md-section-helper {
