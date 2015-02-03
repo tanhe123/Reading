@@ -22,7 +22,7 @@
     "crel": "*",
     "rangy": "~1.2.3",
     "google-diff-match-patch-js": "~1.0.0",
-    "font-awesome": "~4.2.0",
+    "font-awesome": "~4.3.0",
     "jgrowl": "~1.4.1",
     "jquery.ui": "~1.11.2",
     "google-code-prettify": "~1.0.3",

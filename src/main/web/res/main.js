@@ -52,6 +52,8 @@ require([
     "less!css/main"], function ($, core, fileManager) {
 
     $(function() {
+        //$("#loading").show();
+
         core.init();
 
         fileManager.init();

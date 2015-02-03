@@ -108,8 +108,13 @@
   </nav>
 --%>
 
+  <%--css 加载太慢，写入style--%>
+  <div id="loading" style="text-align: center">
+      <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
 
-  <div class="editorContainer">
+  <%--在css中设置不可见，但是css加载的过程会导致元素可见, style可以解决这个小问题--%>
+  <div class="editorContainer" style="display: none">
 
       <%--编辑器--%>
       <div id="left-column" class="pull-left">
@@ -220,6 +225,7 @@
       </div><!-- /.modal -->
   </div>
 --%>
-  <textarea id="md-section-helper"></textarea>
+
+  <textarea id="md-section-helper" style="visibility: hidden"></textarea>
   </body>
 </html>

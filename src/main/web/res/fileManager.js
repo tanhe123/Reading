@@ -14,8 +14,8 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         // 自动调用保存
         window.setInterval(function () {
             //todo: 修改为智能同步，而不是定时检查
-            fileManager.saveFile();
-        }, 6000);
+            fileManager.saveNote();
+        }, 4000);
 
 /*        $("#new-file").click(function () {
             location.href = "/"
@@ -60,7 +60,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
 
         $("#action-exit").click(function () {
             console.log("haha");
-            fileManager.saveFile();
+            fileManager.saveNote();
             location.href = "/note";
         });
 
@@ -93,7 +93,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             if (e.keyCode == 83 && e.ctrlKey) {
 
                 // 同步内容到服务器
-                fileManager.saveFile();
+                fileManager.saveNote();
 
                 e.preventDefault();
             }
@@ -126,14 +126,18 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
                 save = true;
             });
 
-            // 缓存
+            // todo: 缓存
+
+            // todo: 显示
+            $("#loading").hide();
+            $(".editorContainer").show();
         });
     };
 
     // 保存文件
     //todo: 增加本地缓存功能
     //todo: 通过比对版本号，来选择是否使用缓存
-    fileManager.saveFile = function () {
+    fileManager.saveNote = function () {
         if (save && viewerMode === false) {
 
             Note.updateContentAndTitle();

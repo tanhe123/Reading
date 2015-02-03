@@ -160,7 +160,6 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         $("#wmd-hr-button").append($("<i>").addClass("fa fa-ellipsis-h"));
         $("#wmd-undo-button").append($("<i>").addClass("fa fa-undo"));
         $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));
-
     };
 
     return core;
