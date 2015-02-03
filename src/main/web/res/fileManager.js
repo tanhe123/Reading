@@ -53,6 +53,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         // 修改标题输入回车，wmd-input聚焦
         $("#note-title").keydown(function (event) {
             if (event.keyCode == "13") {
+                //todo: 聚焦后出现问题
                 $('#wmd-input').focus();
             }
         });
@@ -69,14 +70,14 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         $("#action-download-md").click(function () {
             var content = $("#wmd-input").val();
-            var filename = $("#note-title").text() + ".md";
+            var filename = $("#note-title").val() + ".md";
 
             fileManager.downloadFile(filename, content);
         });
 
         $("#action-download-html").click(function () {
             var content = $("#wmd-preview").html();
-            var filename = $("#note-title").text() + ".html";
+            var filename = $("#note-title").val() + ".html";
 
             fileManager.downloadFile(filename, content);
         });

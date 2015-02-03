@@ -6,20 +6,20 @@ define([], function() {
     var Note = {};
 
     Note.renderNote = function (note) {
+        // 修改网站标题
+        document.title = note.title;
+
+        // 设置标题
+        $("#note-title").val(note.title);
+
+        // 设置笔记内容
         $("#wmd-input").val(note.content);
-
-        document.title = "Reading - " + note.title;
-
-        //可以更新所有 class 为 file-title 的内容
-        $(".file-title").text(note.title);
-
-        $("#file-title-input").val(note.title);
 
         if (note.isBlog == false) {
             console.log("笔记");
-            $("#action-publish-blog").show();
+            //$("#action-publish-blog").show();
         } else {
-            $("#action-update-blog").show();
+            //$("#action-update-blog").show();
             console.log("博客");
         }
     };
@@ -72,7 +72,7 @@ define([], function() {
      */
     var updateNote = function () {
         var content = $("#wmd-input").val();
-        var title = $("#note-title").text();
+        var title = $("#note-title").val();
 
         note.title = title;
         note.content = content;
