@@ -20,7 +20,7 @@
   //    消除最外层有滚动条
   overflow: hidden;
   box-sizing: border-box;
-  font-size: @fontSize !important;
+  font-size: @fontSize;
 }
 
 .editorContainer .noteTitle input {
@@ -59,6 +59,7 @@
   outline: none;
 //  去掉边框
   border: 0px;
+  line-height: 25px;
 }
 
 .wmd-panel-editor, .wmd-panel-preview, #wmd-input, #wmd-preview {
@@ -74,7 +75,7 @@
   width: 100%;
   font-family: @fontFamily;
 //  不知道为什么会有element.style覆盖这个样式
-  font-size: @fontSize !important;
+  font-size: @fontSize;
   /*用户不可改变大小*/
   resize: none;
 }

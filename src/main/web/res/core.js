@@ -6,8 +6,9 @@
 define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "jgrowl", "pagedownExtra"], function ($, _, mathjaxEditing, scrollLink) {
     var core = {};
 
+    //todo: 自定义
     core.settings = {
-        editorFontSize : 14
+        //editorFontSize : 14
     };
 
     core.init = function() {
@@ -26,8 +27,8 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         this.createLayout();
 
         $("#wmd-input, #md-section-helper").css({
-            "font-size": core.settings.editorFontSize + "px",
-            "line-height": Math.round(core.settings.editorFontSize * (20/14)) + "px"
+            //"font-size": core.settings.editorFontSize + "px",
+            //"line-height": Math.round(core.settings.editorFontSize * (20/14)) + "px"
         }).keydown(function (e) {
             // 定义 tab 键
             if (e.keyCode == 9) {
