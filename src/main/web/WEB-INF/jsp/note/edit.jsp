@@ -138,7 +138,7 @@
   </div>
 
   <%--删除确认模态框--%>
-  <div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"
+  <%--<div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"
        aria-labelledby="modal-remove-file-confirm-label" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
@@ -165,10 +165,10 @@
               </div>
           </div><!-- /.modal-content -->
       </div><!-- /.modal -->
-  </div>
+  </div>--%>
 
   <%--设置模态框--%>
-  <div class="modal fade" id="modal-settings" tabindex="-1" role="dialog"
+  <%--<div class="modal fade" id="modal-settings" tabindex="-1" role="dialog"
        aria-labelledby="modal-settings-label" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
@@ -182,7 +182,7 @@
                   </h4>
               </div>
               <div class="modal-body">
-                  <%--<h1>布局</h1><br/>
+                  &lt;%&ndash;<h1>布局</h1><br/>
 
                   <label for="radio-layout-orientation-horizontal">水平</label>
                   <input type="radio" name="radio-layout-orientation"
@@ -192,7 +192,7 @@
                   <label for="radio-layout-orientation-vertical">纵向</label>
                   <input type="radio" name="radio-layout-orientation"
                          id="radio-layout-orientation-vertical"
-                         value="vertical">--%>
+                         value="vertical">&ndash;%&gt;
 
               </div>
 
@@ -208,7 +208,7 @@
           </div><!-- /.modal-content -->
       </div><!-- /.modal -->
   </div>
-
+--%>
   <textarea id="md-section-helper"></textarea>
   </body>
 </html>

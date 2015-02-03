@@ -38,8 +38,11 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         });
 
         // 输入标题时，失去焦点保存文件名
-        $("#file-title-input").blur(function () {
+        $("#note-title").blur(function () {
             var title = $.trim($(this).val());
+
+            // 修改网页标题
+            document.title = title;
 
             save = true;
 
@@ -47,10 +50,10 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
 
         });
 
-        // 修改标题时，回车保存文件名
-        $("#file-title-input").keydown(function (event) {
+        // 修改标题输入回车，wmd-input聚焦
+        $("#note-title").keydown(function (event) {
             if (event.keyCode == "13") {
-                this.blur();
+                $('#wmd-input').focus();
             }
         });
 
