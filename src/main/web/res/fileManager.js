@@ -118,10 +118,11 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
         console.log("noteid:" + noteId);
 
 
-        //todo:
+        //todo: 浏览模式时id的存储位置
         if (!noteId) {
             console.error("error noteid null");
-            return;
+
+            noteId = note.id;
         }
 
         $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {

@@ -111,6 +111,8 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
     core.createLayout = function() {
 
         if (viewerMode === true) {
+
+
             return;
         }
 
