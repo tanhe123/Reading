@@ -45,6 +45,7 @@ public class Note implements Serializable {
         createTime = new Date();
         isBlog = false;
         versionId = 1;
+        isTrash = false;
     }
 
     @Override
