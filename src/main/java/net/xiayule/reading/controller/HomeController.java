@@ -1,6 +1,5 @@
 package net.xiayule.reading.controller;
 
-import net.xiayule.reading.db.dao.UserDao;
 import net.xiayule.reading.db.model.User;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;

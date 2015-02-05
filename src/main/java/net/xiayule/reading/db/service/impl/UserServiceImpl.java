@@ -1,8 +1,7 @@
 package net.xiayule.reading.db.service.impl;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import net.xiayule.reading.db.dao.UserDao;
 import net.xiayule.reading.db.model.User;
+import net.xiayule.reading.db.repositories.UserRepository;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +14,14 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     public User get(String username) {
-        return userDao.get(username);
+        return userRepository.get(username);
     }
 
     public Boolean exist(String username) {
-        return userDao.exist(username);
+        return userRepository.exist(username);
     }
 
     public Boolean login(String username, String password) {
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
         username = username.trim();
         password = password.trim();
 
-        if (!userDao.exist(username, password)) {
+        if (!userRepository.exist(username, password)) {
             return false;
         }
 
@@ -51,26 +50,26 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(user.getPassword())) return false;
 
         // 检测用户名是否存在
-        if (userDao.exist(user.getUsername())) {
+        if (userRepository.exist(user.getUsername())) {
             return false;
         }
 
         // 检查昵称是否存在
-        if (userDao.existNick(user.getNick())) {
+        if (userRepository.existNick(user.getNick())) {
             return false;
         }
 
         // 保存
-        userDao.save(user);
+        userRepository.save(user);
 
         return true;
     }
 
     public String findUserIdByUsername(String username) {
-        return userDao.findUserIdByUsername(username);
+        return userRepository.findUserIdByUsername(username);
     }
 
     public String findUsernameByUserId(String userId) {
-        return userDao.findUsernameByUserId(userId);
+        return userRepository.findUsernameByUserId(userId);
     }
 }

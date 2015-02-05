@@ -1,14 +1,6 @@
 package net.xiayule.reading;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.Mongo;
-import net.xiayule.reading.db.MongoDbManager;
-import net.xiayule.reading.db.dao.impl.NoteDaoImpl;
-import net.xiayule.reading.db.dao.impl.UserDaoImpl;
 import net.xiayule.reading.db.model.Note;
-import net.xiayule.reading.db.service.NoteService;
-import net.xiayule.reading.db.service.impl.NoteServiceImpl;
-import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 import java.net.UnknownHostException;
 
@@ -27,7 +19,7 @@ public class Test {
 
         NoteDaoImpl noteDao = new NoteDaoImpl();
         noteDao.save(note);*/
-        UserDaoImpl userService = new UserDaoImpl();
+     /*   UserDaoImpl userService = new UserDaoImpl();
         System.out.println(userService.findUserIdByUsername("1"));
 
         NoteDaoImpl notedao = new NoteDaoImpl();
@@ -37,6 +29,6 @@ public class Test {
         note.setContent("updated content");
         note.setTitle("updated title");
 
-        notedao.updateContentOrTitle(note);
+        notedao.updateContentOrTitle(note);*/
     }
 }

@@ -31,7 +31,7 @@ public class NoteController {
 
         Note note = new Note();
         note.setTitle("new note");
-        note.setOwnerId(userId);
+        note.setUserId(userId);
         note.setContent("new note");
 
         noteService.create(note);
@@ -56,7 +56,7 @@ public class NoteController {
         note.setTitle(title);
         note.setContent(content);
         //todo: noteOwener
-        note.setOwnerId("1");
+        note.setUserId("1");
         //todo: version id
         note.setVersionId(1);
 

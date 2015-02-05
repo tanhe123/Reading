@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Reading_war</output-path>
     <root id="archive" name="Reading_war.war">
       <element id="artifact" artifact-name="Reading:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.9.1.RELEASE" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

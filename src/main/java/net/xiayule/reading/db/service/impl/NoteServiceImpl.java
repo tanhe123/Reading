@@ -1,7 +1,7 @@
 package net.xiayule.reading.db.service.impl;
 
-import net.xiayule.reading.db.dao.NoteDao;
 import net.xiayule.reading.db.model.Note;
+import net.xiayule.reading.db.repositories.NoteRepository;
 import net.xiayule.reading.db.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +15,21 @@ import java.util.List;
 public class NoteServiceImpl implements NoteService {
 
     @Autowired
-    private NoteDao noteDao;
+    private NoteRepository repository;
 
     public void create(Note note) {
-        noteDao.create(note);
+        repository.insert(note);
     }
 
     /**
      * 返回owner所有的笔记
      */
     public List<Note> findByOwner(String owner) {
-        return noteDao.findByOwner(owner);
+        return repository.findByOwner(owner);
     }
 
     public Note find(String noteId) {
-        return noteDao.find(noteId);
+        return repository.find(noteId);
     }
 
     /**
@@ -37,14 +37,14 @@ public class NoteServiceImpl implements NoteService {
      * @param note 更新的note
      */
     public void updateContentOrTitle(Note note) {
-        noteDao.updateContentOrTitle(note);
+        repository.updateContentOrTitle(note);
     }
 
     /**
      * 删除笔记
      */
     public void deleteNote(String noteId) {
-        noteDao.delete(noteId);
+        repository.delete(noteId);
     }
 
     /**
@@ -53,6 +53,6 @@ public class NoteServiceImpl implements NoteService {
      * @param flag
      */
     public void updateBlog(String noteId, Boolean flag) {
-        noteDao.updateBlog(noteId, flag);
+        repository.updateBlog(noteId, flag);
     }
 }

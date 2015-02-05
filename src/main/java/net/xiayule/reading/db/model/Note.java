@@ -2,6 +2,8 @@ package net.xiayule.reading.db.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,9 +12,11 @@ import java.util.Date;
  * Created by tan on 14-12-27.
  * 文章笔记类
  */
+@Document
 public class Note implements Serializable {
-
+    @Id
     private String id;
+
     private String title;
     private String content;
     private boolean isBlog;
@@ -34,7 +38,7 @@ public class Note implements Serializable {
     /**
      * 笔记所属的用户id
      */
-    private String ownerId;
+    private String userId;
 
     /**
      * 是否删除了（回收站)
@@ -52,7 +56,7 @@ public class Note implements Serializable {
     public String toString() {
         return "id:" + id + " title:" + title + " content:" + content
                 + " isBlog:" + isBlog + " versionId:" + versionId
-                + " ownerId:" + ownerId + " desc:" + desc
+                + " ownerId:" + userId + " desc:" + desc
                 + " createTime:" + createTime + "\n";
     }
 
@@ -80,12 +84,12 @@ public class Note implements Serializable {
         this.desc = desc;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {

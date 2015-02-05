@@ -63,4 +63,4 @@ get /note 显示所有笔记列表 返回类型 html
     ```
 17. 刷新editor显示指示器
 18. ~~自动保存时提示~~
-19. java对象与bson的自动转化(mongo驱动)
+19. java对象与bson的自动转化(mongo驱动)或者使用spring mongodb

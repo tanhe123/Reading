@@ -1,6 +1,8 @@
 package net.xiayule.reading.db.model;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
@@ -27,7 +29,7 @@ public class NoteBook {
     /**
      * notebook的顺序
      */
-    private String seq;
+    private Integer seq;
 
     /**
      * 该笔记分类下的笔记数
@@ -41,6 +43,14 @@ public class NoteBook {
 
     public NoteBook() {
         createTime = new Date();
+        noteNumber = 0;
+    }
+
+    @Override
+    public String toString() {
+        return "id:" + id + " title" + title + " userId:" + userId +
+                " seq:" + seq + " noteNumber:" + noteNumber +
+                " createTime:" + createTime;
     }
 
     // set and get methods
@@ -74,11 +84,11 @@ public class NoteBook {
         this.userId = userId;
     }
 
-    public String getSeq() {
+    public Integer getSeq() {
         return seq;
     }
 
-    public void setSeq(String seq) {
+    public void setSeq(Integer seq) {
         this.seq = seq;
     }
 
