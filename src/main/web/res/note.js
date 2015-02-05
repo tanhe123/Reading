@@ -15,7 +15,7 @@ define([], function() {
         // 设置笔记内容
         $("#wmd-input").val(note.content);
 
-        if (note.isBlog == false) {
+        if (note.blog == false) {
             console.log("笔记");
             //$("#action-publish-blog").show();
         } else {

@@ -99,11 +99,11 @@ public class Note implements Serializable {
         this.content = content;
     }
 
-    public boolean getIsBlog() {
+    public boolean isBlog() {
         return isBlog;
     }
 
-    public void setIsBlog(Boolean isBlog) {
+    public void setBlog(boolean isBlog) {
         this.isBlog = isBlog;
     }
 

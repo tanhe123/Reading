@@ -59,36 +59,5 @@
 <script src="/res/bower-libs/jquery/dist/jquery.min.js"></script>
 <script src="/res/bower-libs/bootstrap/dist/js/bootstrap.js"></script>
 
-<%--<table border="1">
-
-  <tr>
-    <th>笔记名称</th>
-    <th>笔记内容</th>
-    <th>是否公开</th>
-    <th>版本号</th>
-    <th>ownerId</th>
-    <th>创建时间</th>
-    <th>查看</th>
-    <th>编辑</th>
-  </tr>
-
-<c:forEach var="note" items="${notes}">
-
-  <tr>
-    <td>${note.title}</td>
-    <td>${note.content}</td>
-    <td>${note.isBlog}</td>
-    <td>${note.versionId}</td>
-    <td>${note.ownerId}</td>
-    <td>${note.createTime}</td>
-
-    <td><a href="/note/${note.id}">查看</a></td>
-    <td><a href="/note/${note.id}/edit">编辑</a></td>
-  </tr>
-
-</c:forEach>
-
-</table>--%>
-
 </body>
 </html>
