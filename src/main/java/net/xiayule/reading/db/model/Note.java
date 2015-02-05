@@ -36,6 +36,10 @@ public class Note implements Serializable {
      */
     private String ownerId;
 
+    /**
+     * 是否删除了（回收站)
+     */
+    private boolean isTrash;
 
     public Note() {
         createTime = new Date();
@@ -123,5 +127,11 @@ public class Note implements Serializable {
         this.versionId = versionId;
     }
 
+    public boolean isTrash() {
+        return isTrash;
+    }
 
+    public void setTrash(boolean isTrash) {
+        this.isTrash = isTrash;
+    }
 }
