@@ -133,7 +133,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
 
             // 重新初始化 markdown 编辑器
             core.createEditor(function () {
-                save = true;
+                save = false;
             });
 
             // todo: 缓存
@@ -148,7 +148,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
     //todo: 增加本地缓存功能
     //todo: 通过比对版本号，来选择是否使用缓存
     fileManager.saveNote = function () {
-        if (save && viewerMode === false) {
+        if (save === true && viewerMode === false) {
 
             Note.updateContentAndTitle();
 
