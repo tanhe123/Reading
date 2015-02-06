@@ -17,4 +17,9 @@ public interface NotebookService {
      * 查找用户的所有笔记分类
      */
     public List<Notebook> getNoteBooks(String userId);
+
+    /**
+     * 根据title获得notebookId
+     */
+    public String getNotebookIdByTitle(String title);
 }

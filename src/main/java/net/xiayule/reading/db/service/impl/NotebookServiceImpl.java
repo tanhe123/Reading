@@ -26,4 +26,11 @@ public class NotebookServiceImpl implements NotebookService {
     public List<Notebook> getNoteBooks(String userId) {
         return notebookRepository.findAll(userId);
     }
+
+    /**
+     * 根据title获得notebookId
+     */
+    public String getNotebookIdByTitle(String title) {
+        return notebookRepository.getNotebookIdByTitle(title);
+    }
 }

@@ -35,7 +35,7 @@
 
       <%--笔记分类列表--%>
       <c:forEach var="notebook" items="${notebooks}">
-        <li><a href="#">${notebook.title}</a></li>
+        <li><a href="/note?category=${notebook.title}">${notebook.title}</a></li>
       </c:forEach>
     </ul>
   </div>

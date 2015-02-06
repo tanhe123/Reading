@@ -20,7 +20,7 @@ public class NotebookRepositoryTest {
     public void testInsert() throws Exception {
         Notebook notebook = new Notebook();
         notebook.setUserId("54d44faac8303be6c9f8baaf");
-        notebook.setTitle("test");
+        notebook.setTitle("ba");
 
         notebookRepository.insert(notebook);
     }

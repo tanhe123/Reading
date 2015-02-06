@@ -38,6 +38,14 @@ public class NoteRepository {
                 .with(new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"))), Note.class);
     }
 
+    /**
+     * 查找notebookid下所有的笔记
+     */
+    public List<Note> findByNotebookId(String notebookId) {
+        return mongoTemplate.find(query(where("notebookId").is(notebookId)),
+                Note.class);
+    }
+
     public Note find(String noteId) {
         return mongoTemplate.findById(noteId, Note.class);
     }

@@ -14,9 +14,14 @@ public interface NoteService {
     /**
      * 返回owner所有的笔记
      */
-    public List<Note> findByOwner(String owner);
+    public List<Note> findAll(String owner);
 
     public Note find(String noteId);
+
+    /**
+     * 查找notebookid下所有的笔记
+     */
+    public List<Note> findByNotebookId(String notebookId);
 
     /**
      * 更新note的title和content

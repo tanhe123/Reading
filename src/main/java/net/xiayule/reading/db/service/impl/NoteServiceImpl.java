@@ -24,8 +24,15 @@ public class NoteServiceImpl implements NoteService {
     /**
      * 返回owner所有的笔记
      */
-    public List<Note> findByOwner(String owner) {
+    public List<Note> findAll(String owner) {
         return repository.findAll(owner);
+    }
+
+    /**
+     * 查找notebookid下所有的笔记
+     */
+    public List<Note> findByNotebookId(String notebookId) {
+        return repository.findByNotebookId(notebookId);
     }
 
     public Note find(String noteId) {

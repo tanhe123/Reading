@@ -1,6 +1,5 @@
 package net.xiayule.reading.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.xiayule.reading.db.model.Note;
 import net.xiayule.reading.db.model.Notebook;
 import net.xiayule.reading.db.model.User;
@@ -121,6 +120,8 @@ public class NoteController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String userHome(@CookieValue(value = "userId", defaultValue = "") String userId,
+                           @RequestParam(value = "category", required = false) String category,
+
                            Model model) {
 
         // 如果没有登录
@@ -142,8 +143,20 @@ public class NoteController {
 
         System.out.println("NoteController: userHome: notebooks: " + notebooks);
 
-        // 获得其所有的 note
-        List<Note> notes = noteService.findByOwner(userId);
+        List<Note> notes = null;
+        if (category == null) {        // 获得其所有的 note
+            notes = noteService.findAll(userId);
+        } else  {
+            //todo: 检查  category 即 title 是否存在
+
+            System.out.println("Note|Controller: userHome: category:" + category);
+
+            String notebookId = notebookService.getNotebookIdByTitle(category);
+            System.out.println("Note|Controller: userHome: notebookId:" + notebookId);
+
+            notes = noteService.findByNotebookId(notebookId);
+        }
+
 
         model.addAttribute("user", user);
         model.addAttribute("notes", notes);

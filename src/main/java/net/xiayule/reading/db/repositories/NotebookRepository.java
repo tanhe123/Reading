@@ -28,4 +28,15 @@ public class NotebookRepository {
                 Notebook.class);
         return notebooks;
     }
+
+    /**
+     * 根据title获得notebookId
+     */
+    public String getNotebookIdByTitle(String title) {
+        //todo: 直接检索指定字段
+        Notebook notebook = mongoTemplate.findOne(query(where("title").is(title)),
+                Notebook.class);
+
+        return notebook.getId();
+    }
 }
