@@ -33,8 +33,8 @@ public class NoteRepository {
     /**
      * 查找所有笔记，并按降序排序
      */
-    public List<Note> findByOwner(String ownerId) {
-        return mongoTemplate.find(query(where("userId").is(ownerId))
+    public List<Note> findAll(String userId) {
+        return mongoTemplate.find(query(where("userId").is(userId))
                 .with(new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"))), Note.class);
     }
 

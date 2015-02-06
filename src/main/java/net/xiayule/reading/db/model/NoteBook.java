@@ -44,11 +44,12 @@ public class NoteBook {
     public NoteBook() {
         createTime = new Date();
         noteNumber = 0;
+        seq = 0;
     }
 
     @Override
     public String toString() {
-        return "id:" + id + " title" + title + " userId:" + userId +
+        return "id:" + id + " title:" + title + " userId:" + userId +
                 " seq:" + seq + " noteNumber:" + noteNumber +
                 " createTime:" + createTime;
     }

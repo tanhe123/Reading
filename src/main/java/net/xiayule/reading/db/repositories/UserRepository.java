@@ -16,7 +16,7 @@ public class UserRepository {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public void save(User user) {
+    public void insert(User user) {
         mongoTemplate.insert(user);
     }
 

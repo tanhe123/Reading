@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 保存
-        userRepository.save(user);
+        userRepository.insert(user);
 
         return true;
     }
