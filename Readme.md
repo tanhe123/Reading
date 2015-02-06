@@ -64,3 +64,4 @@ get /note 显示所有笔记列表 返回类型 html
 17. ~~刷新editor显示指示器~~
 18. ~~自动保存时提示~~
 19. ~~使用spring data mongodb替代mongo driver~~
+20. notebook title 不能重复

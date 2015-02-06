@@ -24,6 +24,14 @@ define([], function() {
         }
     };
 
+    Note.queryNote = function (noteId, callback) {
+        $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {
+            if (callback) {
+                callback(rsNote);
+            }
+        });
+    };
+
     Note.updateContentAndTitle = function () {
         updateNote();
 

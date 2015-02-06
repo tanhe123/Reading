@@ -1,7 +1,7 @@
 /**
  * Created by tan on 15-1-22.
  */
-define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
+define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, Note, Notebook) {
     var fileManager = {};
 
     // 内容是否有变化的标志, true 为有变化
@@ -10,6 +10,8 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
     fileManager.init = function () {
 
         fileManager.queryFile();
+
+        fileManager.initNotebooks();
 
         // 自动调用保存
         window.setInterval(function () {
@@ -125,7 +127,7 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             noteId = note.id;
         }
 
-        $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {
+        Note.queryNote(noteId, function (rsNote) {
             note = rsNote;
 
             // 显示笔记
@@ -141,6 +143,19 @@ define(['jquery', 'core', 'note', 'FileSaver'], function ($, core, Note) {
             // todo: 显示
             $("#loading").hide();
             $(".editorContainer").show();
+        });
+
+    };
+
+
+    /**
+     * 初始化笔记分类
+     */
+    fileManager.initNotebooks = function () {
+        Notebook.queryNotebooks(function (rsNotebooks) {
+            notebooks = rsNotebooks;
+
+
         });
     };
 

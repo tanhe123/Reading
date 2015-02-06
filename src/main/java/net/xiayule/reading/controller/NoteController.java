@@ -96,16 +96,24 @@ public class NoteController {
 
 
     @RequestMapping(value = "/{noteId}/edit", method = RequestMethod.GET)
-    public String editNote(@PathVariable String noteId,
+    public String editNote(@CookieValue(value = "userId", defaultValue = "") String userId,
+                           @PathVariable String noteId,
                            Model model) {
 
 //        System.out.println("NoteController: editNote: username" + username + " noteid:" + noteId);
 
 //        String ownerId = userService.findUserIdByUsername(username);
 
+        // 获得用户所有的 notebook
+        List<Notebook> notebooks = notebookService.getNoteBooks(userId);
+
+        // 查找 note
         Note note = noteService.find( noteId);
 
+        System.out.println("NoteController: editNote: notebooks: " + notebooks);
+
         model.addAttribute("note", note);
+        model.addAttribute("notebooks", notebooks);
 
         return "/note/edit";
     }
@@ -128,7 +136,10 @@ public class NoteController {
         
         User user = userService.get(userId);
 
+        // 获得用户所有的 notebook
         List<Notebook> notebooks = notebookService.getNoteBooks(userId);
+
+        System.out.println("NoteController: userHome: notebooks: " + notebooks);
 
         // 获得其所有的 note
         List<Note> notes = noteService.findByOwner(userId);

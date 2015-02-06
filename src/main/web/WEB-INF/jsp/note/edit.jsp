@@ -20,6 +20,8 @@
         var viewerMode = false;
 
         var note = {};
+
+        var notebooks = {};
     </script>
   </head>
 
@@ -129,6 +131,14 @@
 
                   <%--// 添加其他的组件--%>
                   <li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>
+
+                  <li class="wmd-button btn pull-right">
+                      <select>
+                          <c:forEach var="notebook" items="${notebooks}">
+                              <option value="${notebook.id}">${notebook.title}</option>
+                          </c:forEach>
+                      </select>
+                  </li>
 
                   <li id='saving-notice' class='label pull-right hideme'>已保存</li>
               </div>
