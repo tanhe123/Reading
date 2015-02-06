@@ -133,8 +133,19 @@
 
                   <li class="wmd-button btn pull-right">
                       <select id="notebook">
+                          <%--将notebooks放入select, 并选择默认--%>
                           <c:forEach var="notebook" items="${notebooks}">
-                              <option value="${notebook.id}">${notebook.title}</option>
+                              <c:choose>
+                                  <c:when test="${notebook.id eq note.notebookId}">
+                                      <option value="${notebook.id}" selected>${notebook.title}</option>
+                                  </c:when>
+
+                                  <c:otherwise>
+                                      <option value="${notebook.id}">${notebook.title}</option>
+                                  </c:otherwise>
+
+                              </c:choose>
+
                           </c:forEach>
                       </select>
                   </li>
