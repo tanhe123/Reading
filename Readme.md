@@ -37,7 +37,7 @@ get /note 显示所有笔记列表 返回类型 html
 4. ~~两个空格换行问题~~
 5. 插入模板
 6. offline mode
-7. 字体及间距
+7. ~~字体及间距~~
 8. 自动智能同步功能
 9. showUserHome:favicon
 10. ~~Markdown.getSanitizingConverter 经常出错~~
@@ -61,6 +61,6 @@ get /note 显示所有笔记列表 返回类型 html
     </body>
     </html>
     ```
-17. 刷新editor显示指示器
+17. ~~刷新editor显示指示器~~
 18. ~~自动保存时提示~~
-19. java对象与bson的自动转化(mongo驱动)或者使用spring mongodb
+19. ~~使用spring data mongodb替代mongo driver~~
