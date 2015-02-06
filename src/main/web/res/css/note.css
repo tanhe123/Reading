@@ -48,15 +48,6 @@ body {
     height: 0px;
 }
 
-/*表示同时包含这两个类*/
-/*这是为了修改bootstrap的默认样式*/
-/*
-.navbar.navbar-default {
-    background-color: #fff;
-    border-color: #e7e7e7;
-}
-*/
-
 .note {
     padding: 20px;
     background: #fff;

@@ -71,21 +71,6 @@ define([], function() {
                 $("#action-update-blog").show();
             }
         });
-
-        //var jsonObj = JSON.stringify(note);
-
-        //todo: post json报415错误
-        /*$.ajax({
-                url: "/note/publish",
-                type: "post",
-                data: jsonObj,
-                contentType: "application/json; charset=utf-8",
-                dataType: 'json',
-                success: function (rs) {
-                    console.log(rs);
-                }
-            }
-        );*/
     };
 
     /**

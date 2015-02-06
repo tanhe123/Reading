@@ -50,24 +50,6 @@ public class NoteController {
         return "redirect:/note/" + noteId + "/edit";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public @ResponseBody
-    Note createNote(@RequestParam String title,
-                    @RequestParam String content) {
-
-//        System.out.println(username);
-
-        Note note = new Note();
-        note.setTitle(title);
-        note.setContent(content);
-        //todo: noteOwener
-        note.setUserId("1");
-        //todo: version id
-        note.setVersionId(1);
-
-        return note;
-    }
-
     // ajax方式获取笔记内容
     @RequestMapping(value = "/getNoteContent", method = RequestMethod.GET)
     public @ResponseBody Note getNoteContent(@RequestParam String noteId) {

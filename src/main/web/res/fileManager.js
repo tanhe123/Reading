@@ -17,10 +17,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             fileManager.saveNote();
         }, 4000);
 
-/*        $("#new-file").click(function () {
-            location.href = "/"
-        });*/
-
         // 删除笔记
         /*$(".action-remove-file").click(function () {
             $.ajax({
@@ -63,16 +59,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             fileManager.saveNote();
             location.href = "/note";
         });
-
-
-        /*$("#action-publish-blog").click(function () {
-            Note.publish();
-        });
-
-
-        $("#action-update-blog").click(function () {
-
-        });*/
 
         // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
         /*$("#action-download-md").click(function () {
