@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  * Created by tan on 14-12-21.
  */
 @Controller
-//@SessionAttributes("user")
-// @RequestMapping("/mvc") // 根 url 路径
 public class HomeController {
 
     @Autowired

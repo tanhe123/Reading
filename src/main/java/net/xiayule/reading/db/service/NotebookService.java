@@ -11,7 +11,7 @@ public interface NotebookService {
     /**
      * 创建一个笔记分类
      */
-    public void create(Notebook notebook);
+    public void addNotebook(Notebook notebook);
 
     /**
      * 查找用户的所有笔记分类

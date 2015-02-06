@@ -18,7 +18,7 @@ public class NotebookServiceImpl implements NotebookService {
     private NotebookRepository notebookRepository;
 
     @Override
-    public void create(Notebook notebook) {
+    public void addNotebook(Notebook notebook) {
         notebookRepository.insert(notebook);
     }
 

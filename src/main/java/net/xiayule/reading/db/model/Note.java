@@ -56,7 +56,7 @@ public class Note implements Serializable {
     public String toString() {
         return "id:" + id + " title:" + title + " content:" + content
                 + " isBlog:" + isBlog + " versionId:" + versionId
-                + " ownerId:" + userId + " desc:" + desc
+                + " userId:" + userId + " desc:" + desc
                 + " createTime:" + createTime + "\n";
     }
 
