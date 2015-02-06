@@ -40,6 +40,8 @@ public class Note implements Serializable {
      */
     private String userId;
 
+    private String notebookId;
+
     /**
      * 是否删除了（回收站)
      */
@@ -138,5 +140,13 @@ public class Note implements Serializable {
 
     public void setTrash(boolean isTrash) {
         this.isTrash = isTrash;
+    }
+
+    public String getNotebookId() {
+        return notebookId;
+    }
+
+    public void setNotebookId(String notebookId) {
+        this.notebookId = notebookId;
     }
 }

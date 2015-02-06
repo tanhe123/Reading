@@ -21,7 +21,6 @@
 
         var note = {};
 
-        var notebooks = {};
     </script>
   </head>
 

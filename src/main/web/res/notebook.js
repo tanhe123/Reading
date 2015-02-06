@@ -5,13 +5,13 @@
 define([], function() {
     var Notebook = {};
 
-    Notebook.queryNotebooks = function (callback) {
+/*    Notebook.queryNotebooks = function (callback) {
         $.getJSON("/notebook", function (rsNotebooks) {
             if (callback) {
                 callback(rsNotebooks);
             }
         });
-    };
+    };*/
 
     return Notebook;
 });
