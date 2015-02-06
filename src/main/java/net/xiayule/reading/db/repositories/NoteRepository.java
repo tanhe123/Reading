@@ -66,6 +66,15 @@ public class NoteRepository {
     }
 
     /**
+     * 更新笔记所属的 notebook
+     */
+    public void updateNotebook(String noteId, String notebookId) {
+        mongoTemplate.updateFirst(query(where("_id").is(noteId)),
+                update("notebookId", notebookId),
+                Note.class);
+    }
+
+    /**
      * 删除笔记
      */
     public void delete(String noteId) {

@@ -1,5 +1,6 @@
 package net.xiayule.reading.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.xiayule.reading.db.model.Note;
 import net.xiayule.reading.db.model.Notebook;
 import net.xiayule.reading.db.model.User;
@@ -173,6 +174,16 @@ public class NoteController {
         return true;
     }
 
+    @RequestMapping(value = "/moveNote", method = RequestMethod.POST)
+    public @ResponseBody
+    Boolean moveNote(@RequestParam String noteId,
+                            @RequestParam String notebookId) {
+
+        noteService.moveNote(noteId, notebookId);
+
+        return true;
+    }
+
     // 已博客的形式显示内容
     @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
     public String showNote(@PathVariable String noteId,
@@ -187,4 +198,5 @@ public class NoteController {
 
         return "/note/view";
     }
+
 }

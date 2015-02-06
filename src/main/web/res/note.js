@@ -32,6 +32,19 @@ define([], function() {
         });
     };
 
+    Note.moveNote = function (noteId, notebookId) {
+        var params = {
+            noteId: noteId,
+            notebookId: notebookId
+        };
+
+        console.log("params: " + params);
+
+        $.post("/note/moveNote", params, function (rs) {
+            console.log("moveNote:" + rs);
+        });
+    };
+
     Note.updateContentAndTitle = function () {
         updateNote();
 

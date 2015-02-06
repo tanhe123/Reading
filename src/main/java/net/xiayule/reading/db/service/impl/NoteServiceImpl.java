@@ -55,4 +55,11 @@ public class NoteServiceImpl implements NoteService {
     public void updateBlog(String noteId, Boolean flag) {
         repository.updateBlog(noteId, flag);
     }
+
+    /**
+     * 移动笔记到其他的笔记本
+     */
+    public void moveNote(String noteId, String notebookId) {
+        repository.updateNotebook(noteId, notebookId);
+    }
 }

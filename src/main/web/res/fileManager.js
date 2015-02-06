@@ -64,10 +64,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             location.href = "/note";
         });
 
-        // 当改变了笔记的 notebook
-        $("#notebook").change(function () {
-            console.log($("#notebook").val());
-        });
 
         /*$("#action-publish-blog").click(function () {
             Note.publish();
@@ -149,6 +145,14 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
         });
 
     };
+
+    // 移动笔记到指定的笔记本
+    $("#notebook").change(function () {
+        var noteId = $("#note-title").data("noteId");
+        var notebookId = $("#notebook").val();
+
+        Note.moveNote(noteId, notebookId);
+    });
 
     // 保存文件
     //todo: 增加本地缓存功能

@@ -35,4 +35,9 @@ public interface NoteService {
      * @param flag
      */
     public void updateBlog(String noteId, Boolean flag);
+
+    /**
+     * 移动笔记到其他的笔记本
+     */
+    public void moveNote(String noteId, String notebookId);
 }
