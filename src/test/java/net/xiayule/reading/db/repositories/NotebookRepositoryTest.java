@@ -1,6 +1,6 @@
 package net.xiayule.reading.db.repositories;
 
-import net.xiayule.reading.db.model.NoteBook;
+import net.xiayule.reading.db.model.Notebook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +11,24 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/web/WEB-INF/dispatcher-servlet.xml")
-public class NoteBookRepositoryTest {
+public class NotebookRepositoryTest {
 
     @Autowired
-    private NoteBookRepository noteBookRepository;
+    private NotebookRepository notebookRepository;
 
     @Test
     public void testInsert() throws Exception {
-        NoteBook noteBook = new NoteBook();
-        noteBook.setUserId("54d3695ac830e69e287aad8c");
-        noteBook.setTitle("test");
+        Notebook notebook = new Notebook();
+        notebook.setUserId("54d44faac8303be6c9f8baaf");
+        notebook.setTitle("test");
 
-        noteBookRepository.insert(noteBook);
+        notebookRepository.insert(notebook);
     }
 
     @Test
     public void testFindAll() throws Exception {
-        List<NoteBook> noteBooks = noteBookRepository.findAll("54d3695ac830e69e287aad8c");
+        List<Notebook> notebooks = notebookRepository.findAll("54d44faac8303be6c9f8baaf");
 
-        System.out.println(noteBooks);
+        System.out.println(notebooks);
     }
 }

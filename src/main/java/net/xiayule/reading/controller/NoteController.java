@@ -1,9 +1,9 @@
 package net.xiayule.reading.controller;
 
 import net.xiayule.reading.db.model.Note;
-import net.xiayule.reading.db.model.NoteBook;
+import net.xiayule.reading.db.model.Notebook;
 import net.xiayule.reading.db.model.User;
-import net.xiayule.reading.db.service.NoteBookService;
+import net.xiayule.reading.db.service.NotebookService;
 import net.xiayule.reading.db.service.NoteService;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -28,7 +28,7 @@ public class NoteController {
     private UserService userService;
 
     @Autowired
-    private NoteBookService noteBookService;
+    private NotebookService notebookService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newNote(@CookieValue(value = "userId", defaultValue = "") String userId,
@@ -128,14 +128,14 @@ public class NoteController {
         
         User user = userService.get(userId);
 
-        List<NoteBook> noteBooks = noteBookService.getNoteBooks(userId);
+        List<Notebook> notebooks = notebookService.getNoteBooks(userId);
 
         // 获得其所有的 note
         List<Note> notes = noteService.findByOwner(userId);
 
         model.addAttribute("user", user);
         model.addAttribute("notes", notes);
-        model.addAttribute("notebooks", noteBooks);
+        model.addAttribute("notebooks", notebooks);
 
         return "/note/show";
     }

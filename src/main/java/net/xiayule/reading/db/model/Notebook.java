@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by tan on 15-2-5.
  */
-public class NoteBook {
+public class Notebook {
 
     /**
      * 笔记分类id
@@ -41,7 +41,7 @@ public class NoteBook {
      */
     private Date createTime;
 
-    public NoteBook() {
+    public Notebook() {
         createTime = new Date();
         noteNumber = 0;
         seq = 0;
