@@ -32,7 +32,11 @@
       <!--todo: 如果用户登录了，则可以创建笔记-->
       <li><a href="/note/new">新建笔记</a></li>
       <li><a href="/note">主页</a></li>
-      <%--分类列表--%>
+
+      <%--笔记分类列表--%>
+      <c:forEach var="notebook" items="${notebooks}">
+        <li><a href="#">${notebook.title}</a></li>
+      </c:forEach>
     </ul>
   </div>
 </div>
