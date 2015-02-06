@@ -132,7 +132,7 @@
                   <li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>
 
                   <li class="wmd-button btn pull-right">
-                      <select>
+                      <select id="notebook">
                           <c:forEach var="notebook" items="${notebooks}">
                               <option value="${notebook.id}">${notebook.title}</option>
                           </c:forEach>

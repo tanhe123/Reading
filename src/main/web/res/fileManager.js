@@ -11,8 +11,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
 
         fileManager.queryFile();
 
-        fileManager.initNotebooks();
-
         // 自动调用保存
         window.setInterval(function () {
             //todo: 修改为智能同步，而不是定时检查
@@ -64,6 +62,11 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             console.log("haha");
             fileManager.saveNote();
             location.href = "/note";
+        });
+
+        // 当改变了笔记的 notebook
+        $("#notebook").change(function () {
+            console.log($("#notebook").val());
         });
 
         /*$("#action-publish-blog").click(function () {
@@ -145,18 +148,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             $(".editorContainer").show();
         });
 
-    };
-
-
-    /**
-     * 初始化笔记分类
-     */
-    fileManager.initNotebooks = function () {
-        Notebook.queryNotebooks(function (rsNotebooks) {
-            notebooks = rsNotebooks;
-
-
-        });
     };
 
     // 保存文件
