@@ -66,3 +66,5 @@ get /note 显示所有笔记列表 返回类型 html
 19. ~~使用spring data mongodb替代mongo driver~~
 20. notebook title 不能重复
 21. 导航
+22. 不单独设置标题，在内容中进行设置标题
+23. 自定义 wmd 中的 bar
