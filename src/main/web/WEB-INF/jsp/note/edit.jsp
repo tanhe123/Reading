@@ -114,6 +114,24 @@
       <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 
+  <div class="header">
+      <ul class="navigationMenu">
+          <li>
+              <a class="menuItem" href="/">
+                  <i class="fa fa-reply"></i><!--
+		       --><span>保存并返回</span>
+              </a>
+          </li>
+
+          <li>
+              <a class="menuItem" href="#">
+                  <i class="fa fa-search"></i><!--
+		       --><span>搜索</span>
+              </a>
+          </li>
+      </ul>
+  </div>
+
   <%--在css中设置不可见，但是css加载的过程会导致元素可见, style可以解决这个小问题--%>
   <div class="editorContainer" style="display: none">
 

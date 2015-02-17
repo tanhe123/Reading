@@ -2,13 +2,16 @@
 
 @fontFamily: 'Open Sans','Helvetica Neue',Arial,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
 @fontSize: 18px;
-@headerBackgroundColor: #83898a;
-@headerHeight: 50px;
-@headerIconColor: #232323;
 
 @wmdInputPadding: 20px;
 
 @import "editor";
+@import "header";
+
+* {
+  marigin: 0;
+  padding: 0;
+}
 
 .hideme {
     display: none;
@@ -22,24 +25,6 @@ ul {
 body {
     tab-size: 4;
     overflow: auto;
-}
-
-#header {
-    background: @headerBackgroundColor;
-    height: @headerHeight;
-    border: 1px solid @headerBackgroundColor;
-//    让文字居中
-    line-height: @headerHeight;
-
-    border-radius: 0px;
-
-    /*会导致弹出菜单不显示*/
-//    overflow: hidden;
-}
-
-
-#header a, #header i {
-    color: @headerIconColor;
 }
 
 #action-publish-blog, #action-update-blog {
