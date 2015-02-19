@@ -114,7 +114,7 @@
       <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 
-  <div class="header">
+  <div class="slideMenu">
       <ul class="navigationMenu">
           <li>
               <a id="action-exit" class="menuItem" href="/">
