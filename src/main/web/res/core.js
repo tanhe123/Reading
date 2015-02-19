@@ -125,7 +125,6 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         var converter = Markdown.getSanitizingConverter();
 
         converter.hooks.chain("preConversion", function (text) {
-            //todo 会导致第一次加载文档时，保存
             if (textChangeCallback) {
                 textChangeCallback();
             }

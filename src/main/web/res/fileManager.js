@@ -120,7 +120,7 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
 
             // 重新初始化 markdown 编辑器
             core.createEditor(function () {
-                save = false;
+                save = true;
             });
 
             // todo: 缓存

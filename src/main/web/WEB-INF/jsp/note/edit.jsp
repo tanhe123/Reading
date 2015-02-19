@@ -117,7 +117,7 @@
   <div class="header">
       <ul class="navigationMenu">
           <li>
-              <a class="menuItem" href="/">
+              <a id="action-exit" class="menuItem" href="/">
                   <i class="fa fa-reply"></i><!--
 		       --><span>保存并返回</span>
               </a>
@@ -147,7 +147,7 @@
               <div class="pull-right">
 
                   <%--// 添加其他的组件--%>
-                  <li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>
+                  <%--<li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>--%>
 
                   <li class="wmd-button btn pull-right">
                       <select id="notebook">
