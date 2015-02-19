@@ -135,8 +135,7 @@
   <%--在css中设置不可见，但是css加载的过程会导致元素可见, style可以解决这个小问题--%>
   <div class="editorContainer" style="display: none">
 
-      <%--编辑器--%>
-      <div id="left-column" class="pull-left">
+      <div class="headerMenu">
           <div class="noteTitle">
               <input type="text" id="note-title" data-note-id="${note.id}" placeholder="笔记标题">
           </div>
@@ -174,7 +173,10 @@
               <%--清除浮动的导致的父容器塌陷--%>
               <div class="clearfix"></div>
           </div>
+      </div>
 
+      <%--编辑器--%>
+      <div id="left-column" class="pull-left">
           <div id="wmd-panel-editor" class="wmd-panel-editor">
               <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
           </div>
