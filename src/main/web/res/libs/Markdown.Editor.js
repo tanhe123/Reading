@@ -93,16 +93,21 @@
         
         options = options || {};
 
+        // options 中的 handler 会在click help按钮时触发
         if (typeof options.handler === "function") { //backwards compatible behavior
             options = { helpButton: options };
         }
+
+        // 提示文字
         options.strings = options.strings || {};
         if (options.helpButton) {
             options.strings.help = options.strings.help || options.helpButton.title;
         }
+        // 获得提示文字
         var getString = function (identifier) { return options.strings[identifier] || defaultsStrings[identifier]; }
 
         idPostfix = idPostfix || "";
+
 
         var hooks = this.hooks = new Markdown.HookCollection();
         hooks.addNoop("onPreviewRefresh");       // called with no arguments after the preview has been refreshed
@@ -121,7 +126,9 @@
             if (panels)
                 return; // already initialized
 
+            // 三个panel的封装
             panels = new PanelCollection(idPostfix);
+            // hooks的封装
             var commandManager = new CommandManager(hooks, getString);
             var previewManager = new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); });
             var undoManager, uiManager;
@@ -142,6 +149,7 @@
             uiManager = new UIManager(idPostfix, panels, undoManager, previewManager, commandManager, options.helpButton, getString);
             uiManager.setUndoRedoButtonStates();
 
+            // 强制刷新
             var forceRefresh = that.refreshPreview = function () { previewManager.refresh(true); };
 
             forceRefresh();
@@ -305,6 +313,7 @@
 
     // Returns true if the DOM element is visible, false if it's hidden.
     // Checks if display is anything other than none.
+    // 如果Dom元素可见返回true, 否则返回false
     util.isVisible = function (elem) {
 
         if (window.getComputedStyle) {
@@ -346,6 +355,7 @@
     };
 
     // Converts \r\n and \r to \n.
+    // 转换换行符为 '\n'
     util.fixEolChars = function (text) {
         text = text.replace(/\r\n/g, "\n");
         text = text.replace(/\r/g, "\n");
@@ -360,6 +370,7 @@
     // The flags are unchanged.
     //
     // regex is a RegExp, pre and post are strings.
+    // 拼接正则表达式
     util.extendRegExp = function (regex, pre, post) {
 
         if (pre === null || pre === undefined) {
@@ -379,9 +390,11 @@
         });
 
         // Remove the slash delimiters on the regular expression.
+        // 移除正则的//
         pattern = pattern.replace(/(^\/|\/$)/g, "");
+        // 拼接正则字符串
         pattern = pre + pattern + post;
-
+        // 生成正则对象
         return new re(pattern, flags);
     }
 
