@@ -133,7 +133,7 @@
   </div>
 
   <%--在css中设置不可见，但是css加载的过程会导致元素可见, style可以解决这个小问题--%>
-  <div class="editorContainer" style="display: none">
+  <div class="editorContainer" style="display: none;">
 
       <div class="headerMenu">
           <div class="noteTitle">
@@ -168,6 +168,7 @@
                   </li>
 
                   <li id='saving-notice' class='label pull-right hideme'>已保存</li>
+
               </div>
 
               <%--清除浮动的导致的父容器塌陷--%>
@@ -175,22 +176,24 @@
           </div>
       </div>
 
-      <%--编辑器--%>
-      <div id="left-column" class="pull-left">
-          <div id="wmd-panel-editor" class="wmd-panel-editor">
-              <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
+      <div class="editor">
+          <%--编辑器--%>
+          <div id="left-column" class="pull-left">
+              <div id="wmd-panel-editor" class="wmd-panel-editor">
+                  <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
+              </div>
           </div>
-      </div>
 
           <%--well带padding属性, 所以不使用--%>
-      <div id="right-column" class="pull-right">
-          <div id="wmd-panel-preview" class="wmd-panel-preview">
-              <div id="wmd-preview" class="wmd-preview"></div>
+          <div id="right-column" class="pull-right">
+              <div id="wmd-panel-preview" class="wmd-panel-preview">
+                  <div id="wmd-preview" class="wmd-preview"></div>
+              </div>
           </div>
-      </div>
 
-      <%--清除浮动效果--%>
-      <div class="clearfix"></div>
+          <%--清除浮动效果--%>
+          <div class="clearfix"></div>
+      </div>
   </div>
 
   <%--删除确认模态框--%>

@@ -1,8 +1,18 @@
 
 .headerMenu {
-
+  overflow: hidden;
 }
 
+
+.editor {
+//  实现铺满剩余空间
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding-top: 64px
+}
 
 #left-column, #right-column {
   width: 50%;
@@ -34,7 +44,7 @@
   color: #707070;
   font-size: 20px;
   font-weight: 100;
-  padding: 30px 20px 10px 20px;
+  padding: 0px 20px 0px 20px;
   width: 100%;
 //  不加这一句会导致input获得焦点时，会微小的改变布局
   border: 1px dotted #fff;
