@@ -147,6 +147,8 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
 
         $("#wmd-input").bind('input propertychange', _.throttle(editor.refreshPreview, 1000));
 
+
+        // 这里胡布局参考 stackio https://github.com/tanhe123/stackedit/blob/master/public/res/core.js
         // Hide default buttons
         //$(".wmd-button-row li").addClass("btn btn-success").css("left", 0).find("span").hide();
         $(".wmd-button-row li").addClass("btn").css("left", 0).find("span").hide();
