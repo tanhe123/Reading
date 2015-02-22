@@ -141,38 +141,52 @@
           </div>
 
           <div class="editorTools">
-              <div id="wmd-button-bar" class="pull-left"></div>
+              <div class="navbar navbar-default">
+                  <ul class="nav left-buttons">
+                      <li class="wmd-button-group1 btn-group"></li>
+                  </ul>
+                  <ul class="nav left-buttons">
+                      <li class="wmd-button-group2 btn-group"></li>
+                  </ul>
+                  <ul class="nav left-buttons">
+                      <li class="wmd-button-group3 btn-group"></li>
+                  </ul>
+                  <ul class="nav left-buttons">
+                      <li class="wmd-button-group5 btn-group"></li>
+                  </ul>
 
-              <div class="pull-right">
+                  <ul class="nav pull-right right-buttons">
 
-                  <%--// 添加其他的组件--%>
-                  <%--<li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>--%>
+                      <%--// 添加其他的组件--%>
+                      <%--<li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>--%>
 
-                  <li class="wmd-button btn pull-right">
-                      <select id="notebook">
-                          <%--将notebooks放入select, 并选择默认--%>
-                          <c:forEach var="notebook" items="${notebooks}">
-                              <c:choose>
-                                  <c:when test="${notebook.id eq note.notebookId}">
-                                      <option value="${notebook.id}" selected>${notebook.title}</option>
-                                  </c:when>
+                      <%--<li class="wmd-button btn">
+                          <select id="notebook">
+                              &lt;%&ndash;将notebooks放入select, 并选择默认&ndash;%&gt;
+                              <c:forEach var="notebook" items="${notebooks}">
+                                  <c:choose>
+                                      <c:when test="${notebook.id eq note.notebookId}">
+                                          <option value="${notebook.id}" selected>${notebook.title}</option>
+                                      </c:when>
 
-                                  <c:otherwise>
-                                      <option value="${notebook.id}">${notebook.title}</option>
-                                  </c:otherwise>
+                                      <c:otherwise>
+                                          <option value="${notebook.id}">${notebook.title}</option>
+                                      </c:otherwise>
 
-                              </c:choose>
+                                  </c:choose>
 
-                          </c:forEach>
-                      </select>
-                  </li>
+                              </c:forEach>
+                          </select>
+                      </li>--%>
 
-                  <li id='saving-notice' class='label pull-right hideme'>已保存</li>
+                      <li id='saving-notice' class='label hideme'>已保存</li>
+                  </ul>
 
+                  <!--清除浮动的导致的父容器塌陷-->
+                  <div class="clearfix"></div>
               </div>
 
-              <%--清除浮动的导致的父容器塌陷--%>
-              <div class="clearfix"></div>
+              <div id="wmd-button-bar" class="hide"></div>
           </div>
       </div>
 

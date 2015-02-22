@@ -147,9 +147,9 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
 
         $("#wmd-input").bind('input propertychange', _.throttle(editor.refreshPreview, 1000));
 
-        $(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
-        //$(".wmd-button-row").addClass("btn-group").find("li").addClass("btn").css({"left": 0}).find("span").hide();
-        $("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
+        //$(".wmd-button-row").addClass("btn-group").find("li:not(.wmd-spacer)").addClass("btn").css({"left": 0}).find("span").hide();
+
+        /*$("#wmd-bold-button").append($("<i>").addClass("fa fa-bold"));
         $("#wmd-italic-button").append($("<i>").addClass("fa fa-italic"));
         $("#wmd-link-button").append($("<i>").addClass("fa fa-link"));
         $("#wmd-quote-button").append($("<i>").addClass("fa fa-quote-left"));
@@ -160,7 +160,29 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         $("#wmd-heading-button").append($("<i>").addClass("fa fa-header"));
         $("#wmd-hr-button").append($("<i>").addClass("fa fa-ellipsis-h"));
         $("#wmd-undo-button").append($("<i>").addClass("fa fa-undo"));
-        $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));
+        $("#wmd-redo-button").append($("<i>").addClass("fa fa-repeat"));*/
+
+        // Hide default buttons
+        //$(".wmd-button-row li").addClass("btn btn-success").css("left", 0).find("span").hide();
+        $(".wmd-button-row li").addClass("btn").css("left", 0).find("span").hide();
+
+        // Add customized buttons
+        var $btnGroupElt = $('.wmd-button-group1');
+        $("#wmd-bold-button").append($('<i class="fa fa-bold">')).appendTo($btnGroupElt);
+        $("#wmd-italic-button").append($('<i class="fa fa-italic">')).appendTo($btnGroupElt);
+        $btnGroupElt = $('.wmd-button-group2');
+        $("#wmd-link-button").append($('<i class="fa fa-link">')).appendTo($btnGroupElt);
+        $("#wmd-quote-button").append($('<i class="fa fa-quote-left">')).appendTo($btnGroupElt);
+        $("#wmd-code-button").append($('<i class="fa fa-code">')).appendTo($btnGroupElt);
+        $("#wmd-image-button").append($('<i class="fa fa-picture-o">')).appendTo($btnGroupElt);
+        $btnGroupElt = $('.wmd-button-group3');
+        $("#wmd-olist-button").append($('<i class="fa fa-list-ol">')).appendTo($btnGroupElt);
+        $("#wmd-ulist-button").append($('<i class="fa fa-list-ul">')).appendTo($btnGroupElt);
+        $("#wmd-heading-button").append($('<i class="fa fa-header">')).appendTo($btnGroupElt);
+        $("#wmd-hr-button").append($('<i class="fa fa-ellipsis-h">')).appendTo($btnGroupElt);
+        $btnGroupElt = $('.wmd-button-group5');
+        $("#wmd-undo-button").append($('<i class="fa fa-undo">')).appendTo($btnGroupElt);
+        $("#wmd-redo-button").append($('<i class="fa fa-repeat">')).appendTo($btnGroupElt);
     };
 
     return core;
