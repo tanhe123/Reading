@@ -1,13 +1,13 @@
 
 .headerMenu {
-  overflow: hidden;
+  overflow: visible;
 }
 
 
 .editor {
 //  实现铺满剩余空间
   position: absolute;
-  top: 98px;
+  top: 85px;
   bottom: 0px;
   left: 0px;
   right: 0px;
@@ -55,9 +55,9 @@
 
 .editorContainer .noteTitle input {
   color: #707070;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
-  padding: 20px 20px 5px 20px;
+//  padding: 10px 20px 5px 20px;
   width: 100%;
 //  不加这一句会导致input获得焦点时，会微小的改变布局
   border: 1px dotted #fff;
@@ -158,4 +158,92 @@
   overflow-y: scroll;
   z-index: -1;
   visibility: hidden;
+}
+
+// 笔记本选择
+.noteBookSelect {
+  color: #838383;
+}
+
+.dropdown {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  cursor: default;
+}
+
+.selectPanel {
+  width: 326px;
+}
+
+.filterPanel {
+  margin-bottom: 20px;
+}
+
+.filterPanel i {
+  position: absolute;
+  margin-top: 29px;
+  margin-left: 27px;
+  color: #bbb;
+}
+
+.filterPanel input {
+  margin: 16px 16px 0;
+  outline: none;
+  width: 290px;
+  padding: 10px 30px 9px;
+  border-radius: 2px;
+  border: 1px solid #eee;
+}
+
+.slidingPanel {
+  height: 250px;
+  overflow: auto;
+  cursor: default;
+  border-top: 1px solid #eee;
+  display: none;
+}
+
+.notebookItem {
+  cursor: pointer;
+  padding: 0 26px;
+  font-family: caecilia, times, serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 21px 26px 26px 13px;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.notebook {
+  display: inline-block;
+  width: 100%;
+}
+
+.selectState {
+  display: inline-block;
+  position: absolute;
+  display: none;
+}
+
+.notebookItem:hover {
+  background: #3ebc6b;
+  color: #fff;
+}
+
+.select .selectState {
+  display: inline-block;
+}
+
+.noteBookSelect .noItem {
+  cursor: pointer;
+}
+
+.noItem .tip {
+  border-top: 1px solid #eee;
+  padding: 20px 0 30px 0;
+  text-align: center;
+  height: 40px;
 }

@@ -57,6 +57,12 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
             core.saveSettings();
             location.reload();
         });
+
+        //　使得搜索笔记不会自动关闭
+        $(".dropdown-menu").on("click", "[data-stopPropagation]", function(e) {
+            console.log(e);
+            e.stopPropagation();
+        });
     };
 
 

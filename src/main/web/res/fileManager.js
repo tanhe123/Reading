@@ -128,6 +128,7 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             // todo: 显示
             $("#loading").hide();
             $(".editorContainer").show();
+            $(".slideMenu").show();
         });
 
     };

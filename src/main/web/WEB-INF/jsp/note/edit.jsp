@@ -114,7 +114,7 @@
       <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 
-  <div class="slideMenu">
+  <div class="slideMenu" style="display: none">
       <ul class="navigationMenu">
           <li>
               <a id="action-exit" class="menuItem" href="/">
@@ -134,11 +134,70 @@
 
   <%--在css中设置不可见，但是css加载的过程会导致元素可见, style可以解决这个小问题--%>
   <div class="editorContainer" style="display: none;">
-
       <div class="headerMenu">
-          <div class="noteTitle">
-              <input type="text" id="note-title" data-note-id="${note.id}" placeholder="笔记标题">
+          <div class="navbar navbar-default" style="height: 48px">
+              <ul class="nav navbar-nav">
+                  <li>
+                      <!-- 笔记本选择菜单 -->
+                      <div class="dropdown noteBookSelect">
+                          <!-- data-toggle 可以是的点击不自动隐藏弹出菜单 -->
+                          <div class="dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-book"></i>
+                              <span>笔记分类</span>
+                              <span class="caret"></span>
+                          </div>
+
+                          <div class="dropdown-menu selectPanel">
+                              <div class="filterPanel">
+                                  <i class="fa fa-search"></i>
+                                  <input type="text" name="filter" id="filter" placeholder="搜索笔记本" data-stopPropagation="true">
+                              </div>
+
+                              <div class="noItem" data-stopPropagation="true">
+                                  <div class="tip">
+                                      没有找到, 创建一个吧
+                                      <i class="fa fa-plus"></i>
+                                  </div>
+                              </div>
+
+                              <div class="slidingPanel">
+                                  <div class="notebookItem select">
+                                      <div class="notebook">
+                                          默认记事本
+                                      </div><!--
+
+					--><div class="selectState">
+                                      <i class="fa fa-check"></i>
+                                  </div>
+                                  </div>
+
+                                  <div class="notebookItem">
+                                      <div class="notebook">
+                                          默认记事本
+                                      </div><!--
+
+					--><div class="selectState">
+                                      <i class="fa fa-check"></i>
+                                  </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- 笔记本选择菜单 end -->
+
+
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                  <%--文章标题--%>
+                  <li>
+                      <div class="noteTitle">
+                          <input type="text" class="form-control" id="note-title" data-note-id="${note.id}" placeholder="笔记标题">
+                      </div>
+                  </li><%--文章标题 end--%>
+              </ul>
           </div>
+
+
 
           <div class="editorTools">
               <div class="navbar navbar-default">
