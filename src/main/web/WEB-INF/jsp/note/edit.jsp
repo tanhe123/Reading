@@ -150,7 +150,7 @@
                           <div class="dropdown-menu selectPanel">
                               <div class="filterPanel">
                                   <i class="fa fa-search"></i>
-                                  <input type="text" name="filter" id="filter" placeholder="搜索笔记本" data-stopPropagation="true">
+                                  <input type="text" name="notebookFilter" id="notebookFilter" placeholder="搜索或创建笔记本" data-stopPropagation="true">
                               </div>
 
                               <div class="noItem createNotebook hideme" data-stopPropagation="true">

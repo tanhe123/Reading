@@ -68,7 +68,13 @@ define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "b
 
         // 单击创建 notebook
         $(".createNotebook").click(function () {
-           $(".createNotebookContainer").show();
+            $(".createNotebookContainer").show();
+
+            //设置笔记名
+            $("#createNotebookTitle").val($("#notebookFilter").val());
+
+            $("#notebookFilter").val("");
+
             //   隐藏下拉菜单
             $(".noteBookSelect").removeClass("open");
         });
@@ -85,6 +91,22 @@ define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "b
 
             // 创建 notebook
             Notebook.createNotebook(notebookTitle);
+        });
+
+        $("#notebookFilter").on('input',function(e){
+            var self = this;
+            console.log($(self).val());
+
+            var filter = $(self).val();
+
+            $(".noteBookSelect .slidingPanel > .notebookItem").each(function () {
+                //console.log($(".notebook", this).text());
+                if ($(".notebook", this).text().indexOf(filter) != -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
         });
     };
 

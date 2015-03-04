@@ -77,7 +77,8 @@ define([], function() {
             return;
         } else {
             slidingPanel.show();
-            noItem.hide();
+            noItem.show();
+            //noItem.hide();
         }
 
         var notebooks = Notebook.notebooks;
@@ -112,6 +113,9 @@ define([], function() {
     Notebook.createNotebook = function (notebookTitle) {
         $.post("/notebook", {"notebookTitle": notebookTitle}, function (rs) {
             console.log("createNotebook:" + rs);
+
+        //    创建成功, 返回
+            $(".createNotebookContainer").hide();
         });
     };
 
