@@ -19,7 +19,7 @@ public class NotebookController {
     private NotebookService notebookService;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public @ResponseBody String addNotebook(@CookieValue(value = "userId", defaultValue = "") String userId,
+    public @ResponseBody Notebook addNotebook(@CookieValue(value = "userId", defaultValue = "") String userId,
                                              @RequestParam String notebookTitle) {
         Notebook notebook = new Notebook();
         notebook.setTitle(notebookTitle);
@@ -29,7 +29,9 @@ public class NotebookController {
 
         notebookService.addNotebook(notebook);
 
-        return notebook.getId();
+        // 返回创建的 notebook
+
+        return notebook;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

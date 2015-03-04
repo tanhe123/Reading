@@ -130,7 +130,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             $(".editorContainer").show();
             $(".slideMenu").show();
         });
-
     };
 
     // 移动笔记到指定的笔记本

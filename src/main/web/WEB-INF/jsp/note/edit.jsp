@@ -153,15 +153,15 @@
                                   <input type="text" name="filter" id="filter" placeholder="搜索笔记本" data-stopPropagation="true">
                               </div>
 
-                              <div class="noItem" data-stopPropagation="true">
+                              <div class="noItem createNotebook hideme" data-stopPropagation="true">
                                   <div class="tip">
                                       没有找到, 创建一个吧
                                       <i class="fa fa-plus"></i>
                                   </div>
                               </div>
 
-                              <div class="slidingPanel">
-                                  <div class="notebookItem select">
+                              <div class="slidingPanel hideme"><!--
+                                  <%--<div class="notebookItem select">
                                       <div class="notebook">
                                           默认记事本
                                       </div><!--
@@ -179,7 +179,7 @@
 					--><div class="selectState">
                                       <i class="fa fa-check"></i>
                                   </div>
-                                  </div>
+                                  </div>--%>-->
                               </div>
                           </div>
                       </div><!-- 笔记本选择菜单 end -->
@@ -196,8 +196,6 @@
                   </li><%--文章标题 end--%>
               </ul>
           </div>
-
-
 
           <div class="editorTools">
               <div class="navbar navbar-default">
@@ -269,79 +267,30 @@
       </div>
   </div>
 
-  <%--删除确认模态框--%>
-  <%--<div class="modal fade" id="modal-remove-file-confirm" tabindex="-1" role="dialog"
-       aria-labelledby="modal-remove-file-confirm-label" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close"
-                          data-dismiss="modal" aria-hidden="true">
-                      &times;
-                  </button>
-                  <h4 class="modal-title" id="modal-remove-file-confirm-label">
-                      删除该笔记
-                  </h4>
-              </div>
-              <div class="modal-body">
-                  您确认要删除笔记 <span class="file-title" style="color: red"></span> ?
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default"
-                          data-dismiss="modal">返回
-                  </button>
-                  <button type="button" class="btn btn-primary action-remove-file"
-                          data-dismiss="modal">
-                      删除
-                  </button>
-              </div>
-          </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
-  </div>--%>
+  <div class="createNotebookContainer" style="display: none">
+      <div class="containerIcon">
+          <span class="fa fa-book fa-4x"></span>
+      </div>
 
-  <%--设置模态框--%>
-  <%--<div class="modal fade" id="modal-settings" tabindex="-1" role="dialog"
-       aria-labelledby="modal-settings-label" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close"
-                          data-dismiss="modal" aria-hidden="true">
-                      &times;
-                  </button>
-                  <h4 class="modal-title" id="modal-settings-label">
-                      设置
-                  </h4>
-              </div>
-              <div class="modal-body">
-                  &lt;%&ndash;<h1>布局</h1><br/>
+      <div class="containerLabel">
+          创建笔记本
+      </div>
 
-                  <label for="radio-layout-orientation-horizontal">水平</label>
-                  <input type="radio" name="radio-layout-orientation"
-                         id="radio-layout-orientation-horizontal"
-                         value="horizontal">
-                  &nbsp;&nbsp;&nbsp;
-                  <label for="radio-layout-orientation-vertical">纵向</label>
-                  <input type="radio" name="radio-layout-orientation"
-                         id="radio-layout-orientation-vertical"
-                         value="vertical">&ndash;%&gt;
+      <div class="containerSeprator">
 
-              </div>
+      </div>
 
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default"
-                          data-dismiss="modal">返回
-                  </button>
-                  <button type="button" class="btn btn-primary action-apply-settings"
-                          data-dismiss="modal">
-                      确认
-                  </button>
-              </div>
-          </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
+      <div class="containerInput">
+          <input type="text" name="createNotebookTitle" id="createNotebookTitle" placeholder="给笔记本起个名字吧">
+      </div>
+
+      <div class="containerButtons">
+          <button class="btn btn-default cancel">取消</button>
+          <button class="btn btn-default confirm">创建</button>
+      </div>
   </div>
---%>
 
   <textarea id="md-section-helper" style="visibility: hidden"></textarea>
+
   </body>
 </html>

@@ -90,12 +90,12 @@ public class NoteController {
         List<Notebook> notebooks = notebookService.getNoteBooks(userId);
 
         // 查找 note
-        Note note = noteService.find( noteId);
+        Note note = noteService.find(noteId);
 
-        System.out.println("NoteController: editNote: notebooks: " + notebooks);
+//        System.out.println("NoteController: editNote: notebooks: " + notebooks);
 
         model.addAttribute("note", note);
-        model.addAttribute("notebooks", notebooks);
+//        model.addAttribute("notebooks", notebooks);
 
         return "/note/edit";
     }

@@ -3,7 +3,7 @@
  */
 
 
-define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "jgrowl", "pagedownExtra"], function ($, _, mathjaxEditing, scrollLink) {
+define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "bootstrap", "jgrowl", "pagedownExtra"], function ($, _, Notebook, mathjaxEditing, scrollLink) {
     var core = {};
 
     //todo: 自定义
@@ -12,6 +12,8 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
     };
 
     core.init = function() {
+
+        Notebook.init();
 
         // 当网络状态发生改变时触发
         $(window).on("offline", core.setOffline);
@@ -62,6 +64,27 @@ define(["jquery", "underscore", "mathjax-editing", 'scroll-link', "bootstrap", "
         $(".dropdown-menu").on("click", "[data-stopPropagation]", function(e) {
             console.log(e);
             e.stopPropagation();
+        });
+
+        // 单击创建 notebook
+        $(".createNotebook").click(function () {
+           $(".createNotebookContainer").show();
+            //   隐藏下拉菜单
+            $(".noteBookSelect").removeClass("open");
+        });
+
+        $(".createNotebookContainer .cancel").click(function () {
+            $(".createNotebookContainer").hide();
+        });
+
+        // 确认创建 notebook
+        $(".createNotebookContainer .confirm").click(function () {
+            var notebookTitle = $("#createNotebookTitle").val();
+
+            console.log("createNotebookTitle:" + notebookTitle);
+
+            // 创建 notebook
+            Notebook.createNotebook(notebookTitle);
         });
     };
 
