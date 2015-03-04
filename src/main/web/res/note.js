@@ -5,6 +5,7 @@
 define([], function() {
     var Note = {};
 
+    // 显示笔记
     Note.renderNote = function (note) {
         // 修改网站标题
         document.title = note.title;

@@ -13,7 +13,7 @@ define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "b
 
     core.init = function() {
 
-        Notebook.init();
+        Notebook.renderNotebooks(notebooks);
 
         // 当网络状态发生改变时触发
         $(window).on("offline", core.setOffline);

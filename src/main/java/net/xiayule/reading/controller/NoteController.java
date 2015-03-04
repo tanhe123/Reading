@@ -7,11 +7,13 @@ import net.xiayule.reading.db.service.NotebookService;
 import net.xiayule.reading.db.service.NoteService;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,6 +31,8 @@ public class NoteController {
 
     @Autowired
     private NotebookService notebookService;
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newNote(@CookieValue(value = "userId", defaultValue = "") String userId,
@@ -92,10 +96,19 @@ public class NoteController {
         // 查找 note
         Note note = noteService.find(noteId);
 
-//        System.out.println("NoteController: editNote: notebooks: " + notebooks);
+        System.out.println("NoteController: editNote: notebooks: " + notebooks);
 
         model.addAttribute("note", note);
-//        model.addAttribute("notebooks", notebooks);
+
+        try {
+            String notebooksJson = objectMapper.writeValueAsString(notebooks);
+            model.addAttribute("notebooks", notebooksJson);
+
+            System.out.println("NoteController: editNote: notebooks(Json): " + notebooks);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return "/note/edit";
     }

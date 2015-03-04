@@ -292,5 +292,9 @@
 
   <textarea id="md-section-helper" style="visibility: hidden"></textarea>
 
+  <script>
+      var notebooks = ${notebooks};
+  </script>
+
   </body>
 </html>
