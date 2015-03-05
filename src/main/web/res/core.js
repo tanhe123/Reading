@@ -67,7 +67,7 @@ define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "b
         });
 
         // 单击创建 notebook
-        $(".createNotebook").click(function () {
+        $(".createNotebookButton").click(function () {
             $(".createNotebookContainer").show();
 
             //设置笔记名

@@ -244,15 +244,23 @@
   display: inline-block;
 }
 
-.noteBookSelect .noItem {
-  cursor: pointer;
+.noteBookSelect .createNotebookButton {
+  position: absolute;
+  margin-left: -70px;
+  margin-top: 26px;
+  padding: 0 10px;
+  border-radius: 5px;
+  transition: opacity 0.2s ease-in-out;
+  color: WHITE;
+  background-color: #2dbe60;
+  border: 1px solid #2dbe60;
+
+  display: inline-block;
 }
 
-.noItem .tip {
-  border-top: 1px solid #eee;
-  padding: 20px 0 30px 0;
-  text-align: center;
-  height: 40px;
+.noteBookSelect .createNotebookButton:hover {
+  background-color: #28a955;
+  border: 1px solid #28a955;
 }
 
 //创建笔记本

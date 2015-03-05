@@ -150,14 +150,8 @@
                           <div class="dropdown-menu selectPanel">
                               <div class="filterPanel">
                                   <i class="fa fa-search"></i>
-                                  <input type="text" name="notebookFilter" id="notebookFilter" placeholder="搜索或创建笔记本" data-stopPropagation="true">
-                              </div>
-
-                              <div class="noItem createNotebook hideme" data-stopPropagation="true">
-                                  <div class="tip">
-                                      没有找到, 创建一个吧
-                                      <i class="fa fa-plus"></i>
-                                  </div>
+                                  <input type="text" name="notebookFilter" id="notebookFilter" placeholder="搜索或创建笔记本" data-stopPropagation="true"><!--
+                               --><button class="btn createNotebookButton">创建</button>
                               </div>
 
                               <div class="slidingPanel hideme"><!--
