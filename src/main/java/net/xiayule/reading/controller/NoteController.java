@@ -43,6 +43,17 @@ public class NoteController {
         note.setUserId(userId);
         note.setContent("new note");
 
+        // 指定笔记本
+        // 1. 如果没有指定笔记本，则为默认笔记本
+        // 2. 获得默认笔记本的 id
+        User user = userService.get(userId);
+        List<String> notebookIds = user.getNotebookIds();
+        String defaultNotebookId = notebookIds.get(0);
+
+        // 3. 添加
+        note.setNotebookId(defaultNotebookId);
+
+
         noteService.create(note);
 
 //        System.out.println("NoteController: newNote: noteId:" + note.getId());

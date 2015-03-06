@@ -18,6 +18,11 @@ public class NotebookServiceImpl implements NotebookService {
     private NotebookRepository notebookRepository;
 
     @Override
+    public Notebook getNotebook(String notebookId) {
+        return notebookRepository.getNotebook(notebookId);
+    }
+
+    @Override
     public void addNotebook(Notebook notebook) {
         notebookRepository.insert(notebook);
     }

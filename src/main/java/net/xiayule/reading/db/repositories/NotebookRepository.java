@@ -29,6 +29,13 @@ public class NotebookRepository {
         return notebooks;
     }
 
+
+    public Notebook getNotebook(String notebookId) {
+        Notebook notebook = mongoTemplate.findOne(query(where("_id").is(notebookId)),
+                Notebook.class);
+        return notebook;
+    }
+
     /**
      * 根据title获得notebookId
      */

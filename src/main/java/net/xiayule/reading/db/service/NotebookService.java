@@ -8,6 +8,12 @@ import java.util.List;
  * Created by tan on 15-2-6.
  */
 public interface NotebookService {
+
+    /**
+     * 查询 notebook
+     */
+    public Notebook getNotebook(String notebookId);
+
     /**
      * 创建一个笔记分类
      */
