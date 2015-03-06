@@ -127,13 +127,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
         });
     };
 
-    // 移动笔记到指定的笔记本
-    $("#notebook").change(function () {
-        var noteId = $("#note-title").data("noteId");
-        var notebookId = $("#notebook").val();
-
-        Note.moveNote(noteId, notebookId);
-    });
 
     // 保存文件
     //todo: 增加本地缓存功能

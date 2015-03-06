@@ -3,7 +3,7 @@
  */
 
 
-define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "bootstrap", "jgrowl", "pagedownExtra"], function ($, _, Notebook, mathjaxEditing, scrollLink) {
+define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-link', "bootstrap", "jgrowl", "pagedownExtra"], function ($, _, Notebook, Note, mathjaxEditing, scrollLink) {
     var core = {};
 
     //todo: 自定义
@@ -57,12 +57,6 @@ define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "b
             location.reload();
         });
 
-        //　使得搜索笔记不会自动关闭
-        $(".dropdown-menu").on("click", "[data-stopPropagation]", function(e) {
-            console.log(e);
-            e.stopPropagation();
-        });
-
         // 单击创建 notebook
         $(".createNotebookButton").click(function () {
             $(".createNotebookContainer").show();
@@ -104,6 +98,26 @@ define(["jquery", "underscore", "notebook", "mathjax-editing", 'scroll-link', "b
                     $(this).hide();
                 }
             });
+        });
+
+        //更新笔记所属笔记本
+        //todo: 直接写 .notebookItem 无效
+        $(".dropdown-menu").on("click", ".notebookItem", function (e) {
+            var notebookId = $(this).data("notebookId");
+
+            console.log("core.js: 切换笔记 notebookId: " + notebookId);
+
+            Note.moveCurNote(notebookId, function () {
+                //刷新显示
+                Notebook.renderNav();
+            });
+
+        });
+
+        //　使得搜索笔记不会自动关闭
+        $(".dropdown-menu").on("click", "[data-stopPropagation]", function(e) {
+            console.log(e);
+            e.stopPropagation();
         });
     };
 

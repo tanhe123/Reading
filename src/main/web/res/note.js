@@ -59,7 +59,13 @@ define([], function() {
         });
     };
 
-    Note.moveNote = function (noteId, notebookId) {
+    Note.moveCurNote = function (notebookId, callback) {
+        this.moveNote(this.curNoteId, notebookId, callback);
+    };
+
+    Note.moveNote = function (noteId, notebookId, callback) {
+        var self = this;
+
         var params = {
             noteId: noteId,
             notebookId: notebookId
@@ -69,6 +75,15 @@ define([], function() {
 
         $.post("/note/moveNote", params, function (rs) {
             console.log("moveNote:" + rs);
+
+            //    更新当前note的 notebookId
+            self.getCurNote().notebookId = notebookId;
+
+            console.log("note.js: 当前笔记 notebookId: " + self.getCurNote().notebookId);
+
+            if (callback) {
+                callback();
+            }
         });
     };
 

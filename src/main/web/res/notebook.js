@@ -19,7 +19,7 @@ define(["note"], function(Note) {
     };*/
 
     // 设置缓存
-    Notebook.setCache = function(notebook) {
+    /*Notebook.setCache = function(notebook) {
         var notebookId = notebook.id;
         if(!notebookId) {
             return;
@@ -29,7 +29,7 @@ define(["note"], function(Note) {
         }
         $.extend(Notebook.cache[notebookId], notebook);
     };
-
+*/
     //　这里只是显示条目
     //　而具体的细节，需要选定 note　时设置
     Notebook.renderNotebooks = function (notebooks) {
@@ -67,20 +67,19 @@ define(["note"], function(Note) {
 
     //将 notebooks 显示在 页面
     Notebook.renderNav = function () {
-        //显示标题
 
         // 要添加的面板
         var slidingPanel = $(".noteBookSelect .slidingPanel");
 
-        var noItem = $(".noteBookSelect .noItem");
+        //　加入之前先清空
+        slidingPanel.empty();
 
+        //　以后可以去掉
         if (this.notebooks == null || this.notebooks.length <= 0) {
             slidingPanel.hide();
-            noItem.show();
             return;
         } else {
             slidingPanel.show();
-            noItem.show();
         }
 
         var notebooks = Notebook.notebooks;
@@ -95,14 +94,15 @@ define(["note"], function(Note) {
 
             var notebook = notebooks[i];
 
+            var notebookItem = $("<div class=\"notebookItem\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>");
+            notebookItem.data("notebookId", notebook.id);
+
             if (note.notebookId === notebook.id) {
                 index = i;
-                $("<div class=\"notebookItem select\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>")
-                    .appendTo(slidingPanel);
-            } else {
-                $("<div class=\"notebookItem\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>")
-                    .appendTo(slidingPanel);
+                notebookItem.addClass("select");
             }
+
+            notebookItem.appendTo(slidingPanel)
         }
 
 
