@@ -21,6 +21,9 @@ public class Note implements Serializable {
     private boolean isBlog;
     private Date createTime;
 
+    // 最后更新时间
+    private Date updateTime;
+
     /**
      * 版本号
      * 这里如果用 Integer, mongo会把它识别为Double类型
@@ -47,7 +50,7 @@ public class Note implements Serializable {
     private boolean isTrash;
 
     public Note() {
-        createTime = new Date();
+        updateTime = createTime = new Date();
         isBlog = false;
         versionId = 1;
         isTrash = false;
@@ -147,5 +150,13 @@ public class Note implements Serializable {
 
     public void setNotebookId(String notebookId) {
         this.notebookId = notebookId;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

@@ -5,6 +5,9 @@
 define([], function() {
     var Note = {};
 
+    Note.curNoteId = "";
+
+
     // 显示笔记
     Note.renderNote = function (note) {
         // 修改网站标题

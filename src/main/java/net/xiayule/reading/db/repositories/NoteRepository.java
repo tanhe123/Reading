@@ -1,21 +1,17 @@
 package net.xiayule.reading.db.repositories;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
-import static org.springframework.data.mongodb.core.query.Update.update;
-
-
 import net.xiayule.reading.db.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+import static org.springframework.data.mongodb.core.query.Update.update;
 
 /**
  * Created by tan on 15-2-5.
@@ -58,6 +54,7 @@ public class NoteRepository {
         mongoTemplate.updateFirst(query(where("_id").is(note.getId())),
                 update("title", note.getTitle())
                         .set("content", note.getContent())
+                        .set("updateTime", new Date()) // 更新修改时间
                         .inc("versionId", 1),
                 Note.class);
     }
