@@ -1,6 +1,8 @@
 package net.xiayule.reading.controller;
 
+import net.xiayule.reading.db.model.Notebook;
 import net.xiayule.reading.db.model.User;
+import net.xiayule.reading.db.service.NotebookService;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -20,6 +21,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NotebookService notebookService;
 
     @RequestMapping({"/", "/home"})
     public String showHomePage(@CookieValue(value = "userId", defaultValue = "") String userId,
@@ -64,6 +68,17 @@ public class HomeController {
             System.out.println("创建失败");
             return "user/register";
         }
+
+        // 加入默认记事本
+        Notebook notebook = new Notebook();
+        notebook.setTitle("默认笔记本");
+        notebook.setUserId(user.getId());
+
+        // 插入笔记本记录
+        notebookService.addNotebook(notebook);
+
+        // 关联
+        userService.addNotebook(user.getId(), notebook.getId());
 
         // 进入个人主页
         System.out.println("createUser: 创建成功");

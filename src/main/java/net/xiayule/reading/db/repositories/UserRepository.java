@@ -3,6 +3,7 @@ package net.xiayule.reading.db.repositories;
 import net.xiayule.reading.db.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -18,6 +19,14 @@ public class UserRepository {
 
     public void insert(User user) {
         mongoTemplate.insert(user);
+    }
+
+    /**
+     * 添加记事本
+     */
+    public void addNotebook(String userId, String notebookId) {
+        mongoTemplate.updateFirst(query(where("_id").is(userId)),
+                new Update().push("notebookIds", notebookId), User.class);
     }
 
     public Boolean exist(String username) {

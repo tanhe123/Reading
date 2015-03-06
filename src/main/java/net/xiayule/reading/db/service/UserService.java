@@ -18,4 +18,9 @@ public interface UserService {
     public String findUserIdByUsername(String username);
 
     public String findUsernameByUserId(String userId);
+
+    /**
+     * 添加记事本
+     */
+    public void addNotebook(String userId, String notebookId);
 }

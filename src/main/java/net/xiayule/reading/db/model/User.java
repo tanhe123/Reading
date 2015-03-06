@@ -1,15 +1,21 @@
 package net.xiayule.reading.db.model;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 /**
  * Created by tan on 14-12-23.
  * 用户 Model
  */
+@Document
 public class User {
     /**
      * 用户的 id
      */
+    @Id
     private String id;
 
     /**
@@ -37,6 +43,10 @@ public class User {
      */
     private String mobile;
 
+    /**
+     * 笔记分类
+     */
+    private List<String> notebookIds;
 
     public String getId() {
         return id;
@@ -88,5 +98,13 @@ public class User {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public List<String> getNotebookIds() {
+        return notebookIds;
+    }
+
+    public void setNotebookIds(List<String> notebookIds) {
+        this.notebookIds = notebookIds;
     }
 }
