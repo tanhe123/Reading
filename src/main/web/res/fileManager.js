@@ -102,33 +102,28 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
     fileManager.queryFile = function () {
         var noteId = $("#note-title").data("noteId");
 
-        console.log("noteid:" + noteId);
-
-
         //todo: 浏览模式时id的存储位置
         if (!noteId) {
             console.error("error noteid null");
 
-            noteId = note.id;
+            //noteId = note.id;
         }
 
-        Note.queryNote(noteId, function (rsNote) {
-            note = rsNote;
-
+        Note.queryNote(noteId, function (note) {
             // 显示笔记
             Note.renderNote(note);
+            Notebook.renderNotebooks(notebooks);
 
             // 重新初始化 markdown 编辑器
             core.createEditor(function () {
                 save = true;
             });
 
-            // todo: 缓存
-
             // todo: 显示
             $("#loading").hide();
             $(".editorContainer").show();
             $(".slideMenu").show();
+
         });
     };
 

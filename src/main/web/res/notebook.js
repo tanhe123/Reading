@@ -2,7 +2,7 @@
  * Created by tan on 15-2-6.
  */
 
-define([], function() {
+define(["note"], function(Note) {
     //todo: addnote 刷新显示
 
     var Notebook = {};
@@ -54,6 +54,7 @@ define([], function() {
         }
     };
 
+    //改为在 jsp　中获取
     Notebook.init = function () {
         var self = this;
 
@@ -66,6 +67,8 @@ define([], function() {
 
     //将 notebooks 显示在 页面
     Notebook.renderNav = function () {
+        //显示标题
+
         // 要添加的面板
         var slidingPanel = $(".noteBookSelect .slidingPanel");
 
@@ -78,17 +81,33 @@ define([], function() {
         } else {
             slidingPanel.show();
             noItem.show();
-            //noItem.hide();
         }
 
         var notebooks = Notebook.notebooks;
+
+        //表示当前选中的 notebook
+        var index;
+
         for (var i in notebooks) {
+            var note = Note.getCurNote();
+
+            console.log(note);
 
             var notebook = notebooks[i];
 
-            $("<div class=\"notebookItem\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>")
-                .appendTo(slidingPanel);
+            if (note.notebookId === notebook.id) {
+                index = i;
+                $("<div class=\"notebookItem select\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>")
+                    .appendTo(slidingPanel);
+            } else {
+                $("<div class=\"notebookItem\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>")
+                    .appendTo(slidingPanel);
+            }
         }
+
+
+        var curNotebook = notebooks[index];
+        $("#curNotebookTitle").text(curNotebook.title);
     };
 
     // 得到notebook标题, 给note显示其notebook标题用

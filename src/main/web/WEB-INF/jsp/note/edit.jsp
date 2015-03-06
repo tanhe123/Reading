@@ -19,8 +19,6 @@
     <script>
         var viewerMode = false;
 
-        var note = {};
-
     </script>
   </head>
 
@@ -143,7 +141,7 @@
                           <!-- data-toggle 可以是的点击不自动隐藏弹出菜单 -->
                           <div class="dropdown-toggle" data-toggle="dropdown">
                               <i class="fa fa-book"></i>
-                              <span>笔记分类</span>
+                              <span id="curNotebookTitle">笔记分类</span>
                               <span class="caret"></span>
                           </div>
 

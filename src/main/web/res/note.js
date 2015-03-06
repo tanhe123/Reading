@@ -6,7 +6,25 @@ define([], function() {
     var Note = {};
 
     Note.curNoteId = "";
+    Note.cache = {};
 
+    /**
+     * 缓存笔记
+     */
+    Note.addNoteCache = function (note) {
+        Note.cache[note.id] = note;
+    };
+
+    /**
+     * 从缓存中获得 Note
+     */
+    Note.getNoteCache = function (noteId) {
+        return this.cache[noteId];
+    };
+
+    Note.getCurNote = function () {
+        return this.getNoteCache(this.curNoteId);
+    };
 
     // 显示笔记
     Note.renderNote = function (note) {
@@ -29,9 +47,14 @@ define([], function() {
     };
 
     Note.queryNote = function (noteId, callback) {
-        $.getJSON("/note/getNoteContent?noteId=" + noteId, function (rsNote) {
+
+        $.getJSON("/note/getNoteContent?noteId=" + noteId, function (note) {
+
+            Note.curNoteId = noteId;
+            Note.addNoteCache(note);
+
             if (callback) {
-                callback(rsNote);
+                callback(note);
             }
         });
     };
@@ -52,6 +75,8 @@ define([], function() {
     Note.updateContentAndTitle = function () {
         updateNote();
 
+        var note = this.getCurNote();
+
         var params = {
             noteId: note.id,
             title: note.title,
@@ -65,7 +90,7 @@ define([], function() {
         });
     };
 
-    Note.publish = function () {
+    /*Note.publish = function () {
 
         $.post("/note/" + note.id + "/publish", function (rs) {
             console.log(rs);
@@ -75,7 +100,7 @@ define([], function() {
                 $("#action-update-blog").show();
             }
         });
-    };
+    };*/
 
     /**
      * 将最新的内容更新至全局变量 note
@@ -83,6 +108,8 @@ define([], function() {
     var updateNote = function () {
         var content = $("#wmd-input").val();
         var title = $("#note-title").val();
+
+        var note = Note.getCurNote();
 
         note.title = title;
         note.content = content;
