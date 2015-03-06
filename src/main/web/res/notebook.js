@@ -94,7 +94,7 @@ define(["note"], function(Note) {
 
             var notebook = notebooks[i];
 
-            var notebookItem = $("<div class=\"notebookItem\"><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></div>");
+            var notebookItem = $("<li><div class=\"notebook\">" + notebook.title + "</div><div class=\"selectState\"><i class=\"fa fa-check\"></i></div></li>");
             notebookItem.data("notebookId", notebook.id);
 
             if (note.notebookId === notebook.id) {

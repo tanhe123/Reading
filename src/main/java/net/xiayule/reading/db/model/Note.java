@@ -21,6 +21,11 @@ public class Note implements Serializable {
     private boolean isBlog;
     private Date createTime;
 
+    /**
+     * 图片, 第一张缩略图地址
+     */
+//    private String imageSrc;
+
     // 最后更新时间
     private Date updateTime;
 

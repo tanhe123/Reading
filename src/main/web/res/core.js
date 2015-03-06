@@ -70,12 +70,12 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
             $(".noteBookSelect").removeClass("open");
         });
 
-        $(".createNotebookContainer .cancel").click(function () {
+        $(".createNotebookContainer .btn-cancel").click(function () {
             $(".createNotebookContainer").hide();
         });
 
         // 确认创建 notebook
-        $(".createNotebookContainer .confirm").click(function () {
+        $(".createNotebookContainer .btn-confirm").click(function () {
             var notebookTitle = $("#createNotebookTitle").val();
 
             console.log("createNotebookTitle:" + notebookTitle);
@@ -90,7 +90,7 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
 
             var filter = $(self).val();
 
-            $(".noteBookSelect .slidingPanel > .notebookItem").each(function () {
+            $(".noteBookSelect .slidingPanel > li").each(function () {
                 //console.log($(".notebook", this).text());
                 if ($(".notebook", this).text().indexOf(filter) != -1) {
                     $(this).show();
@@ -101,8 +101,8 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
         });
 
         //更新笔记所属笔记本
-        //todo: 直接写 .notebookItem 无效
-        $(".dropdown-menu").on("click", ".notebookItem", function (e) {
+        //todo: 直接写无效, 只能加在 .dropdown-menu　上
+        $(".noteBookSelect .dropdown-menu").on("click", "li", function (e) {
             var notebookId = $(this).data("notebookId");
 
             console.log("core.js: 切换笔记 notebookId: " + notebookId);

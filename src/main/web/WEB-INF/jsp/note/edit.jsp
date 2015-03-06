@@ -28,11 +28,6 @@
       <!-- 菜单栏-->
      <%-- <div id="header" class="navbar navbar-default">
 
-          <!--mdEditor 按钮组-->
-          <div class="pull-left">
-              <div id="wmd-button-bar"></div>
-          </div>
-
 --%>
           <%--菜单按钮--%>
           <%--<div class="pull-right" style="margin-right: 140px">
@@ -97,10 +92,6 @@
           </div>
 --%>
 
-<%--          <div id="action-has-saving" class="pull-right hideme" style="margin-right: 20px">
-              <div><i class="fa fa-save"></i> 已保存</div>
-          </div>--%>
-
 <%--
 
       </div>
@@ -118,6 +109,13 @@
               <a id="action-exit" class="menuItem" href="/">
                   <i class="fa fa-reply"></i><!--
 		       --><span>保存并返回</span>
+              </a>
+          </li>
+
+          <li>
+              <a class="menuItem" href="#">
+                  <i class="fa fa-file"></i><!--
+               --><span>笔记</span>
               </a>
           </li>
 
@@ -149,30 +147,10 @@
                               <div class="filterPanel">
                                   <i class="fa fa-search"></i>
                                   <input type="text" name="notebookFilter" id="notebookFilter" placeholder="搜索或创建笔记本" data-stopPropagation="true"><!--
-                               --><button class="btn createNotebookButton">创建</button>
+                               --><button class="btn btn-confirm createNotebookButton">创建</button>
                               </div>
 
-                              <div class="slidingPanel hideme"><!--
-                                  <%--<div class="notebookItem select">
-                                      <div class="notebook">
-                                          默认记事本
-                                      </div><!--
-
-					--><div class="selectState">
-                                      <i class="fa fa-check"></i>
-                                  </div>
-                                  </div>
-
-                                  <div class="notebookItem">
-                                      <div class="notebook">
-                                          默认记事本
-                                      </div><!--
-
-					--><div class="selectState">
-                                      <i class="fa fa-check"></i>
-                                  </div>
-                                  </div>--%>-->
-                              </div>
+                              <ul class="slidingPanel nav hideme"></ul>
                           </div>
                       </div><!-- 笔记本选择菜单 end -->
 
@@ -205,29 +183,6 @@
                   </ul>
 
                   <ul class="nav pull-right right-buttons">
-
-                      <%--// 添加其他的组件--%>
-                      <%--<li id='action-exit' class='wmd-button btn pull-right' style='line-height: 15px; font-size: 12px; font-weight: normal'><i class='fa fa-save'></i>保存并离开</li>--%>
-
-                      <%--<li class="wmd-button btn">
-                          <select id="notebook">
-                              &lt;%&ndash;将notebooks放入select, 并选择默认&ndash;%&gt;
-                              <c:forEach var="notebook" items="${notebooks}">
-                                  <c:choose>
-                                      <c:when test="${notebook.id eq note.notebookId}">
-                                          <option value="${notebook.id}" selected>${notebook.title}</option>
-                                      </c:when>
-
-                                      <c:otherwise>
-                                          <option value="${notebook.id}">${notebook.title}</option>
-                                      </c:otherwise>
-
-                                  </c:choose>
-
-                              </c:forEach>
-                          </select>
-                      </li>--%>
-
                       <li id='saving-notice' class='label hideme'>已保存</li>
                   </ul>
 
@@ -277,8 +232,8 @@
       </div>
 
       <div class="containerButtons">
-          <button class="btn btn-default cancel">取消</button>
-          <button class="btn btn-default confirm">创建</button>
+          <button class="btn btn-cancel">取消</button>
+          <button class="btn btn-confirm">创建</button>
       </div>
   </div>
 
