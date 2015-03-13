@@ -7,6 +7,8 @@ define([], function() {
 
     Note.curNoteId = "";
     Note.cache = {};
+    Note.notes = [];
+
 
     /**
      * 缓存笔记
@@ -116,6 +118,32 @@ define([], function() {
             }
         });
     };*/
+
+    // 显示笔记列表
+    Note.renderNoteList = function (notes) {
+
+        if (!notes || typeof notes != "object" || notes.length < 0) {
+            notes = [];
+        }
+
+        this.notes = notes;
+
+        //要存放的容器
+        var noteList = $(".NoteListContainer .slidingPanel");
+
+        //　加入之前先清空
+        noteList.empty();
+
+        for (var i in notes) {
+
+            var note = notes[i];
+
+            var noteItem = $("<li><div>" + note.updateTime +"</div><div>" + note.title + "</div><div>" + note.content + "</div></li>")
+            noteItem.data("noteId", note.id);
+
+            noteItem.appendTo(noteList);
+        }
+    };
 
     /**
      * 将最新的内容更新至全局变量 note

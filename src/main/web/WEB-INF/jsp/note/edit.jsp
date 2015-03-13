@@ -113,7 +113,7 @@
           </li>
 
           <li>
-              <a href="#">
+              <a id="action-all-note" href="#">
                   <i class="fa fa-file"></i><!--
                --><span>笔记</span>
               </a>
@@ -237,14 +237,42 @@
       </div>
   </div>
 
-  <div class="mask showAllNoteContainer" style="display: none">
-      123
+  <div class="mask NoteListContainer" style="display: none">
+      <ul class="slidingPanel">
+          <li>
+              <div>
+                  <div>
+                      2015-10-11
+                  </div>
+                  <div>
+                      Title
+                  </div>
+                  <div>
+                      Content
+                  </div>
+              </div>
+          </li>
+          <li>
+              <div>
+                  <div>
+                      2015-10-11
+                  </div>
+                  <div>
+                      Title
+                  </div>
+                  <div>
+                      Content
+                  </div>
+              </div>
+          </li>
+      </ul>
   </div>
 
   <textarea id="md-section-helper" style="visibility: hidden"></textarea>
 
   <script>
       var notebooks = ${notebooks};
+      var notes = ${notes};
   </script>
 
   </body>

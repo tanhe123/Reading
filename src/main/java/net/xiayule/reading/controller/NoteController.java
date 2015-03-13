@@ -117,6 +117,12 @@ public class NoteController {
 
             System.out.println("NoteController: editNote: notebooks(Json): " + notebooks);
 
+            //       查找所有 notes,  todo: 这里肯定要只查询笔记的梗概
+            List<Note> notes = noteService.findAll(userId);
+            String notesJson = objectMapper.writeValueAsString(notes);
+            model.addAttribute("notes", notesJson);
+
+            System.out.println("NoteController: editNote: notes(Json): " + notesJson);
         } catch (IOException e) {
             e.printStackTrace();
         }

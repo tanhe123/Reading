@@ -119,6 +119,14 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
             console.log(e);
             e.stopPropagation();
         });
+
+        $("#action-all-note").click(function () {
+            Note.renderNoteList(notes);
+
+            $(".NoteListContainer").show();
+        });
+
+
     };
 
 
