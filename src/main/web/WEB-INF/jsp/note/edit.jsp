@@ -106,21 +106,21 @@
   <div class="slideMenu" style="display: none">
       <ul class="navigationMenu">
           <li>
-              <a id="action-exit" class="menuItem" href="/">
+              <a id="action-exit" href="/">
                   <i class="fa fa-reply"></i><!--
 		       --><span>保存并返回</span>
               </a>
           </li>
 
           <li>
-              <a class="menuItem" href="#">
+              <a href="#">
                   <i class="fa fa-file"></i><!--
                --><span>笔记</span>
               </a>
           </li>
 
           <li>
-              <a class="menuItem" href="#">
+              <a href="#">
                   <i class="fa fa-search"></i><!--
 		       --><span>搜索</span>
               </a>
@@ -214,7 +214,7 @@
       </div>
   </div>
 
-  <div class="createNotebookContainer" style="display: none">
+  <div class="mask createNotebookContainer" style="display: none">
       <div class="containerIcon">
           <span class="fa fa-book fa-4x"></span>
       </div>
@@ -235,6 +235,10 @@
           <button class="btn btn-cancel">取消</button>
           <button class="btn btn-confirm">创建</button>
       </div>
+  </div>
+
+  <div class="mask showAllNoteContainer" style="display: none">
+      123
   </div>
 
   <textarea id="md-section-helper" style="visibility: hidden"></textarea>

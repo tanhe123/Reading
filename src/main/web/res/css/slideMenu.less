@@ -19,30 +19,49 @@
   border: 0;
 }
 
-//#header a, #header i {
-//    color: @headerIconColor;
-//}
-
 .navigationMenu {
   list-style: none;
   margin: 0 auto;
   padding: 10px 10px 10px 10px;
 }
 
-.navigationMenu li{
+.navigationMenu > li{
   width: 38px;
   height: 38px;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
-.menuItem i {
-  color: #2ebe61;;
+/* 定制样式 */
+.navigationMenu > li > a {
+  width: 38px;
+  height:38px;
+  display: block;
+  background: #ffffff;
+  border-radius: 38px;
+}
+
+.navigationMenu > li > a:hover {
+  background: #2ebe61;
+  text-decoration:none;
+  -moz-box-shadow:0 0 5px #9ddff5;
+  -webkit-box-shadow:0 0 5px #9ddff5;
+  box-shadow:0 0 5px #9ddff5;
+}
+
+
+.navigationMenu > li > a > i {
+  color: #2ebe61;
   line-height: 38px;
   width: 38px;
   text-align: center;
 }
 
-.navigationMenu span{
+.navigationMenu > li > a:hover > i{
+  color: #ffffff;
+}
+
+
+.navigationMenu > li > a > span{
   width:0;
   position:absolute;
   overflow:hidden;
@@ -52,56 +71,23 @@
   letter-spacing:0.6px;
   white-space:nowrap;
   line-height:38px;
-/* CSS3 Transition: */
+
+  /* CSS3 Transition: */
   -webkit-transition: 0.25s;
   -moz-transition: 0.25s;
   transition: 0.25s;
-}
 
-.navigationMenu a{
-  width: 38px;
-  height:38px;
-  display: block;
-}
-
-/* General hover styles */
-
-.navigationMenu a:hover span{
-  width:auto;
-  padding:0 20px;
-  overflow:visible;
-  margin-left: 10px;
-//  解决遮挡bug
-  z-index: 1
-}
-.navigationMenu a:hover{
-  text-decoration:none;
-/* CSS outer glow with the box-shadow property */
-
-  -moz-box-shadow:0 0 5px #9ddff5;
-  -webkit-box-shadow:0 0 5px #9ddff5;
-  box-shadow:0 0 5px #9ddff5;
-}
-
-/* 定制样式 */
-
-.navigationMenu li a.menuItem {
-  background: #ffffff;
-  border-radius: 38px;
-}
-
-.navigationMenu li a:hover.menuItem {
-  background: #2ebe61;
-}
-
-.navigationMenu li a:hover.menuItem i{
-  color: #ffffff;
-}
-
-.navigationMenu li a.menuItem span{
   background-color:#2ebe61;
   color:#3d4f0c;
   text-shadow:1px 1px 0 #99bf31;
   border-radius: 20px;
+
+  //  解决遮挡bug
+  z-index: 1;
 }
 
+.navigationMenu > li > a:hover > span{
+  width:auto;
+  padding:0 20px;
+  overflow:visible;
+}
