@@ -153,17 +153,19 @@
                               <ul class="slidingPanel hideme"></ul>
                           </div>
                       </div><!-- 笔记本选择菜单 end -->
+                  </li>
 
-
-              </ul>
-
-              <ul class="nav navbar-nav navbar-right">
                   <%--文章标题--%>
                   <li>
                       <div class="noteTitle">
                           <input type="text" class="form-control" id="note-title" placeholder="笔记标题">
                       </div>
                   </li><%--文章标题 end--%>
+
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+
               </ul>
           </div>
 
