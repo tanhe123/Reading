@@ -126,7 +126,19 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
             $(".NoteListContainer").show();
         });
 
+        // 笔记列表项点击事件
 
+        //console.log($(".noteListContainer .slidingPanel > li"));
+
+        // 动态绑定事件, http://www.cnblogs.com/rabbit2012/archive/2013/03/15/2961881.html
+        $(".noteListContainer .slidingPanel").delegate("li", "click", function () {
+
+            var noteId = $(this).data("noteId");
+
+            console.log(".NoteListContainer > .slidingPanel > .li click: noteId:" + noteId);
+
+            window.location.href="/note/"+ noteId + "/edit";
+        });
     };
 
 
@@ -181,7 +193,6 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
     core.createLayout = function() {
 
         if (viewerMode === true) {
-
 
             return;
         }

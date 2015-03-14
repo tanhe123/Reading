@@ -90,7 +90,7 @@ define(["note"], function(Note) {
         for (var i in notebooks) {
             var note = Note.getCurNote();
 
-            console.log(note);
+            //console.log(note);
 
             var notebook = notebooks[i];
 

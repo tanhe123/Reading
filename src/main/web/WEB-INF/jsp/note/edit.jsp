@@ -150,7 +150,7 @@
                                --><button class="btn btn-confirm createNotebookButton">创建</button>
                               </div>
 
-                              <ul class="slidingPanel nav hideme"></ul>
+                              <ul class="slidingPanel hideme"></ul>
                           </div>
                       </div><!-- 笔记本选择菜单 end -->
 
@@ -237,9 +237,9 @@
       </div>
   </div>
 
-  <div class="mask NoteListContainer" style="display: none">
+  <div class="mask noteListContainer" style="display: none">
       <ul class="slidingPanel">
-          <li>
+          <%--<li>
               <div>
                   <div>
                       2015-10-11
@@ -251,20 +251,7 @@
                       Content
                   </div>
               </div>
-          </li>
-          <li>
-              <div>
-                  <div>
-                      2015-10-11
-                  </div>
-                  <div>
-                      Title
-                  </div>
-                  <div>
-                      Content
-                  </div>
-              </div>
-          </li>
+          </li>--%>
       </ul>
   </div>
 
