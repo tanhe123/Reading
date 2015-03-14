@@ -161,7 +161,7 @@
                   <%--文章标题--%>
                   <li>
                       <div class="noteTitle">
-                          <input type="text" class="form-control" id="note-title" data-note-id="${note.id}" placeholder="笔记标题">
+                          <input type="text" class="form-control" id="note-title" placeholder="笔记标题">
                       </div>
                   </li><%--文章标题 end--%>
               </ul>
@@ -260,6 +260,7 @@
   <script>
       var notebooks = ${notebooks};
       var notes = ${notes};
+      var noteId="${note.id}";
   </script>
 
   </body>

@@ -9,7 +9,7 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
 
     fileManager.init = function () {
 
-        fileManager.queryFile();
+        fileManager.queryFile(noteId);
 
         // 自动调用保存
         window.setInterval(function () {
@@ -85,6 +85,16 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
                 e.preventDefault();
             }
         });
+
+        // 笔记列表项点击事件
+
+        // 动态绑定事件, http://www.cnblogs.com/rabbit2012/archive/2013/03/15/2961881.html
+        $(".noteListContainer .slidingPanel").delegate("li", "click", function () {
+
+            var noteId = $(this).data("noteId");
+
+            fileManager.queryFile(noteId);
+        });
     };
 
     /*fileManager.downloadFile = function(filename, content) {
@@ -99,14 +109,11 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
     };*/
 
     // 获取文件内容
-    fileManager.queryFile = function () {
-        var noteId = $("#note-title").data("noteId");
+    fileManager.queryFile = function (noteId) {
 
         //todo: 浏览模式时id的存储位置
         if (!noteId) {
             console.error("error noteid null");
-
-            //noteId = note.id;
         }
 
         Note.queryNote(noteId, function (note) {
@@ -123,14 +130,13 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             $("#loading").hide();
             $(".editorContainer").show();
             $(".slideMenu").show();
-
+            $(".createNotebookContainer").hide();
+            $(".noteListContainer").hide();
         });
     };
 
 
     // 保存文件
-    //todo: 增加本地缓存功能
-    //todo: 通过比对版本号，来选择是否使用缓存
     fileManager.saveNote = function () {
         if (save === true && viewerMode === false) {
 

@@ -123,21 +123,7 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
         $("#action-all-note").click(function () {
             Note.renderNoteList(notes);
 
-            $(".NoteListContainer").show();
-        });
-
-        // 笔记列表项点击事件
-
-        //console.log($(".noteListContainer .slidingPanel > li"));
-
-        // 动态绑定事件, http://www.cnblogs.com/rabbit2012/archive/2013/03/15/2961881.html
-        $(".noteListContainer .slidingPanel").delegate("li", "click", function () {
-
-            var noteId = $(this).data("noteId");
-
-            console.log(".NoteListContainer > .slidingPanel > .li click: noteId:" + noteId);
-
-            window.location.href="/note/"+ noteId + "/edit";
+            $(".NoteListContainer").toggle();
         });
     };
 
@@ -203,6 +189,12 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
 
     core.createEditor = function(textChangeCallback) {
         $("#wmd-button-bar").empty();
+        $('.wmd-button-group1').empty();
+        $('.wmd-button-group2').empty();
+        $('.wmd-button-group3').empty();
+        $('.wmd-button-group5').empty();
+
+
         var converter = Markdown.getSanitizingConverter();
 
         converter.hooks.chain("preConversion", function (text) {

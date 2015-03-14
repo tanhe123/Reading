@@ -53,12 +53,7 @@ public class NoteController {
         // 3. 添加
         note.setNotebookId(defaultNotebookId);
 
-
         noteService.create(note);
-
-//        System.out.println("NoteController: newNote: noteId:" + note.getId());
-
-//        model.addAttribute(note);
 
         String noteId = note.getId();
 
@@ -92,24 +87,22 @@ public class NoteController {
     }
 
 
-    @RequestMapping(value = "/{noteId}/edit", method = RequestMethod.GET)
+//    @RequestMapping(value = "/{noteId}/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String editNote(@CookieValue(value = "userId", defaultValue = "") String userId,
-                           @PathVariable String noteId,
+//                           @PathVariable String noteId,
                            Model model) {
-
-//        System.out.println("NoteController: editNote: username" + username + " noteid:" + noteId);
-
-//        String ownerId = userService.findUserIdByUsername(username);
 
         // 获得用户所有的 notebook
         List<Notebook> notebooks = notebookService.getNoteBooks(userId);
 
-        // 查找 note
-        Note note = noteService.find(noteId);
+        // 查找所有的 notes
+        List<Note> notes = noteService.findAll(userId);
 
         System.out.println("NoteController: editNote: notebooks: " + notebooks);
 
-        model.addAttribute("note", note);
+//        取第一个查看, todo: 以后取最后浏览的那个
+        model.addAttribute("note", notes.get(0));
 
         try {
             String notebooksJson = objectMapper.writeValueAsString(notebooks);
@@ -118,7 +111,6 @@ public class NoteController {
             System.out.println("NoteController: editNote: notebooks(Json): " + notebooks);
 
             //       查找所有 notes,  todo: 这里肯定要只查询笔记的梗概
-            List<Note> notes = noteService.findAll(userId);
             String notesJson = objectMapper.writeValueAsString(notes);
             model.addAttribute("notes", notesJson);
 
@@ -130,7 +122,8 @@ public class NoteController {
         return "/note/edit";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+//   todo: 显示用户目录，这个以后当作博客显示吧
+//    @RequestMapping(value = "", method = RequestMethod.GET)
     public String userHome(@CookieValue(value = "userId", defaultValue = "") String userId,
                            @RequestParam(value = "category", required = false) String category,
 
@@ -140,12 +133,7 @@ public class NoteController {
         if (StringUtils.isBlank(userId)) {
             return "redirect:/login";
         }
-        
-        // 获得 id
-//        String userId = userService.findUserIdByUsername(username);
 
-//        System.out.println("NoteController: showAllnote: userId:" + userId);
-        
         //todo: 检查该用户是否存在
         
         User user = userService.get(userId);
