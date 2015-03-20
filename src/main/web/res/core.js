@@ -120,11 +120,17 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
             e.stopPropagation();
         });
 
+        // 显示笔记列表
         $("#action-all-note").click(function () {
             Note.renderNoteList(notes);
 
             $(".NoteListContainer").toggle();
         });
+
+        Note.renderNoteList(notes);
+
+        //显示笔记列表
+        $(".NoteListContainer").show();
     };
 
 

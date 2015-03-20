@@ -10,26 +10,6 @@ define(["note"], function(Note) {
     Notebook.cache = {};  // notebookId => {};
     Notebook.notebooks = []; // 按次序
 
-/*    Notebook.queryNotebooks = function (callback) {
-        $.getJSON("/notebook", function (rsNotebooks) {
-            if (callback) {
-                callback(rsNotebooks);
-            }
-        });
-    };*/
-
-    // 设置缓存
-    /*Notebook.setCache = function(notebook) {
-        var notebookId = notebook.id;
-        if(!notebookId) {
-            return;
-        }
-        if(!Notebook.cache[notebookId]) {
-            Notebook.cache[notebookId] = {};
-        }
-        $.extend(Notebook.cache[notebookId], notebook);
-    };
-*/
     //　这里只是显示条目
     //　而具体的细节，需要选定 note　时设置
     Notebook.renderNotebooks = function (notebooks) {
@@ -105,9 +85,10 @@ define(["note"], function(Note) {
             notebookItem.appendTo(slidingPanel)
         }
 
-
-        var curNotebook = notebooks[index];
-        $("#curNotebookTitle").text(curNotebook.title);
+        if (index !== null) { //todo: 可能为null
+            var curNotebook = notebooks[index];
+            $("#curNotebookTitle").text(curNotebook.title);
+        }
     };
 
     // 得到notebook标题, 给note显示其notebook标题用

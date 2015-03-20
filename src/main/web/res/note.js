@@ -107,17 +107,7 @@ define([], function() {
         });
     };
 
-    /*Note.publish = function () {
 
-        $.post("/note/" + note.id + "/publish", function (rs) {
-            console.log(rs);
-
-            if (rs === true) {
-                $("#action-publish-blog").hide();
-                $("#action-update-blog").show();
-            }
-        });
-    };*/
 
     // 显示笔记列表
     Note.renderNoteList = function (notes) {

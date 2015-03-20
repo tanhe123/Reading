@@ -9,29 +9,13 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
 
     fileManager.init = function () {
 
-        fileManager.queryFile(noteId);
-
         // 自动调用保存
         window.setInterval(function () {
             //todo: 修改为智能同步，而不是定时检查
             fileManager.saveNote();
         }, 4000);
 
-        // 删除笔记
-        /*$(".action-remove-file").click(function () {
-            $.ajax({
-                url: '/note/' + note.id,
-                type: 'DELETE',
-                success: function (rs) {
-                    if (rs === true) {
-                        location.href = "/note";
-                    } else {
-                        alert("删除文章失败");
-                    }
-                }
-            });
 
-        });*/
 
         // 输入标题时，失去焦点保存文件名
         $("#note-title").blur(function () {
@@ -60,20 +44,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             location.href = "/note";
         });
 
-        // 保存文件参见 http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
-        /*$("#action-download-md").click(function () {
-            var content = $("#wmd-input").val();
-            var filename = $("#note-title").val() + ".md";
-
-            fileManager.downloadFile(filename, content);
-        });
-
-        $("#action-download-html").click(function () {
-            var content = $("#wmd-preview").html();
-            var filename = $("#note-title").val() + ".html";
-
-            fileManager.downloadFile(filename, content);
-        });*/
 
         // 自定义处理 Ctrl+S 保存
         $(window).keydown(function(e) {
@@ -96,17 +66,6 @@ define(['jquery', 'core', 'note', 'notebook', 'FileSaver'], function ($, core, N
             fileManager.queryFile(noteId);
         });
     };
-
-    /*fileManager.downloadFile = function(filename, content) {
-        if (saveAs !== undefined) {
-            var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, filename);
-        } else {
-            var uriContent = "data:application/octet-stream;base64,"
-                + content;
-            window.open(uriContent, 'file');
-        }
-    };*/
 
     // 获取文件内容
     fileManager.queryFile = function (noteId) {
