@@ -3,7 +3,16 @@
  */
 
 
-define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-link', "bootstrap", "jgrowl", "pagedownExtra"], function ($, _, Notebook, Note, mathjaxEditing, scrollLink) {
+define(["jquery",
+    "underscore",
+    "partialRendering",
+    "notebook",
+    "note",
+    "mathjax-editing",
+    'scroll-link',
+    "bootstrap",
+    "jgrowl",
+    "pagedownExtra"], function ($, _, partialRendering, Notebook, Note, mathjaxEditing, scrollLink) {
     var core = {};
 
     //todo: 自定义
@@ -216,10 +225,14 @@ define(["jquery", "underscore", "notebook", "note", "mathjax-editing", 'scroll-l
         // 启用 Markdown.Extra
         Markdown.Extra.init(converter, {highlighter: "prettify"});
 
+        // 自定义渲染 markdown
+        partialRendering.init(editor);
+
         editor.hooks.chain("onPreviewRefresh", prettyPrint);
 
         // MathJax
         mathjaxEditing.prepareWmdForMathJax(editor, [["$", "$"], ["\\\\(", "\\\\)"]], scrollLink.previewFinished);
+
 
 
         editor.run();
