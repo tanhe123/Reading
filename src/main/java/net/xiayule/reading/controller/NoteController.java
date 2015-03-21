@@ -119,7 +119,8 @@ public class NoteController {
             e.printStackTrace();
         }
 
-        return "/note/edit";
+//        todo:
+        return "/note/editor";
     }
 
 //   todo: 显示用户目录，这个以后当作博客显示吧
