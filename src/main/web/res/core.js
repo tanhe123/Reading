@@ -30,6 +30,7 @@ define(["jquery",
             core.setOffline();
         }
 
+
         this.loadSettings();
 
         this.createLayout();

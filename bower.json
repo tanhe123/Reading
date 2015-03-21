@@ -19,7 +19,6 @@
     "require-less": "~0.1.5",
     "bootstrap-tour": "~0.10.1",
     "highlightjs": "~8.4.0",
-    "crel": "*",
     "rangy": "~1.2.3",
     "google-diff-match-patch-js": "~1.0.0",
     "font-awesome": "~4.3.0",
