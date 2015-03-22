@@ -113,6 +113,13 @@
           </li>
 
           <li>
+              <a id="action-new-note" href="#">
+                  <i class="fa fa-plus"></i><!--
+               --><span>新建笔记</span>
+              </a>
+          </li>
+
+          <li>
               <a id="action-all-note" href="#">
                   <i class="fa fa-file"></i><!--
                --><span>笔记</span>

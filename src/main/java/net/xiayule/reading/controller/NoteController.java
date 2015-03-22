@@ -57,7 +57,7 @@ public class NoteController {
 
         String noteId = note.getId();
 
-        return "redirect:/note/" + noteId + "/edit";
+        return "redirect:/note";
     }
 
     // ajax方式获取笔记内容

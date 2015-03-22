@@ -30,7 +30,6 @@ define(["jquery",
             core.setOffline();
         }
 
-
         this.loadSettings();
 
         this.createLayout();
@@ -130,6 +129,11 @@ define(["jquery",
             e.stopPropagation();
         });
 
+        // 新建笔记
+        $("#action-new-note").click(function () {
+            window.location.href = "/note/new"
+        });
+
         // 显示笔记列表
         $("#action-all-note").click(function () {
             Note.renderNoteList(notes);
@@ -169,6 +173,8 @@ define(["jquery",
             }
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
     };
 
 
