@@ -31,4 +31,11 @@ public class NotebookRepositoryTest {
 
         System.out.println(notebooks);
     }
+
+    @Test
+    public void Test() {
+        String t = "image/jpeg";
+        int index = t.lastIndexOf("/");
+        System.out.println(t.substring(index + 1));
+    }
 }

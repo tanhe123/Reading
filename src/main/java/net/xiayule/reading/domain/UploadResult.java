@@ -6,9 +6,11 @@ package net.xiayule.reading.domain;
 public class UploadResult {
     private Integer success;
     private String message;
+    private String url;
 
-    public UploadResult(Integer success, String message) {
+    public UploadResult(Integer success, String url, String message) {
         this.success = success;
+        this.url = "http://localhost:8080/image?img=" + url;
         this.message = message;
     }
 
@@ -26,5 +28,13 @@ public class UploadResult {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
