@@ -5,15 +5,7 @@
 2. Ztree 可以制作树形目录结构
 3. 布局可以使用 jquery ui layout
 4. 保存文件到本地使用 [FileSave](https://github.com/eligrey/FileSaver.js/)
-
-
-## 学习:
-
-jquery
-jquery ui
-jquery layout
-
-underscore
+5. 上传文件使用 [jQuery File Upload](https://github.com/blueimp/jQuery-File-Upload)
 
 ## mongodb 数据表:
 
@@ -67,4 +59,4 @@ get /note 显示所有笔记列表 返回类型 html
 20. notebook title 不能重复
 21. 导航
 22. 不单独设置标题，在内容中进行设置标题
-23. 自定义 wmd 中的 bar
+~~23. 自定义 wmd 中的 bar~~

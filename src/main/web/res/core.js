@@ -142,7 +142,7 @@ define(["jquery",
         //显示笔记列表
         $(".NoteListContainer").show();
 
-        //显示图片上传按钮初始化
+        // 上传图片
         $('#fileupload').fileupload({
             // todo: url需要改变
             url: "/image",
@@ -159,12 +159,13 @@ define(["jquery",
             //    插入结果
                 $("#wmd-input").val($("#wmd-input").val() + "\n![](" + url + ")\n");
             },
+            // todo 以后实现 上传进度, 参见https://blueimp.github.io/jQuery-File-Upload/basic.html
             progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .progress-bar').css(
-                    'width',
-                    progress + '%'
-                );
+                //var progress = parseInt(data.loaded / data.total * 100, 10);
+                //$('#progress .progress-bar').css(
+                //    'width',
+                //    progress + '%'
+                //);
             }
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
