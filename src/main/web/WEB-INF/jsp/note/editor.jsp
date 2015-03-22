@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%--
   Created by IntelliJ IDEA.
   User: tan
@@ -6,7 +8,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
@@ -106,7 +107,7 @@
                 //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
                 imageUpload : true,
                 imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL : "./php/upload.php",
+                imageUploadURL : "/upload/uploadImage",
                 onload : function() {
                     console.log('onload', this);
                     //this.fullscreen();
