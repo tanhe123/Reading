@@ -24,80 +24,6 @@
 
   <body>
 
-  <%--<nav>--%>
-      <!-- 菜单栏-->
-     <%-- <div id="header" class="navbar navbar-default">
-
---%>
-          <%--菜单按钮--%>
-          <%--<div class="pull-right" style="margin-right: 140px">
-              <div class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <span>Menu</span>
-                      <i class="fa fa-angle-down"></i>
-                  </a>
-                  <ul class="dropdown-menu li-a">
-                      <li><a id="new-file" href="#"><i class="fa fa-file-o"></i> 新建笔记</a></li>
-
-                      <li><a id="remove-file" data-toggle="modal"
-                             data-target="#modal-remove-file-confirm" href="#"><i class="fa fa-trash"></i> 删除笔记</a></li>
-
-                      <li id="action-publish-blog"><a href="#"><i class="fa fa-share-square-o"></i> 发布</a></li>
-
-                      <li id="action-update-blog"><a href="#"><i class="fa fa-share-square-o"></i> 更新</a></li>
-
-                      <li><a href="/note"><i class="fa fa-home"> 返回主页</i></a></li>
-
-                      <li class="divider"></li>
-
-                      <li><a id="action-download-md" href="#" title="下载当前mrkdown文档">
-                          <i class="fa fa-download"></i>
-                          下载Markdown文档
-                      </a></li>
-
-                      <li><a id="action-download-html" href="#" title="下载当前Html文档">
-                          <i class="fa fa-download"></i>
-                          下载HTML文档
-                      </a></li>
-
-                      <li class="divider"></li>
-
-                      <li><a href="viewer"><i class="fa fa-desktop"></i> Open in viewer</a></li>
-
-                      <li class="divider"></li>
-
-                      <li><a href="#" title="Modify your preferences"
-                             data-toggle="modal" data-target="#modal-settings"
-                             class="action-load-settings">
-                          <i class="fa fa-cog"></i>
-                          设置</a>
-                      </li>
-                  </ul>
-              </div>
-          </div>--%>
-
-          <!--title输入框-->
-          <%--<div class="pull-right" style="margin-right: 20px">
-              <div class="navbar-form form-inline col-lg-2">
-                  <input type="text" id="file-title-input" class="form-control col-xs-3" placeholder="File title">
-              </div>
-          </div>--%>
-
-          <!--title显示-->
-<%--
-          <div class="pull-right" style="margin-right: 20px">
-              &lt;%&ndash;line-height为了让其居中&ndash;%&gt;
-              &lt;%&ndash;todo: 使用这里保存的数据&ndash;%&gt;
-              <a id="file-title"><span class="file-title" data-note-id="${note.id}">&lt;%&ndash;${note.title}&ndash;%&gt;</span></a>
-          </div>
---%>
-
-<%--
-
-      </div>
-  </nav>
---%>
-
   <%--css 加载太慢，写入style--%>
   <div id="loading" style="text-align: center">
       <i class="fa fa-spinner fa-pulse fa-5x"></i>
@@ -257,21 +183,7 @@
   </div>
 
   <div class="mask noteListContainer" style="display: none">
-      <ul class="slidingPanel">
-          <%--<li>
-              <div>
-                  <div>
-                      2015-10-11
-                  </div>
-                  <div>
-                      Title
-                  </div>
-                  <div>
-                      Content
-                  </div>
-              </div>
-          </li>--%>
-      </ul>
+      <ul class="slidingPanel"></ul>
   </div>
 
   <textarea id="md-section-helper" style="visibility: hidden"></textarea>
