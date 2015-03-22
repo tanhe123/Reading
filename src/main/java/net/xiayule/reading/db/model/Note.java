@@ -1,6 +1,8 @@
 package net.xiayule.reading.db.model;
 
+import net.xiayule.reading.utils.JsonDateSerializer;
 import org.bson.types.ObjectId;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -157,6 +159,7 @@ public class Note implements Serializable {
         this.notebookId = notebookId;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Date getUpdateTime() {
         return updateTime;
     }
