@@ -184,6 +184,16 @@
                       <li class="wmd-button-group5 btn-group"></li>
                   </ul>
 
+                  <ul class="nav left-buttons">
+                      <li class="wmd-button-group6 btn-group">
+                          <li class="wmd-button btn" id="imgupload" style="overflow: hidden">
+                              <i class="fa fa-image"></i>
+                              <input id="fileupload" type="file" name="img">
+                          </li>
+                      </li>
+                  </ul>
+
+
                   <ul class="nav pull-right right-buttons">
                       <li id='saving-notice' class='label hideme'>已保存</li>
                   </ul>

@@ -13,7 +13,7 @@ requirejs.config({
 
     paths: {
         jquery: 'bower-libs/jquery/dist/jquery',
-        //'jquery-ui': 'libs/jquery-ui',
+        'jquery.ui.widget': 'bower-libs/jquery-file-upload/js/vendor/jquery.ui.widget',
         jgrowl: 'bower-libs/jgrowl/jquery.jgrowl',
         bootstrap: 'bower-libs/bootstrap/dist/js/bootstrap',
         pagedown: 'libs/Markdown.Editor',
@@ -22,7 +22,8 @@ requirejs.config({
         prettify: "bower-libs/google-code-prettify/bin/prettify.min",
         FileSaver: "bower-libs/file-saver/FileSaver",
         underscore: "bower-libs/underscore/underscore",
-        MathJax: "bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"
+        MathJax: "bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML",
+        fileupload: "bower-libs/jquery-file-upload/js/jquery.fileupload"
     },
 
     shim: {
@@ -41,7 +42,10 @@ requirejs.config({
         ],
         underscore: {
             exports: '_'
-        }
+        },
+        fileupload: [
+            "jquery", "jquery.ui.widget"
+        ]
     }
 });
 
@@ -49,11 +53,10 @@ require([
     "jquery",
     "core",
     "fileManager",
+    "fileupload",
     "less!css/main"], function ($, core, fileManager) {
 
     $(function() {
-        //$("#loading").show();
-
         core.init();
 
         fileManager.init();

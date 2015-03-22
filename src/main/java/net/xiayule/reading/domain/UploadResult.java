@@ -4,21 +4,21 @@ package net.xiayule.reading.domain;
  * Created by tan on 15-3-22.
  */
 public class UploadResult {
-    private Integer success;
+    private Boolean success;
     private String message;
     private String url;
 
-    public UploadResult(Integer success, String url, String message) {
+    public UploadResult(Boolean success, String url, String message) {
         this.success = success;
         this.url = "http://localhost:8080/image?img=" + url;
         this.message = message;
     }
 
-    public Integer getSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(Integer success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 

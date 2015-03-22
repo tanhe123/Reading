@@ -1,12 +1,12 @@
 package net.xiayule.reading.controller;
 
 import net.xiayule.reading.domain.UploadResult;
-import net.xiayule.reading.utils.JsonUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ImageController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String uploadImage(@RequestParam(value = "editormd-image-file") MultipartFile image,
+    public @ResponseBody UploadResult uploadImage(@RequestParam(value = "img") MultipartFile image,
                               Model model) throws IOException {
 
 
@@ -38,12 +38,9 @@ public class ImageController {
 //        保存图片
         saveImage(filename, image);
 
-//        返回结果
-//      因为editor.md只支持 text/html, 否则会出现错误
-        String rs = JsonUtils.toJson(new UploadResult(1, filename, "上传成功"));
-        model.addAttribute("result", rs);
+        UploadResult uploadResult = new UploadResult(true, filename, "上传成功");
 
-        return "/upload";
+        return uploadResult;
     }
 
 

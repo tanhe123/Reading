@@ -141,6 +141,33 @@ define(["jquery",
 
         //显示笔记列表
         $(".NoteListContainer").show();
+
+        //显示图片上传按钮初始化
+        $('#fileupload').fileupload({
+            // todo: url需要改变
+            url: "/image",
+            dataType: 'json',
+            done: function (e, data) {
+                var result = data.result;
+
+                if (result.success == true) {
+                    console.log(result);
+                }
+
+                var url = result.url;
+
+            //    插入结果
+                $("#wmd-input").val($("#wmd-input").val() + "\n![](" + url + ")\n");
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+                );
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
     };
 
 
