@@ -6,6 +6,7 @@
 3. 布局可以使用 jquery ui layout
 4. 保存文件到本地使用 [FileSave](https://github.com/eligrey/FileSaver.js/)
 5. 上传文件使用 [jQuery File Upload](https://github.com/blueimp/jQuery-File-Upload)
+6. [PageDown ACE](https://github.com/benweet/pagedown-ace)
 
 ## mongodb 数据表:
 

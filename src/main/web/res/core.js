@@ -245,7 +245,12 @@ define(["jquery",
         $('.wmd-button-group5').empty();
 
 
-        var converter = Markdown.getSanitizingConverter();
+        //var converter = Markdown.getSanitizingConverter();
+
+        // pagedown-ace
+        var converter = new Markdown.Converter();
+        var editor = new Markdown.Editor(converter);
+        var acea = ace.edit("wmd-input");
 
         converter.hooks.chain("preConversion", function (text) {
             if (textChangeCallback) {
@@ -255,7 +260,7 @@ define(["jquery",
             return text;
         });
 
-        var editor = new Markdown.Editor(converter);
+        //var editor = new Markdown.Editor(converter);
 
         // 启用 Markdown.Extra
         Markdown.Extra.init(converter, {highlighter: "prettify"});
@@ -268,9 +273,8 @@ define(["jquery",
         // MathJax
         mathjaxEditing.prepareWmdForMathJax(editor, [["$", "$"], ["\\\\(", "\\\\)"]], scrollLink.previewFinished);
 
-
-
-        editor.run();
+        //editor.run();
+        editor.run(acea);
 
         $("#wmd-input").bind('input propertychange', _.throttle(editor.refreshPreview, 1000));
 

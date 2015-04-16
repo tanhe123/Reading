@@ -143,7 +143,7 @@
           <%--编辑器--%>
           <div id="left-column" class="pull-left">
               <div id="wmd-panel-editor" class="wmd-panel-editor">
-                  <textarea class="wmd-input" id="wmd-input" spellcheck="false"></textarea>
+                  <div class="wmd-input" id="wmd-input"></div>
               </div>
           </div>
 
