@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -38,21 +39,16 @@ public class NoteController {
     public String newNote(@CookieValue(value = "userId", defaultValue = "") String userId,
                           Model model) {
 
-        Note note = new Note();
-        note.setTitle("new note");
-        note.setUserId(userId);
-        note.setContent("new note");
-
-        // 指定笔记本
+        // todo: 指定笔记本
         // 1. 如果没有指定笔记本，则为默认笔记本
         // 2. 获得默认笔记本的 id
         User user = userService.get(userId);
         List<String> notebookIds = user.getNotebookIds();
         String defaultNotebookId = notebookIds.get(0);
 
-        // 3. 添加
-        note.setNotebookId(defaultNotebookId);
+        Note note = Note.createDefaultNote(userId, defaultNotebookId);
 
+        // 创建
         noteService.create(note);
 
         String noteId = note.getId();
@@ -102,6 +98,7 @@ public class NoteController {
         System.out.println("NoteController: editNote: notebooks: " + notebooks);
 
 //        取第一个查看, todo: 以后取最后浏览的那个
+        // todo:  如果当前没有笔记，则会报错
         model.addAttribute("note", notes.get(0));
 
         try {

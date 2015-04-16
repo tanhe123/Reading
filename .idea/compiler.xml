@@ -25,5 +25,8 @@
         <module name="Reading" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Reading" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

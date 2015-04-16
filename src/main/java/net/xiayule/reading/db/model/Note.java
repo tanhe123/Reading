@@ -71,6 +71,18 @@ public class Note implements Serializable {
                 + " createTime:" + createTime + "\n";
     }
 
+    public static Note createDefaultNote(String userId, String notebookId) {
+        Note note = new Note();
+        note.setTitle("new note");
+        note.setUserId(userId);
+        note.setContent("new note");
+        note.setNotebookId(notebookId);
+
+        return note;
+    }
+
+
+
     // get and set methods
 
 

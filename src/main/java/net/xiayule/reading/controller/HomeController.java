@@ -1,7 +1,9 @@
 package net.xiayule.reading.controller;
 
+import net.xiayule.reading.db.model.Note;
 import net.xiayule.reading.db.model.Notebook;
 import net.xiayule.reading.db.model.User;
+import net.xiayule.reading.db.service.NoteService;
 import net.xiayule.reading.db.service.NotebookService;
 import net.xiayule.reading.db.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +26,9 @@ public class HomeController {
 
     @Autowired
     private NotebookService notebookService;
+
+    @Autowired
+    private NoteService noteService;
 
     @RequestMapping({"/", "/home"})
     public String showHomePage(@CookieValue(value = "userId", defaultValue = "") String userId,
@@ -79,6 +84,11 @@ public class HomeController {
 
         // 关联
         userService.addNotebook(user.getId(), notebook.getId());
+
+        // 加入默认笔记
+        Note note = Note.createDefaultNote(user.getId(), notebook.getId());
+
+        noteService.create(note);
 
         // 进入个人主页
         System.out.println("createUser: 创建成功");
