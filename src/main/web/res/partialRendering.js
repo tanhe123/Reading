@@ -3,52 +3,27 @@
  */
 define(["jquery", "underscore"], function ($, _) {
 
+    // todo 应该在 markdownSectionParser 中解析成 sectionList, 然后在这里可以使用
+
+    // todo 这个文件是用来绘制 preview 的
     // todo markdown.editor.js中的渲染就没有意义了
 
     var partialRendering = {};
 
     var convert = undefined;
 
-    var sectionList = [];
+    var currentSectionList = [];
     var convertedSectionsList = [];
 
     //var hasFootnotes = false;
-
-    function extractSections(text) {
-        text += "\n\n";
-
-        // Strip link definitions
-        var linkDefinition = "";
-        text = text.replace(/^[ ]{0,3}\[(.+)\]:[ \t]*\n?[ \t]*<?(\S+?)>?(?=\s|$)[ \t]*\n?[ \t]*((\n*)["(](.+?)[")][ \t]*)?(?:\n+)/gm, function(wholeMatch) {
-            linkDefinition += wholeMatch;
-            return "";
-        });
-
-        // Look for titles
-        var newSectionList = [];
-        var offset = 0;
-        text.replace(/^```.*\n[\s\S]*?\n```|(^.+[ \t]*\n=+[ \t]*\n+|^.+[ \t]*\n-+[ \t]*\n+|^\#{1,6}[ \t]*.+?[ \t]*\#*\n+)/gm, function(match, title, matchOffset) {
-            if(title) {
-                // We just found a title which means end of the previous section
-                if(matchOffset > offset) {
-                    newSectionList.push(text.substring(offset, matchOffset) + "\n" + linkDefinition);
-                    offset = matchOffset;
-                }
-            }
-            return "";
-        });
-        // Last section
-        newSectionList.push(text.substring(offset, text.length) + linkDefinition);
-
-        sectionList = newSectionList;
-    }
 
     var isRendering = false;
     function renderSections() {
         // Renders sections
         isRendering = true;
         //调用 convert 将 markdown转换成 html
-        convertedSectionsList = _.map(sectionList, converter.makeHtml);
+        // makeHtml 会产生 prepreConversion 事件
+        convertedSectionsList = _.map(currentSectionList, converter.makeHtml);
         isRendering = false;
 
         $("#wmd-preview").html(convertedSectionsList.join(""));
@@ -74,15 +49,24 @@ define(["jquery", "underscore"], function ($, _) {
     partialRendering.init = function (editor) {
         converter = editor.getConverter();
         converter.hooks.chain("preConversion", function(text) {
+            console.log("partialRendering: " + text);
+
             if(isRendering === true) {
                 return text;
             }
-            extractSections(text);
-            return "";
+            //extractSections(text);
+            //return "";
+            return text;
         });
         editor.hooks.chain("onPreviewRefresh", function() {
-            $("#wmd-preview").html(renderSections());
+            //$("#wmd-preview").html(renderSections());
+
+            renderSections();
         });
+    };
+
+    partialRendering.onSectionsCreated = function (sectionListParam) {
+        currentSectionList = sectionListParam;
     };
 
     return partialRendering;

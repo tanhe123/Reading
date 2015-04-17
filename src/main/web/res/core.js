@@ -5,6 +5,7 @@
 
 define(["jquery",
     "underscore",
+    "markdownSectionParser",
     "partialRendering",
     "notebook",
     "note",
@@ -12,7 +13,7 @@ define(["jquery",
     'scroll-link',
     "bootstrap",
     "jgrowl",
-    "pagedownExtra"], function ($, _, partialRendering, Notebook, Note, mathjaxEditing, scrollLink) {
+    "pagedownExtra"], function ($, _, markdownSectionParser, partialRendering, Notebook, Note, mathjaxEditing, scrollLink) {
     var core = {};
 
     //todo: 自定义
@@ -260,7 +261,8 @@ define(["jquery",
         // 启用 Markdown.Extra
         Markdown.Extra.init(converter, {highlighter: "prettify"});
 
-        // 自定义渲染 markdown
+        // todo: 自定义渲染 markdown
+        markdownSectionParser.init(editor);
         partialRendering.init(editor);
 
         editor.hooks.chain("onPreviewRefresh", prettyPrint);
