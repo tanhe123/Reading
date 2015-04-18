@@ -26,7 +26,7 @@ define(["jquery", "underscore"], function ($, _) {
         convertedSectionsList = _.map(currentSectionList, converter.makeHtml);
         isRendering = false;
 
-        $("#wmd-preview").html(convertedSectionsList.join("") + "\naaa");
+        $("#wmd-preview").html(convertedSectionsList.join(""));
 
         // todo: Move footnotes in the footer...
         /*if(hasFootnotes === true) {
