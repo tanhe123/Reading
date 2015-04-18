@@ -48,11 +48,13 @@ define(["underscore", "partialRendering"], function(_, partialRendering) {
             console.log("markdownSectionParser: " + text);
 
             onContentChanged(text);
+
+            // todo: 按理说这里是应该返回 "" 的，但是因为 partialRendering 中的 会调用 makeHtml, 因此这里会被传来 "", 导致一直显示空
+            //return "";
             return text;
         });
     };
 
     //markdownSectionParser.onContentChanged = onContentChanged;
-
     return markdownSectionParser;
 });

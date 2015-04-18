@@ -26,7 +26,7 @@ define(["jquery", "underscore"], function ($, _) {
         convertedSectionsList = _.map(currentSectionList, converter.makeHtml);
         isRendering = false;
 
-        $("#wmd-preview").html(convertedSectionsList.join(""));
+        $("#wmd-preview").html(convertedSectionsList.join("") + "\naaa");
 
         // todo: Move footnotes in the footer...
         /*if(hasFootnotes === true) {
@@ -54,13 +54,10 @@ define(["jquery", "underscore"], function ($, _) {
             if(isRendering === true) {
                 return text;
             }
-            //extractSections(text);
-            //return "";
-            return text;
+
+            return "";
         });
         editor.hooks.chain("onPreviewRefresh", function() {
-            //$("#wmd-preview").html(renderSections());
-
             renderSections();
         });
     };
